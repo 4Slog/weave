@@ -1,0 +1,38 @@
+name: kente_codeweaver
+description: An AI-driven storytelling and block-based coding app for children.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0' # Update the SDK constraint
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_dotenv: ^5.1.0  # Correct version (or use latest)
+  flutter_gemini: ^3.0.0  # Correct
+  shared_preferences: ^2.2.2 # Correct version (or use latest)
+  hive: ^2.2.3  # Correct version (or use latest, but check compatibility)
+  hive_flutter: ^1.1.0 # Correct version (or use latest, but check compatibility)
+  flutter_tts: ^4.2.2 #Correct 
+  provider: ^6.1.1  # Update to the latest compatible version
+  path_provider: ^2.1.2  # Update to the latest compatible version
+  uuid: ^4.5.1        # Correct version (or use the latest)
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0   # Use a compatible version with your Dart SDK
+  hive_generator: ^2.0.1 # Use the latest compatible version
+  build_runner: ^2.4.8  # Use the latest compatible version
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - assets/images/
+    - assets/audio/
+    - assets/fonts/
