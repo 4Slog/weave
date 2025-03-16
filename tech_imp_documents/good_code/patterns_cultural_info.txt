@@ -1,0 +1,74 @@
+{
+  "checker_pattern": {
+    "id": "checker_pattern",
+    "name": "Dame-Dame",
+    "englishName": "Checkerboard",
+    "description": "A simple checkerboard pattern representing duality and balance.",
+    "culturalSignificance": "The Dame-Dame pattern symbolizes the balance between opposites in life - light and dark, joy and sorrow, the seen and unseen. It teaches that life contains complementary forces that work together in harmony.",
+    "region": "Ashanti",
+    "difficulty": "basic",
+    "historicalContext": "One of the oldest and most fundamental Kente patterns, Dame-Dame has been used for centuries as both a standalone pattern and as a building block for more complex designs.",
+    "traditionalUses": ["Royal garments", "Ceremonial cloth", "Everyday wear"],
+    "relatedPatterns": ["zigzag_pattern"]
+  },
+  "zigzag_pattern": {
+    "id": "zigzag_pattern",
+    "name": "Nkyinkyin",
+    "englishName": "Zigzag",
+    "description": "A zigzag pattern representing life's journey.",
+    "culturalSignificance": "The Nkyinkyin pattern symbolizes life's twists and turns, adaptability, and resilience. It reminds us that life's path is rarely straight, but the journey itself has purpose.",
+    "region": "Ashanti",
+    "difficulty": "intermediate",
+    "historicalContext": "This pattern emerged as weavers began to experiment with more complex designs beyond the basic checkerboard. It represents the increasing sophistication of Kente weaving techniques.",
+    "traditionalUses": ["Coming of age ceremonies", "Journey celebrations", "Life transition markers"],
+    "relatedPatterns": ["checker_pattern", "diamonds_pattern"]
+  },
+  "stripes_horizontal_pattern": {
+    "id": "stripes_horizontal_pattern",
+    "name": "Babadua",
+    "englishName": "Horizontal Stripes",
+    "description": "Horizontal stripes representing unity and cooperation.",
+    "culturalSignificance": "The Babadua pattern symbolizes cooperation and community strength. Like bamboo poles that are stronger together, the pattern reminds us that people achieve more when working in harmony.",
+    "region": "Ashanti",
+    "difficulty": "basic",
+    "historicalContext": "Horizontal striping is one of the foundational techniques in Kente weaving, often used as a background for more complex patterns.",
+    "traditionalUses": ["Community gatherings", "Cooperative work events", "Family reunions"],
+    "relatedPatterns": ["stripes_vertical_pattern"]
+  },
+  "stripes_vertical_pattern": {
+    "id": "stripes_vertical_pattern",
+    "name": "Akyempem",
+    "englishName": "Vertical Stripes",
+    "description": "Vertical stripes representing individual strength and dignity.",
+    "culturalSignificance": "The Akyempem pattern symbolizes individual strength, dignity, and personal achievement. It represents standing tall and upright in the face of challenges.",
+    "region": "Ashanti",
+    "difficulty": "basic",
+    "historicalContext": "Vertical striping emerged as weavers began to experiment with the orientation of their looms and weaving techniques.",
+    "traditionalUses": ["Personal achievement celebrations", "Coming of age ceremonies", "Leadership installations"],
+    "relatedPatterns": ["stripes_horizontal_pattern"]
+  },
+  "diamonds_pattern": {
+    "id": "diamonds_pattern",
+    "name": "Adweneasa",
+    "englishName": "Diamond Pattern",
+    "description": "Diamond shapes representing wisdom, creativity, and excellence.",
+    "culturalSignificance": "The Adweneasa pattern symbolizes wisdom, creativity, and excellence in craftsmanship. The diamond shapes represent the multifaceted nature of knowledge and skill.",
+    "region": "Ashanti",
+    "difficulty": "advanced",
+    "historicalContext": "This complex pattern was traditionally reserved for royalty and master weavers, showcasing the highest level of skill and artistry.",
+    "traditionalUses": ["Royal garments", "Master weaver demonstrations", "Special ceremonies"],
+    "relatedPatterns": ["zigzag_pattern", "square_pattern"]
+  },
+  "square_pattern": {
+    "id": "square_pattern",
+    "name": "Fahia Kotwere",
+    "englishName": "Square Pattern",
+    "description": "Concentric squares representing protection and security.",
+    "culturalSignificance": "The Fahia Kotwere pattern symbolizes protection, security, and enclosed wisdom. The nested squares represent layers of protection around what is valuable.",
+    "region": "Ashanti",
+    "difficulty": "intermediate",
+    "historicalContext": "This pattern evolved from simpler geometric designs as weavers developed more sophisticated techniques for creating enclosed spaces within their cloths.",
+    "traditionalUses": ["Protection ceremonies", "Home blessings", "Child naming ceremonies"],
+    "relatedPatterns": ["diamonds_pattern", "checker_pattern"]
+  }
+}

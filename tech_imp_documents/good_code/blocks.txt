@@ -1,0 +1,307 @@
+{
+  "version": "1.0.0",
+  "blocks": [
+    {
+      "id": "checker_pattern",
+      "name": "Dame-Dame Pattern",
+      "description": "A traditional checkerboard pattern representing duality and balance",
+      "type": "pattern",
+      "subtype": "checker_pattern",
+      "properties": {
+        "difficulty": "basic",
+        "culturalSignificance": "Represents duality and balance in Akan philosophy"
+      },
+      "iconPath": "assets/images/blocks/checker_pattern.png",
+      "color": "#3498db"
+    },
+    {
+      "id": "stripes_horizontal_pattern",
+      "name": "Babadua Pattern",
+      "description": "Horizontal stripes pattern representing cooperation and unity",
+      "type": "pattern",
+      "subtype": "stripes_horizontal_pattern",
+      "properties": {
+        "difficulty": "basic",
+        "culturalSignificance": "Represents cooperation and unity in community"
+      },
+      "iconPath": "assets/images/blocks/stripes_horizontal_pattern.png",
+      "color": "#3498db"
+    },
+    {
+      "id": "zigzag_pattern",
+      "name": "Nkyinkyim Pattern",
+      "description": "Zigzag pattern representing life's journey and adaptability",
+      "type": "pattern",
+      "subtype": "zigzag_pattern",
+      "properties": {
+        "difficulty": "intermediate",
+        "culturalSignificance": "Represents life's journey and adaptability to change"
+      },
+      "iconPath": "assets/images/blocks/zigzag_pattern.png",
+      "color": "#3498db"
+    },
+    {
+      "id": "stripes_vertical_pattern",
+      "name": "Kubi Pattern",
+      "description": "Vertical stripes pattern representing strength and power",
+      "type": "pattern",
+      "subtype": "stripes_vertical_pattern",
+      "properties": {
+        "difficulty": "intermediate",
+        "culturalSignificance": "Represents strength and power"
+      },
+      "iconPath": "assets/images/blocks/stripes_vertical_pattern.png",
+      "color": "#3498db"
+    },
+    {
+      "id": "square_pattern",
+      "name": "Eban Pattern",
+      "description": "Square pattern representing security and safety",
+      "type": "pattern",
+      "subtype": "square_pattern",
+      "properties": {
+        "difficulty": "advanced",
+        "culturalSignificance": "Represents security, safety, and home"
+      },
+      "iconPath": "assets/images/blocks/square_pattern.png",
+      "color": "#3498db"
+    },
+    {
+      "id": "diamonds_pattern",
+      "name": "Obaakofo Pattern",
+      "description": "Diamond pattern representing leadership and excellence",
+      "type": "pattern",
+      "subtype": "diamonds_pattern",
+      "properties": {
+        "difficulty": "advanced",
+        "culturalSignificance": "Represents leadership and excellence"
+      },
+      "iconPath": "assets/images/blocks/diamonds_pattern.png",
+      "color": "#3498db"
+    },
+    {
+      "id": "shuttle_black",
+      "name": "Black Thread",
+      "description": "Represents maturity and spiritual energy",
+      "type": "color",
+      "subtype": "shuttle_black",
+      "properties": {
+        "color": "#000000",
+        "difficulty": "basic",
+        "culturalSignificance": "Represents maturity, spiritual energy, and connection to ancestors"
+      },
+      "iconPath": "assets/images/blocks/shuttle_black.png",
+      "color": "#000000"
+    },
+    {
+      "id": "shuttle_gold",
+      "name": "Gold Thread",
+      "description": "Represents wealth, royalty, and spiritual purity",
+      "type": "color",
+      "subtype": "shuttle_gold",
+      "properties": {
+        "color": "#FFD700",
+        "difficulty": "basic",
+        "culturalSignificance": "Represents wealth, royalty, and spiritual purity"
+      },
+      "iconPath": "assets/images/blocks/shuttle_gold.png",
+      "color": "#FFD700"
+    },
+    {
+      "id": "shuttle_red",
+      "name": "Red Thread",
+      "description": "Represents political and spiritual potency",
+      "type": "color",
+      "subtype": "shuttle_red",
+      "properties": {
+        "color": "#FF0000",
+        "difficulty": "basic",
+        "culturalSignificance": "Represents political and spiritual potency, bloodshed, and sacrifice"
+      },
+      "iconPath": "assets/images/blocks/shuttle_red.png",
+      "color": "#FF0000"
+    },
+    {
+      "id": "shuttle_blue",
+      "name": "Blue Thread",
+      "description": "Represents peace, harmony, and love",
+      "type": "color",
+      "subtype": "shuttle_blue",
+      "properties": {
+        "color": "#0000FF",
+        "difficulty": "intermediate",
+        "culturalSignificance": "Represents peace, harmony, and love"
+      },
+      "iconPath": "assets/images/blocks/shuttle_blue.png",
+      "color": "#0000FF"
+    },
+    {
+      "id": "shuttle_green",
+      "name": "Green Thread",
+      "description": "Represents growth, fertility, and renewal",
+      "type": "color",
+      "subtype": "shuttle_green",
+      "properties": {
+        "color": "#008000",
+        "difficulty": "intermediate",
+        "culturalSignificance": "Represents growth, fertility, and renewal"
+      },
+      "iconPath": "assets/images/blocks/shuttle_green.png",
+      "color": "#008000"
+    },
+    {
+      "id": "loop_block",
+      "name": "Pattern Repetition",
+      "description": "Repeats a pattern multiple times",
+      "type": "structure",
+      "subtype": "loop_block",
+      "properties": {
+        "value": "3",
+        "difficulty": "intermediate",
+        "culturalSignificance": "Represents the repetitive nature of traditional Kente patterns"
+      },
+      "iconPath": "assets/images/blocks/loop_icon.png",
+      "color": "#2ecc71"
+    },
+    {
+      "id": "row_block",
+      "name": "Row Block",
+      "description": "Creates a row of patterns",
+      "type": "structure",
+      "subtype": "row_block",
+      "properties": {
+        "value": "2",
+        "difficulty": "advanced",
+        "culturalSignificance": "Represents the horizontal weft threads in traditional weaving"
+      },
+      "iconPath": "assets/images/blocks/row_icon.png",
+      "color": "#2ecc71"
+    },
+    {
+      "id": "column_block",
+      "name": "Column Block",
+      "description": "Creates a column of patterns",
+      "type": "structure",
+      "subtype": "column_block",
+      "properties": {
+        "value": "2",
+        "difficulty": "advanced",
+        "culturalSignificance": "Represents the vertical warp threads in traditional weaving"
+      },
+      "iconPath": "assets/images/blocks/column_icon.png",
+      "color": "#2ecc71"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "checker_pattern",
+      "name": "Dame-Dame",
+      "description": "A checkerboard pattern representing duality and balance",
+      "culturalSignificance": "The Dame-Dame (checker) pattern represents duality in Akan philosophy. It symbolizes the balance between opposites - like light and dark, joy and sorrow, the seen and unseen.",
+      "difficulty": "basic",
+      "defaultColors": ["#000000", "#FFD700"]
+    },
+    {
+      "id": "stripes_horizontal_pattern",
+      "name": "Babadua",
+      "description": "Horizontal stripes pattern representing cooperation and unity",
+      "culturalSignificance": "The Babadua pattern represents cooperation and unity in community. The horizontal lines symbolize people working together in harmony.",
+      "difficulty": "basic",
+      "defaultColors": ["#000000", "#FFD700", "#FF0000"]
+    },
+    {
+      "id": "zigzag_pattern",
+      "name": "Nkyinkyim",
+      "description": "Zigzag pattern representing life's journey and adaptability",
+      "culturalSignificance": "The Nkyinkyim (zigzag) pattern symbolizes life's journey and adaptability. It represents the ability to change direction when faced with obstacles, and the twists and turns of life's path.",
+      "difficulty": "intermediate",
+      "defaultColors": ["#000000", "#FFD700", "#0000FF"]
+    },
+    {
+      "id": "stripes_vertical_pattern",
+      "name": "Kubi",
+      "description": "Vertical stripes pattern representing strength and power",
+      "culturalSignificance": "The Kubi pattern represents strength and power. The vertical lines symbolize upright character and moral integrity.",
+      "difficulty": "intermediate",
+      "defaultColors": ["#000000", "#FF0000"]
+    },
+    {
+      "id": "square_pattern",
+      "name": "Eban",
+      "description": "Square pattern representing security and safety",
+      "culturalSignificance": "The Eban pattern represents security, safety, and home. The enclosed square symbolizes protection and shelter.",
+      "difficulty": "advanced",
+      "defaultColors": ["#000000", "#FFD700", "#0000FF"]
+    },
+    {
+      "id": "diamonds_pattern",
+      "name": "Obaakofo",
+      "description": "Diamond pattern representing leadership and excellence",
+      "culturalSignificance": "The Obaakofo pattern represents leadership and excellence. The diamond shape symbolizes the precious qualities of a good leader.",
+      "difficulty": "advanced",
+      "defaultColors": ["#000000", "#FFD700", "#FF0000"]
+    }
+  ],
+  "colors": [
+    {
+      "id": "black",
+      "name": "Black",
+      "hexCode": "#000000",
+      "culturalMeaning": "Represents maturity, spiritual energy, and connection to ancestors"
+    },
+    {
+      "id": "gold",
+      "name": "Gold",
+      "hexCode": "#FFD700",
+      "culturalMeaning": "Represents wealth, royalty, and spiritual purity"
+    },
+    {
+      "id": "red",
+      "name": "Red",
+      "hexCode": "#FF0000",
+      "culturalMeaning": "Represents political and spiritual potency, bloodshed, and sacrifice"
+    },
+    {
+      "id": "blue",
+      "name": "Blue",
+      "hexCode": "#0000FF",
+      "culturalMeaning": "Represents peace, harmony, and love"
+    },
+    {
+      "id": "green",
+      "name": "Green",
+      "hexCode": "#008000",
+      "culturalMeaning": "Represents growth, fertility, and renewal"
+    }
+  ],
+  "difficultyLevels": [
+    {
+      "id": "basic",
+      "name": "Basic",
+      "description": "Simple patterns and concepts suitable for beginners",
+      "recommendedAge": "7-8",
+      "availableBlocks": ["checker_pattern", "stripes_horizontal_pattern", "shuttle_black", "shuttle_gold", "shuttle_red"]
+    },
+    {
+      "id": "intermediate",
+      "name": "Intermediate",
+      "description": "More complex patterns and concepts for those with some experience",
+      "recommendedAge": "8-10",
+      "availableBlocks": ["checker_pattern", "stripes_horizontal_pattern", "zigzag_pattern", "stripes_vertical_pattern", "shuttle_black", "shuttle_gold", "shuttle_red", "shuttle_blue", "shuttle_green", "loop_block"]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced",
+      "description": "Complex patterns and concepts for experienced users",
+      "recommendedAge": "10-11",
+      "availableBlocks": ["checker_pattern", "stripes_horizontal_pattern", "zigzag_pattern", "stripes_vertical_pattern", "square_pattern", "diamonds_pattern", "shuttle_black", "shuttle_gold", "shuttle_red", "shuttle_blue", "shuttle_green", "loop_block", "row_block", "column_block"]
+    },
+    {
+      "id": "master",
+      "name": "Master",
+      "description": "Expert-level patterns and concepts for mastery",
+      "recommendedAge": "11-12",
+      "availableBlocks": ["checker_pattern", "stripes_horizontal_pattern", "zigzag_pattern", "stripes_vertical_pattern", "square_pattern", "diamonds_pattern", "shuttle_black", "shuttle_gold", "shuttle_red", "shuttle_blue", "shuttle_green", "loop_block", "row_block", "column_block"]
+    }
+  ]
+}
