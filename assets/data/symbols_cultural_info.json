@@ -1,0 +1,90 @@
+{
+  "adinkrahene": {
+    "id": "adinkrahene",
+    "name": "Adinkrahene",
+    "englishName": "Chief of Adinkra Symbols",
+    "description": "Concentric circles representing leadership and greatness.",
+    "culturalSignificance": "The Adinkrahene symbol represents leadership, greatness, and the charismatic authority of a leader. As the concentric circles radiate from the center, they symbolize the expanding influence of effective leadership.",
+    "region": "Ashanti",
+    "category": "leadership",
+    "historicalContext": "This symbol is considered the chief or leader of all Adinkra symbols, reflecting its importance in Akan visual language.",
+    "relatedSymbols": ["dwennimmen"]
+  },
+  "dwennimmen": {
+    "id": "dwennimmen",
+    "name": "Dwennimmen",
+    "englishName": "Ram's Horns",
+    "description": "Stylized ram's horns representing humility and strength.",
+    "culturalSignificance": "The Dwennimmen symbol represents humility together with strength. It reminds us that even the strong should exercise humility, as the ram is powerful but submits to slaughter.",
+    "region": "Ashanti",
+    "category": "values",
+    "historicalContext": "This symbol draws on the importance of livestock in traditional Akan society and the lessons learned from animal behavior.",
+    "relatedSymbols": ["adinkrahene", "sankofa"]
+  },
+  "sankofa": {
+    "id": "sankofa",
+    "name": "Sankofa",
+    "englishName": "Return and Get It",
+    "description": "Bird with head turned backward, representing learning from the past.",
+    "culturalSignificance": "The Sankofa symbol represents the importance of learning from the past. It teaches that we should reach back and gather the best of what our past has to teach us, so that we can achieve our full potential as we move forward.",
+    "region": "Ashanti",
+    "category": "wisdom",
+    "historicalContext": "This symbol became particularly important during the Pan-African movement and continues to be significant in discussions of cultural heritage and identity.",
+    "relatedSymbols": ["dwennimmen"]
+  },
+  "gye_nyame": {
+    "id": "gye_nyame",
+    "name": "Gye Nyame",
+    "englishName": "Except for God",
+    "description": "Abstract symbol representing the supremacy of God.",
+    "culturalSignificance": "The Gye Nyame symbol expresses the omnipotence and immortality of God. It represents the deep faith and recognition that nothing happens without God's knowledge and permission.",
+    "region": "Ashanti",
+    "category": "spirituality",
+    "historicalContext": "This is one of the most widely used Adinkra symbols, reflecting the central importance of spirituality in Akan culture.",
+    "relatedSymbols": ["nyame_nti", "nyame_dua"]
+  },
+  "nyame_nti": {
+    "id": "nyame_nti",
+    "name": "Nyame Nti",
+    "englishName": "By God's Grace",
+    "description": "Stylized star-like symbol representing faith and trust in God.",
+    "culturalSignificance": "The Nyame Nti symbol represents faith, trust in God, and the belief that all blessings come through divine grace. It reminds the wearer to be thankful for God's protection and provision.",
+    "region": "Ashanti",
+    "category": "spirituality",
+    "historicalContext": "This symbol reflects the integration of traditional Akan spiritual beliefs with introduced religious concepts.",
+    "relatedSymbols": ["gye_nyame"]
+  },
+  "nkyinkyim": {
+    "id": "nkyinkyim",
+    "name": "Nkyinkyim",
+    "englishName": "Twisting",
+    "description": "Zigzag symbol representing initiative, dynamism, and versatility.",
+    "culturalSignificance": "The Nkyinkyim symbol represents the twists and turns of life, and the need for adaptability and versatility. It teaches that life's journey is not straightforward, and one must be prepared for changes and challenges.",
+    "region": "Ashanti",
+    "category": "life_journey",
+    "historicalContext": "This symbol is often used in initiation ceremonies to represent the life journey that young people are embarking upon.",
+    "relatedSymbols": ["sankofa"]
+  },
+  "funtunfunefu_denkyemfunefu": {
+    "id": "funtunfunefu_denkyemfunefu",
+    "name": "Funtunfunefu Denkyemfunefu",
+    "englishName": "Siamese Crocodiles",
+    "description": "Two crocodiles sharing a stomach, representing unity in diversity.",
+    "culturalSignificance": "The Funtunfunefu Denkyemfunefu symbol represents democracy, unity in diversity, and the idea that infighting is harmful to the common good. Though the crocodiles have two heads, they share one stomach, showing that they must cooperate to eat and survive.",
+    "region": "Ashanti",
+    "category": "unity",
+    "historicalContext": "This symbol reflects the importance of communal harmony in traditional Akan society, where disputes were resolved through consensus-building.",
+    "relatedSymbols": ["epa"]
+  },
+  "epa": {
+    "id": "epa",
+    "name": "Epa",
+    "englishName": "Handcuffs",
+    "description": "Symbol resembling handcuffs, representing law, justice, and slavery.",
+    "culturalSignificance": "The Epa symbol represents law, justice, slavery, and captivity. It serves as a reminder of the importance of just laws, but also of the historical trauma of slavery and the value of freedom.",
+    "region": "Ashanti",
+    "category": "justice",
+    "historicalContext": "This symbol gained additional significance during and after the transatlantic slave trade, serving as a reminder of that painful history.",
+    "relatedSymbols": ["funtunfunefu_denkyemfunefu"]
+  }
+}

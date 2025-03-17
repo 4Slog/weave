@@ -6,28 +6,31 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0' # Update the SDK constraint
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_dotenv: ^5.1.0  # Correct version (or use latest)
-  flutter_gemini: ^3.0.0  # Correct
-  shared_preferences: ^2.2.2 # Correct version (or use latest)
-  hive: ^2.2.3  # Correct version (or use latest, but check compatibility)
-  hive_flutter: ^1.1.0 # Correct version (or use latest, but check compatibility)
-  flutter_tts: ^4.2.2 #Correct 
-  provider: ^6.1.1  # Update to the latest compatible version
-  path_provider: ^2.1.2  # Update to the latest compatible version
-  uuid: ^4.5.1        # Correct version (or use the latest)
+  flutter_dotenv: ^5.1.0
+  flutter_gemini: ^3.0.0
+  shared_preferences: ^2.2.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_tts: ^4.2.2
+  provider: ^6.1.1
+  path_provider: ^2.1.2
+  uuid: ^4.5.1
+  audioplayers: ^6.0.0
+  http: ^1.2.0  # Added for service HTTP requests
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0   # Use a compatible version with your Dart SDK
-  hive_generator: ^2.0.1 # Use the latest compatible version
-  build_runner: ^2.4.8  # Use the latest compatible version
+  flutter_lints: ^5.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.8
+  mockito: ^5.4.4
 
 flutter:
   uses-material-design: true
@@ -36,3 +39,8 @@ flutter:
     - assets/images/
     - assets/audio/
     - assets/fonts/
+    - assets/data/blocks.json
+    - assets/data/colors_cultural_info.json
+    - assets/data/patterns_cultural_info.json
+    - assets/data/regional_info.json
+    - assets/data/symbols_cultural_info.json
