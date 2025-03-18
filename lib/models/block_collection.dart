@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kente_codeweaver/models/block_model.dart';
 import 'package:kente_codeweaver/models/block_type.dart';
 import 'package:kente_codeweaver/models/connection_types.dart';
+import 'package:kente_codeweaver/models/pattern_difficulty.dart';
 import 'package:uuid/uuid.dart';
 
 /// Represents a collection of blocks that form a pattern
@@ -18,11 +19,45 @@ class BlockCollection {
   /// Flag indicating if the collection has been modified since last validation
   bool _isDirty = true;
   
+  /// Name of the pattern
+  final String name;
+  
+  /// Description of the pattern
+  final String description;
+  
+  /// Difficulty level of the pattern
+  final PatternDifficulty difficulty;
+  
+  /// Cultural region associated with this pattern
+  final String? region;
+  
+  /// Tags for categorization
+  final List<String> tags;
+  
+  /// Creator of the pattern
+  final String? creator;
+  
+  /// Creation timestamp
+  final DateTime createdAt;
+  
+  /// Last modified timestamp
+  final DateTime modifiedAt;
+  
   /// Constructor
   BlockCollection({
     required this.blocks,
     this.metadata = const {},
-  });
+    this.name = 'Untitled Pattern',
+    this.description = '',
+    this.difficulty = PatternDifficulty.basic,
+    this.region,
+    this.tags = const [],
+    this.creator,
+    DateTime? createdAt,
+    DateTime? modifiedAt,
+  }) : 
+    this.createdAt = createdAt ?? DateTime.now(),
+    this.modifiedAt = modifiedAt ?? DateTime.now();
   
   /// Create from JSON
   factory BlockCollection.fromJson(Map<String, dynamic> json) {
@@ -33,6 +68,20 @@ class BlockCollection {
     return BlockCollection(
       blocks: blockList, 
       metadata: json['metadata'] ?? {},
+      name: json['name'] ?? 'Untitled Pattern',
+      description: json['description'] ?? '',
+      difficulty: _parseDifficulty(json['difficulty']),
+      region: json['region'],
+      tags: json['tags'] != null 
+          ? List<String>.from(json['tags']) 
+          : <String>[],
+      creator: json['creator'],
+      createdAt: json['createdAt'] != null 
+          ? DateTime.parse(json['createdAt']) 
+          : DateTime.now(),
+      modifiedAt: json['modifiedAt'] != null 
+          ? DateTime.parse(json['modifiedAt']) 
+          : DateTime.now(),
     );
   }
   
@@ -41,7 +90,45 @@ class BlockCollection {
     return {
       'blocks': blocks.map((block) => block.toJson()).toList(),
       'metadata': metadata,
+      'name': name,
+      'description': description,
+      'difficulty': difficulty.toString().split('.').last,
+      'region': region,
+      'tags': tags,
+      'creator': creator,
+      'createdAt': createdAt.toIso8601String(),
+      'modifiedAt': modifiedAt.toIso8601String(),
     };
+  }
+  
+  /// Helper method to parse difficulty from string
+  static PatternDifficulty _parseDifficulty(dynamic difficultyValue) {
+    if (difficultyValue == null) return PatternDifficulty.basic;
+    
+    if (difficultyValue is int) {
+      // Convert numeric difficulty to enum
+      switch (difficultyValue) {
+        case 1: return PatternDifficulty.basic;
+        case 2: return PatternDifficulty.beginner;
+        case 3: return PatternDifficulty.intermediate;
+        case 4: return PatternDifficulty.advanced;
+        case 5: return PatternDifficulty.master;
+        default: return PatternDifficulty.basic;
+      }
+    }
+    
+    if (difficultyValue is String) {
+      try {
+        return PatternDifficulty.values.firstWhere(
+          (d) => d.toString().split('.').last.toLowerCase() == difficultyValue.toLowerCase(),
+          orElse: () => PatternDifficulty.basic,
+        );
+      } catch (_) {
+        return PatternDifficulty.basic;
+      }
+    }
+    
+    return PatternDifficulty.basic;
   }
   
   /// Find a block by ID
@@ -223,8 +310,8 @@ class BlockCollection {
     return blocks.any((block) => block.type == blockType);
   }
   
-  /// Check if collection contains a block of a specific type
-  bool containsBlockType(String blockTypeName) {
+  /// Check if collection contains a block with a specific type name
+  bool containsBlockTypeName(String blockTypeName) {
     // Convert string to BlockType
     try {
       final blockType = BlockType.values.firstWhere(
@@ -597,22 +684,40 @@ class BlockCollection {
         .toSet()
         .toList();
     
+    // Extract subtypes for more specific categorization
+    final subtypes = blocks
+        .map((block) => block.subtype)
+        .where((subtype) => subtype.isNotEmpty)
+        .toSet()
+        .toList();
+    
     // Calculate complexity based on block count and connections
     final complexity = _calculateComplexity();
     
     // Determine pattern style based on block composition
     final style = _determinePatternStyle();
     
+    // Extract cultural significance from blocks
+    final culturalElements = blocks
+        .where((block) => block.metadata.containsKey('culturalSignificance'))
+        .map((block) => block.metadata['culturalSignificance'])
+        .toSet()
+        .toList();
+    
     // Create cultural context map
     return {
       'patterns': patternTypes,
       'colors': colorValues,
+      'subtypes': subtypes,
       'complexity': complexity,
       'style': style,
       'blockCount': blocks.length,
       'connectionCount': countConnections(),
       'symmetric': isSymmetric(),
       'hasLoop': containsBlockType(BlockType.loop),
+      'culturalElements': culturalElements,
+      'region': region,
+      'difficulty': difficulty.toString().split('.').last,
       'timestamp': DateTime.now().millisecondsSinceEpoch,
     };
   }
@@ -719,5 +824,278 @@ class BlockCollection {
     }
     
     return cycles;
+  }
+  
+  /// Create a copy with updated properties
+  BlockCollection copyWith({
+    List<BlockModel>? blocks,
+    Map<String, dynamic>? metadata,
+    String? name,
+    String? description,
+    PatternDifficulty? difficulty,
+    String? region,
+    List<String>? tags,
+    String? creator,
+    DateTime? createdAt,
+    DateTime? modifiedAt,
+  }) {
+    return BlockCollection(
+      blocks: blocks ?? List.from(this.blocks),
+      metadata: metadata ?? Map.from(this.metadata),
+      name: name ?? this.name,
+      description: description ?? this.description,
+      difficulty: difficulty ?? this.difficulty,
+      region: region ?? this.region,
+      tags: tags ?? List.from(this.tags),
+      creator: creator ?? this.creator,
+      createdAt: createdAt ?? this.createdAt,
+      modifiedAt: modifiedAt ?? DateTime.now(),
+    );
+  }
+  
+  /// Validate the pattern against cultural rules
+  bool validateCulturalPattern() {
+    // First check basic pattern validity
+    if (!isValidPattern()) {
+      return false;
+    }
+    
+    // Check if all pattern blocks have valid cultural patterns
+    final patternBlocks = blocks.where((block) => block.type == BlockType.pattern);
+    for (final block in patternBlocks) {
+      if (!block.hasValidCulturalPattern()) {
+        return false;
+      }
+    }
+    
+    // Check for cultural color combinations
+    if (!_hasValidColorCombination()) {
+      return false;
+    }
+    
+    // Check for cultural structure validity
+    if (!_hasValidCulturalStructure()) {
+      return false;
+    }
+    
+    return true;
+  }
+  
+  /// Check if the pattern has valid color combinations according to cultural rules
+  bool _hasValidColorCombination() {
+    // Get all color blocks
+    final colorBlocks = blocks.where((block) => block.type == BlockType.color);
+    final colorValues = colorBlocks
+        .map((block) => block.properties['color']?.toString() ?? '')
+        .where((color) => color.isNotEmpty)
+        .toSet()
+        .toList();
+    
+    // In a real implementation, this would check against cultural color combination rules
+    // For now, we'll just check if we have at least one color
+    return colorValues.isNotEmpty;
+  }
+  
+  /// Check if the pattern has a valid cultural structure
+  bool _hasValidCulturalStructure() {
+    // In a real implementation, this would check against cultural structure rules
+    // For now, we'll just check if we have a valid pattern structure
+    return isValidPattern();
+  }
+  
+  /// Calculate the cultural significance score of this pattern (0-100)
+  int calculateCulturalSignificanceScore() {
+    int score = 0;
+    
+    // Check for traditional pattern types
+    final patternTypes = blocks
+        .where((block) => block.type == BlockType.pattern)
+        .map((block) => block.properties['patternType']?.toString() ?? '')
+        .where((type) => type.isNotEmpty)
+        .toSet()
+        .toList();
+    
+    // Award points for each traditional pattern
+    score += patternTypes.length * 10;
+    
+    // Check for traditional color combinations
+    if (_hasValidColorCombination()) {
+      score += 20;
+    }
+    
+    // Check for symmetry
+    if (isSymmetric()) {
+      score += 15;
+    }
+    
+    // Check for complexity
+    score += _calculateComplexity() * 5;
+    
+    // Check for cultural structure
+    if (_hasValidCulturalStructure()) {
+      score += 20;
+    }
+    
+    // Cap at 100
+    return score > 100 ? 100 : score;
+  }
+  
+  /// Get the recommended difficulty level for this pattern
+  PatternDifficulty calculateRecommendedDifficulty() {
+    // Base on complexity
+    final complexity = _calculateComplexity();
+    
+    switch (complexity) {
+      case 1:
+        return PatternDifficulty.basic;
+      case 2:
+        return PatternDifficulty.beginner;
+      case 3:
+        return PatternDifficulty.intermediate;
+      case 4:
+        return PatternDifficulty.advanced;
+      case 5:
+        return PatternDifficulty.master;
+      default:
+        return PatternDifficulty.basic;
+    }
+  }
+  
+  /// Get educational concepts represented in this pattern
+  List<String> getEducationalConcepts() {
+    final concepts = <String>{};
+    
+    // Check for loops
+    if (containsBlockType(BlockType.loop)) {
+      concepts.add('loops');
+    }
+    
+    // Check for structure
+    if (containsBlockType(BlockType.structure)) {
+      concepts.add('structure');
+    }
+    
+    // Check for color variables
+    if (containsBlockType(BlockType.color)) {
+      concepts.add('variables');
+    }
+    
+    // Check for pattern sequences
+    if (containsBlockType(BlockType.pattern)) {
+      concepts.add('sequences');
+    }
+    
+    // Check for columns (arrays)
+    if (containsBlockType(BlockType.column)) {
+      concepts.add('arrays');
+    }
+    
+    // Check for complex patterns
+    if (findCycles().isNotEmpty) {
+      concepts.add('recursion');
+    }
+    
+    return concepts.toList();
+  }
+  
+  /// Export the pattern to a shareable format
+  Map<String, dynamic> exportPattern() {
+    return {
+      'version': '1.0',
+      'type': 'kente_pattern',
+      'name': name,
+      'description': description,
+      'difficulty': difficulty.toString().split('.').last,
+      'region': region,
+      'tags': tags,
+      'creator': creator,
+      'createdAt': createdAt.toIso8601String(),
+      'modifiedAt': modifiedAt.toIso8601String(),
+      'blocks': blocks.map((block) => block.toJson()).toList(),
+      'metadata': metadata,
+      'culturalContext': extractCulturalContext(),
+      'educationalConcepts': getEducationalConcepts(),
+    };
+  }
+  
+  /// Import a pattern from a shareable format
+  static BlockCollection importPattern(Map<String, dynamic> data) {
+    // Validate the data
+    if (data['type'] != 'kente_pattern') {
+      throw Exception('Invalid pattern format');
+    }
+    
+    // Parse blocks
+    final blockList = (data['blocks'] as List<dynamic>)
+        .map((blockJson) => BlockModel.fromJson(blockJson))
+        .toList();
+    
+    // Create the collection
+    return BlockCollection(
+      blocks: blockList,
+      metadata: data['metadata'] ?? {},
+      name: data['name'] ?? 'Imported Pattern',
+      description: data['description'] ?? '',
+      difficulty: _parseDifficulty(data['difficulty']),
+      region: data['region'],
+      tags: data['tags'] != null 
+          ? List<String>.from(data['tags']) 
+          : <String>[],
+      creator: data['creator'],
+      createdAt: data['createdAt'] != null 
+          ? DateTime.parse(data['createdAt']) 
+          : DateTime.now(),
+      modifiedAt: data['modifiedAt'] != null 
+          ? DateTime.parse(data['modifiedAt']) 
+          : DateTime.now(),
+    );
+  }
+  
+  /// Get a thumbnail representation of this pattern
+  Map<String, dynamic> getThumbnail() {
+    return {
+      'name': name,
+      'difficulty': difficulty.toString().split('.').last,
+      'blockCount': blocks.length,
+      'connectionCount': countConnections(),
+      'style': _determinePatternStyle(),
+      'complexity': _calculateComplexity(),
+      'hasLoop': containsBlockType(BlockType.loop),
+      'region': region,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+  
+  /// Check if this pattern is suitable for the given age
+  bool isSuitableForAge(int age) {
+    return age >= difficulty.recommendedMinAge;
+  }
+  
+  /// Get a list of cultural elements used in this pattern
+  List<String> getCulturalElements() {
+    final elements = <String>{};
+    
+    // Extract from pattern blocks
+    for (final block in blocks) {
+      if (block.metadata.containsKey('culturalElement')) {
+        elements.add(block.metadata['culturalElement'].toString());
+      }
+      
+      if (block.properties.containsKey('culturalElement')) {
+        elements.add(block.properties['culturalElement'].toString());
+      }
+    }
+    
+    // Extract from metadata
+    if (metadata.containsKey('culturalElements')) {
+      final metadataElements = metadata['culturalElements'];
+      if (metadataElements is List) {
+        for (final element in metadataElements) {
+          elements.add(element.toString());
+        }
+      }
+    }
+    
+    return elements.toList();
   }
 }
