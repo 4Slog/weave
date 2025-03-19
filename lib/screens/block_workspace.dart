@@ -64,9 +64,17 @@ class _BlockWorkspaceState extends State<BlockWorkspace> {
   void initState() {
     super.initState();
     // Initialize adaptive learning service with user data
-    _learningService.getUserSkillLevel(widget.userId).then((level) {
+    _initializeUserData();
+  }
+  
+  /// Initialize user data and skill level
+  Future<void> _initializeUserData() async {
+    try {
+      final level = await _learningService.getUserSkillLevel(widget.userId);
       debugPrint('User skill level: $level');
-    });
+    } catch (e) {
+      debugPrint('Error getting user skill level: $e');
+    }
   }
   
   @override
@@ -554,14 +562,19 @@ class _BlockWorkspaceState extends State<BlockWorkspace> {
   /// Build the hint widget
   Widget _buildHintWidget() {
     return FutureBuilder<String>(
-      future: _mentorService.getHint(widget.storyContext, widget.codingConcept),
+      future: _mentorService.generateContextualHint(
+        userId: widget.userId,
+        storyContext: widget.storyContext,
+        codingConcept: widget.codingConcept,
+        hintLevel: 2,
+      ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Error loading hint: ${snapshot.error}');
         } else {
-          return ContextualHintWidget(hint: snapshot.data ?? 'No hint available');
+          return ContextualHintWidget(text: snapshot.data ?? 'No hint available');
         }
       },
     );

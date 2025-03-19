@@ -109,8 +109,8 @@ class BadgeProvider with ChangeNotifier {
   }
   
   /// Get badge details by ID
-  BadgeModel? getBadgeById(String badgeId) {
-    return _badgeService.getBadgeById(badgeId);
+  Future<BadgeModel?> getBadgeById(String badgeId) async {
+    return await _badgeService.getBadgeById(badgeId);
   }
   
   @override

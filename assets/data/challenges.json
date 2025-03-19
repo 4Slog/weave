@@ -1,0 +1,897 @@
+{
+    "version": "1.0.0",
+    "challenges": [
+      {
+        "id": "intro_sequences_01",
+        "title": "First Steps in Pattern Making",
+        "description": "Create your first Kente pattern by connecting blocks in sequence. In Kente weaving, as in coding, we start with simple sequences before creating complex designs.",
+        "difficultyLevel": 1,
+        "targetSkills": ["sequences", "patterns"],
+        "codingConcept": "sequences",
+        "storyId": "story_sequences_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "patternName": "Dame-Dame",
+          "patternMeaning": "The checkerboard pattern represents balance and duality in life.",
+          "hints": [
+            {
+              "text": "In Ghana, Kente weaving starts with simple patterns like Dame-Dame (checkerboard) before creating more complex designs.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color"],
+        "validation": {
+          "minBlocks": 2,
+          "maxBlocks": 4,
+          "requiredBlockTypes": ["pattern", "color"],
+          "requiredConnections": [
+            {
+              "sourceType": "pattern",
+              "targetType": "color"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "blockCount",
+            "value": 0,
+            "text": "Start by dragging a pattern block from the palette to your workspace.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "blockCount",
+            "value": 1,
+            "text": "Now add a color block to your pattern block. Notice how they can connect together.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "missingBlockType",
+            "blockType": "color",
+            "text": "Your pattern needs color! Try adding a color block from the palette.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "missingBlockType",
+            "blockType": "pattern",
+            "text": "Start with a pattern block as your foundation.",
+            "tone": "encouraging"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "first_sequence",
+            "name": "First Sequence",
+            "description": "Created your first sequence of blocks",
+            "requiredBlockTypes": ["pattern", "color"]
+          }
+        ],
+        "sequenceOrder": 1
+      },
+      {
+        "id": "intro_sequences_02",
+        "title": "Building Longer Sequences",
+        "description": "Create a more complex pattern by adding more blocks in sequence. Kente weavers arrange multiple elements to create beautiful designs.",
+        "difficultyLevel": 1,
+        "targetSkills": ["sequences", "patterns"],
+        "codingConcept": "sequences",
+        "storyId": "story_sequences_02",
+        "culturalContext": {
+          "region": "Ashanti",
+          "patternName": "Babadua",
+          "patternMeaning": "The stripe pattern represents simplicity and continuity.",
+          "hints": [
+            {
+              "text": "Babadua (stripe) patterns in Kente show how simple sequences can create meaningful designs.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [
+          {
+            "type": "pattern",
+            "name": "Stripes Pattern",
+            "properties": {
+              "patternType": "stripes"
+            },
+            "position": {
+              "x": 100,
+              "y": 100
+            }
+          }
+        ],
+        "availableBlockTypes": ["pattern", "color", "structure"],
+        "validation": {
+          "minBlocks": 4,
+          "maxBlocks": 8,
+          "requiredBlockTypes": ["pattern", "color", "structure"],
+          "requiredConnections": [
+            {
+              "sourceType": "pattern",
+              "targetType": "color"
+            },
+            {
+              "sourceType": "pattern",
+              "targetType": "structure"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "blockCount",
+            "value": 1,
+            "text": "Add at least three more blocks to create a meaningful pattern.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "missingBlockType",
+            "blockType": "structure",
+            "text": "Try adding a structure block to organize your pattern.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasBlockType",
+            "blockType": "structure",
+            "text": "Great! Structure blocks help organize your pattern just like planning helps organize your code.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "complex_sequence",
+            "name": "Sequence Master",
+            "description": "Created a complex sequence using multiple block types",
+            "requiredBlockTypes": ["pattern", "color", "structure"]
+          }
+        ],
+        "sequenceOrder": 2
+      },
+      {
+        "id": "intro_colors_01",
+        "title": "Color Meanings in Kente",
+        "description": "Explore how different colors have meaning in Kente weaving, just like variables store meaningful information in code.",
+        "difficultyLevel": 1,
+        "targetSkills": ["variables", "culturalContext"],
+        "codingConcept": "variables",
+        "storyId": "story_variables_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "In Kente weaving, colors have specific meanings: gold represents wealth, blue represents harmony, red represents political passion, and black represents spiritual energy.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color"],
+        "validation": {
+          "minBlocks": 3,
+          "maxBlocks": 6,
+          "requiredBlockTypes": ["pattern", "color"],
+          "minColorTypes": 3
+        },
+        "hints": [
+          {
+            "condition": "blockCount",
+            "value": 2,
+            "text": "Try using at least three different colors in your pattern to represent different meanings.",
+            "tone": "encouraging"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "color_explorer",
+            "name": "Color Explorer",
+            "description": "Used multiple colors with cultural meaning in your pattern",
+            "requiredBlockTypes": ["color"]
+          }
+        ],
+        "sequenceOrder": 3
+      },
+      {
+        "id": "intro_loops_01",
+        "title": "Repeating Patterns with Loops",
+        "description": "Learn how to use loops to repeat patterns efficiently, just as Kente weavers repeat motifs in their designs.",
+        "difficultyLevel": 2,
+        "targetSkills": ["loops", "patterns"],
+        "codingConcept": "loops",
+        "storyId": "story_loops_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "patternName": "Nkyimkyim",
+          "patternMeaning": "The zigzag pattern represents life's twists and turns, and how we adapt to life's journey.",
+          "hints": [
+            {
+              "text": "Repetition is central to Kente weaving. Patterns are repeated many times to create complex cloths.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "loop"],
+        "validation": {
+          "minBlocks": 3,
+          "maxBlocks": 6,
+          "requiredBlockTypes": ["pattern", "color", "loop"],
+          "requiredConnections": [
+            {
+              "sourceType": "loop",
+              "targetType": "pattern"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "missingBlockType",
+            "blockType": "loop",
+            "text": "Try using a loop block to repeat your pattern efficiently.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasBlockType",
+            "blockType": "loop",
+            "text": "Great! Loops help us repeat patterns without having to create each repetition manually.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "first_loop",
+            "name": "Loop Weaver",
+            "description": "Used a loop to repeat a pattern efficiently",
+            "requiredBlockTypes": ["loop"]
+          }
+        ],
+        "sequenceOrder": 4
+      },
+      {
+        "id": "intro_loops_02",
+        "title": "Nested Patterns with Loops",
+        "description": "Create more complex patterns using nested loops, where one repeating pattern contains another repeating pattern.",
+        "difficultyLevel": 2,
+        "targetSkills": ["loops", "patterns"],
+        "codingConcept": "loops",
+        "storyId": "story_loops_02",
+        "culturalContext": {
+          "region": "Ashanti",
+          "patternName": "Adweneasa",
+          "patternMeaning": "This intricate pattern represents craftsmanship and artistic skill.",
+          "hints": [
+            {
+              "text": "Complex Kente patterns often feature repetitions within repetitions, creating rich, layered designs.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [
+          {
+            "type": "loop",
+            "name": "Outer Loop",
+            "properties": {
+              "count": 3
+            },
+            "position": {
+              "x": 100,
+              "y": 100
+            }
+          }
+        ],
+        "availableBlockTypes": ["pattern", "color", "loop"],
+        "validation": {
+          "minBlocks": 4,
+          "maxBlocks": 8,
+          "requiredBlockTypes": ["pattern", "color", "loop"],
+          "requiredConnections": [
+            {
+              "sourceType": "loop",
+              "targetType": "loop"
+            }
+          ],
+          "minLoopCount": 2
+        },
+        "hints": [
+          {
+            "condition": "blockCount",
+            "value": 2,
+            "text": "Try adding another loop block inside your outer loop to create a nested pattern.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasConnection",
+            "connection": {
+              "sourceType": "loop",
+              "targetType": "loop"
+            },
+            "text": "Excellent! You've created a nested loop structure. This is a powerful concept in coding.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "nested_loops",
+            "name": "Pattern Within Pattern",
+            "description": "Created a pattern using nested loops",
+            "requiredBlockTypes": ["loop"]
+          }
+        ],
+        "sequenceOrder": 5
+      },
+      {
+        "id": "intro_structure_01",
+        "title": "Organizing Patterns with Structure",
+        "description": "Learn how to use structure blocks to organize your patterns, just as good code organization makes programs easier to understand.",
+        "difficultyLevel": 2,
+        "targetSkills": ["structure", "patterns"],
+        "codingConcept": "structure",
+        "storyId": "story_structure_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Kente weavers carefully plan the structure of their cloth before beginning to weave, ensuring balance and harmony.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "structure"],
+        "validation": {
+          "minBlocks": 5,
+          "maxBlocks": 10,
+          "requiredBlockTypes": ["pattern", "color", "structure"],
+          "requiredConnections": [
+            {
+              "sourceType": "structure",
+              "targetType": "pattern"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "missingBlockType",
+            "blockType": "structure",
+            "text": "Use structure blocks to organize your pattern elements.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "blockCount",
+            "value": 3,
+            "text": "Try adding more blocks to create a well-structured pattern.",
+            "tone": "encouraging"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "structure_master",
+            "name": "Pattern Architect",
+            "description": "Created a well-structured pattern design",
+            "requiredBlockTypes": ["structure"]
+          }
+        ],
+        "sequenceOrder": 6
+      },
+      {
+        "id": "intro_conditionals_01",
+        "title": "Making Choices in Patterns",
+        "description": "Explore how conditional blocks can create patterns that change based on specific conditions, just like if-statements in code.",
+        "difficultyLevel": 3,
+        "targetSkills": ["conditionals", "patterns"],
+        "codingConcept": "conditionals",
+        "storyId": "story_conditionals_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Kente weavers make choices about patterns based on the purpose of the cloth - different occasions call for different designs.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "structure", "conditional"],
+        "validation": {
+          "minBlocks": 4,
+          "maxBlocks": 8,
+          "requiredBlockTypes": ["pattern", "color", "conditional"],
+          "requiredConnections": [
+            {
+              "sourceType": "conditional",
+              "targetType": "pattern"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "missingBlockType",
+            "blockType": "conditional",
+            "text": "Try using a conditional block to make choices in your pattern.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasBlockType",
+            "blockType": "conditional",
+            "text": "Great! Conditionals let us make choices in our code, just like Kente weavers choose patterns based on the cloth's purpose.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "first_conditional",
+            "name": "Pattern Chooser",
+            "description": "Created a pattern using conditional logic",
+            "requiredBlockTypes": ["conditional"]
+          }
+        ],
+        "sequenceOrder": 7
+      },
+      {
+        "id": "intro_functions_01",
+        "title": "Reusable Pattern Components",
+        "description": "Learn how to create reusable pattern components with function blocks, making your patterns more efficient and modular.",
+        "difficultyLevel": 3,
+        "targetSkills": ["functions", "patterns"],
+        "codingConcept": "functions",
+        "storyId": "story_functions_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Master weavers develop signature techniques that they reuse across different cloths - like functions in programming.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "function", "structure"],
+        "validation": {
+          "minBlocks": 5,
+          "maxBlocks": 10,
+          "requiredBlockTypes": ["pattern", "color", "function"],
+          "requiredConnections": [
+            {
+              "sourceType": "function",
+              "targetType": "pattern"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "missingBlockType",
+            "blockType": "function",
+            "text": "Try creating a function block to define a reusable pattern component.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasBlockType",
+            "blockType": "function",
+            "text": "Excellent! Functions let us define pattern components once and reuse them multiple times.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "first_function",
+            "name": "Pattern Composer",
+            "description": "Created reusable pattern components with functions",
+            "requiredBlockTypes": ["function"]
+          }
+        ],
+        "sequenceOrder": 8
+      },
+      {
+        "id": "combined_concepts_01",
+        "title": "Loops and Conditionals Together",
+        "description": "Combine loops and conditionals to create dynamic patterns that change as they repeat.",
+        "difficultyLevel": 4,
+        "targetSkills": ["loops", "conditionals", "patterns"],
+        "codingConcept": "loops_conditionals",
+        "storyId": "story_combined_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "patternName": "Fatia Fata Nkruma",
+          "patternMeaning": "This complex pattern represents 'embracing diversity' and shows how different elements can come together in harmony.",
+          "hints": [
+            {
+              "text": "Complex Kente patterns often follow rules that change as the pattern develops across the cloth.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "loop", "conditional", "structure"],
+        "validation": {
+          "minBlocks": 6,
+          "maxBlocks": 12,
+          "requiredBlockTypes": ["pattern", "color", "loop", "conditional"],
+          "requiredConnections": [
+            {
+              "sourceType": "loop",
+              "targetType": "conditional"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "hasBlockType",
+            "blockType": "loop",
+            "text": "Now try adding a conditional block inside your loop.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasConnection",
+            "connection": {
+              "sourceType": "loop",
+              "targetType": "conditional"
+            },
+            "text": "Perfect! You've combined loops and conditionals - a powerful technique in programming.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "loop_conditional_master",
+            "name": "Dynamic Pattern Weaver",
+            "description": "Created a dynamic pattern using both loops and conditionals",
+            "requiredBlockTypes": ["loop", "conditional"]
+          }
+        ],
+        "sequenceOrder": 9
+      },
+      {
+        "id": "combined_concepts_02",
+        "title": "Functions and Loops Together",
+        "description": "Combine functions and loops to create complex, efficient patterns using reusable components.",
+        "difficultyLevel": 4,
+        "targetSkills": ["functions", "loops", "patterns"],
+        "codingConcept": "functions_loops",
+        "storyId": "story_combined_02",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Master weavers create signature motifs that they repeat throughout their cloths, combining reuse with repetition.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "function", "loop", "structure"],
+        "validation": {
+          "minBlocks": 7,
+          "maxBlocks": 14,
+          "requiredBlockTypes": ["pattern", "color", "function", "loop"],
+          "requiredConnections": [
+            {
+              "sourceType": "function",
+              "targetType": "loop"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "hasBlockType",
+            "blockType": "function",
+            "text": "Try putting your function inside a loop to repeat your pattern component.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasConnection",
+            "connection": {
+              "sourceType": "loop",
+              "targetType": "function"
+            },
+            "text": "Amazing! You're combining functions and loops to create efficient, complex patterns.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "function_loop_master",
+            "name": "Efficient Pattern Master",
+            "description": "Created efficient patterns using functions within loops",
+            "requiredBlockTypes": ["function", "loop"]
+          }
+        ],
+        "sequenceOrder": 10
+      },
+      {
+        "id": "advanced_concepts_01",
+        "title": "Variables in Patterns",
+        "description": "Use variable blocks to create patterns that can adapt and change dynamically.",
+        "difficultyLevel": 5,
+        "targetSkills": ["variables", "patterns"],
+        "codingConcept": "variables",
+        "storyId": "story_variables_02",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Kente weavers adjust their patterns based on variables like the available materials and the cloth's purpose.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "variable", "conditional", "structure"],
+        "validation": {
+          "minBlocks": 6,
+          "maxBlocks": 12,
+          "requiredBlockTypes": ["pattern", "color", "variable", "conditional"],
+          "requiredConnections": [
+            {
+              "sourceType": "variable",
+              "targetType": "conditional"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "missingBlockType",
+            "blockType": "variable",
+            "text": "Try using a variable block to store information that can change.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasConnection",
+            "connection": {
+              "sourceType": "variable",
+              "targetType": "conditional"
+            },
+            "text": "Perfect! You're using variables to make decisions in your pattern.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "variable_master",
+            "name": "Dynamic Pattern Creator",
+            "description": "Created patterns that use variables to adapt and change",
+            "requiredBlockTypes": ["variable"]
+          }
+        ],
+        "sequenceOrder": 11
+      },
+      {
+        "id": "advanced_concepts_02",
+        "title": "Recursion in Patterns",
+        "description": "Explore recursion - patterns that contain smaller versions of themselves - creating fractal-like designs.",
+        "difficultyLevel": 5,
+        "targetSkills": ["functions", "loops", "patterns"],
+        "codingConcept": "recursion",
+        "storyId": "story_recursion_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Some Kente patterns feature self-similarity, where smaller elements mirror the larger design, creating harmony across scales.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "function", "loop", "structure", "recursive"],
+        "validation": {
+          "minBlocks": 8,
+          "maxBlocks": 16,
+          "requiredBlockTypes": ["pattern", "color", "function", "recursive"],
+          "requiredConnections": [
+            {
+              "sourceType": "function",
+              "targetType": "recursive"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "missingBlockType",
+            "blockType": "recursive",
+            "text": "Try using a recursive block to create a pattern that contains smaller versions of itself.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasConnection",
+            "connection": {
+              "sourceType": "function",
+              "targetType": "recursive"
+            },
+            "text": "Incredible! You've created a recursive pattern that calls itself - one of the most powerful concepts in programming.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "recursion_master",
+            "name": "Fractal Pattern Weaver",
+            "description": "Created self-similar patterns using recursion",
+            "requiredBlockTypes": ["recursive"]
+          }
+        ],
+        "sequenceOrder": 12
+      },
+      {
+        "id": "mastery_challenge_01",
+        "title": "Complete Kente Cloth Design",
+        "description": "Combine all your skills to create a complete Kente cloth design that tells a meaningful story.",
+        "difficultyLevel": 5,
+        "targetSkills": ["sequences", "loops", "conditionals", "functions", "variables", "patterns", "culturalContext"],
+        "codingConcept": "comprehensive",
+        "storyId": "story_mastery_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Traditional Kente cloths tell complete stories through their combination of patterns, colors, and structure.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "loop", "conditional", "function", "variable", "structure", "recursive"],
+        "validation": {
+          "minBlocks": 15,
+          "maxBlocks": 30,
+          "requiredBlockTypes": ["pattern", "color", "loop", "conditional", "function"],
+          "requiredPatterns": ["checker", "stripes", "zigzag"],
+          "requiredColors": ["black", "gold", "red"],
+          "patternStructure": "comprehensive"
+        },
+        "hints": [
+          {
+            "condition": "blockCount",
+            "value": 10,
+            "text": "You're on the right track! A complete Kente design needs multiple pattern types and colors.",
+            "tone": "encouraging"
+          },
+          {
+            "condition": "hasBlockType",
+            "blockType": "function",
+            "text": "Great use of functions to create reusable components in your design.",
+            "tone": "happy"
+          },
+          {
+            "condition": "hasBlockType",
+            "blockType": "loop",
+            "text": "Excellent! Using loops helps create repetition in your Kente design.",
+            "tone": "happy"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "kente_master",
+            "name": "Kente Master Weaver",
+            "description": "Created a comprehensive Kente design using all programming concepts",
+            "requiredBlockTypes": ["pattern", "color", "loop", "conditional", "function"]
+          }
+        ],
+        "sequenceOrder": 13
+      },
+      {
+        "id": "debugging_01",
+        "title": "Fixing Pattern Errors",
+        "description": "Learn to identify and fix problems in patterns - an essential skill in both weaving and coding.",
+        "difficultyLevel": 3,
+        "targetSkills": ["debugging", "patterns"],
+        "codingConcept": "debugging",
+        "storyId": "story_debugging_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Even master weavers make mistakes. Knowing how to identify and fix errors is an essential part of the craft.",
+              "tone": "educational"
+            }
+          ]
+        },
+        "initialBlocks": [
+          {
+            "type": "pattern",
+            "name": "Pattern Block",
+            "properties": {
+              "patternType": "checker"
+            },
+            "position": {
+              "x": 100,
+              "y": 100
+            }
+          },
+          {
+            "type": "pattern",
+            "name": "Pattern Block 2",
+            "properties": {
+              "patternType": "zigzag"
+            },
+            "position": {
+              "x": 300,
+              "y": 100
+            }
+          },
+          {
+            "type": "color",
+            "name": "Color Block",
+            "properties": {
+              "color": "red"
+            },
+            "position": {
+              "x": 100,
+              "y": 250
+            }
+          }
+        ],
+        "availableBlockTypes": ["pattern", "color", "structure"],
+        "validation": {
+          "minBlocks": 3,
+          "maxBlocks": 6,
+          "requiredBlockTypes": ["pattern", "color"],
+          "requiredConnections": [
+            {
+              "sourceType": "pattern",
+              "targetType": "color"
+            }
+          ]
+        },
+        "hints": [
+          {
+            "condition": "hasBlockType",
+            "blockType": "pattern",
+            "text": "Notice that some blocks are not connected. Fix the connections to create a valid pattern.",
+            "tone": "encouraging"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "debugging_master",
+            "name": "Pattern Fixer",
+            "description": "Successfully identified and fixed errors in a pattern",
+            "requiredBlockTypes": ["pattern", "color"]
+          }
+        ],
+        "sequenceOrder": 14
+      },
+      {
+        "id": "creativity_challenge_01",
+        "title": "Express Your Story",
+        "description": "Create a Kente pattern that tells your own unique story, using all the concepts you've learned.",
+        "difficultyLevel": 4,
+        "targetSkills": ["patterns", "culturalContext", "storytelling"],
+        "codingConcept": "creativity",
+        "storyId": "story_creativity_01",
+        "culturalContext": {
+          "region": "Ashanti",
+          "hints": [
+            {
+              "text": "Traditional Kente cloths are not just beautiful - they tell stories and express the weaver's own voice and message.",
+              "tone": "reflective"
+            }
+          ]
+        },
+        "initialBlocks": [],
+        "availableBlockTypes": ["pattern", "color", "loop", "conditional", "function", "structure"],
+        "validation": {
+          "minBlocks": 10,
+          "minConnections": 8,
+          "minPatterns": 3,
+          "minColors": 3,
+          "hasStoryContext": true
+        },
+        "hints": [
+          {
+            "condition": "blockCount",
+            "value": 5,
+            "text": "Think about what story you want your pattern to tell. What meaning do your colors and patterns have?",
+            "tone": "reflective"
+          }
+        ],
+        "achievements": [
+          {
+            "id": "storyteller",
+            "name": "Visual Storyteller",
+            "description": "Created a pattern that tells a meaningful personal story",
+            "requiredBlockTypes": ["pattern", "color"]
+          }
+        ],
+        "sequenceOrder": 15
+      }
+    ]
+  }

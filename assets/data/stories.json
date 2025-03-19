@@ -1,0 +1,1247 @@
+{
+    "version": "1.0.0",
+    "stories": [
+      {
+        "id": "story_sequences_01",
+        "title": "Kofi's First Pattern",
+        "theme": "Sequences",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 1,
+        "content": [
+          {
+            "id": "seq01_block1",
+            "text": "Kofi watched as his grandfather, Master Weaver Kwame, worked at his loom. His fingers danced across the threads, creating beautiful patterns in the Kente cloth.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "seq01_block2",
+            "text": "\"Grandfather,\" Kofi said, \"I want to learn how to weave patterns like you do.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "seq01_block3",
+            "text": "Grandfather Kwame smiled. \"To weave Kente, you must first understand sequences, just like in coding. Every pattern starts with a simple sequence of steps.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "seq01_block4",
+            "text": "\"What's a sequence?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "seq01_block5",
+            "text": "\"A sequence is a specific order of steps,\" Grandfather explained. \"Like counting 1, 2, 3. Or in weaving, it might be 'thread over, thread under, thread over.'\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "seq01_block6",
+            "text": "Grandfather pointed to a simple checker pattern in his cloth. \"This Dame-Dame pattern is one of the most basic. It follows a sequence of alternating colors in a specific order.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false,
+            "imagePath": "assets/images/patterns/checker_pattern.png"
+          },
+          {
+            "id": "seq01_block7",
+            "text": "\"Now it's your turn,\" Grandfather said, pointing to a small digital tablet they used for practice. \"Let's create your first pattern sequence using blocks, just like I use threads.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "intro_sequences_01",
+          "title": "Create Your First Sequence",
+          "description": "Create a simple pattern by connecting a pattern block to a color block.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color"],
+            "minConnections": 1
+          },
+          "difficulty": 1,
+          "availableBlockTypes": ["pattern", "color"],
+          "contentStartIndex": 5,
+          "contentEndIndex": 7
+        },
+        "branches": [
+          {
+            "id": "branch_intro_sequences_01",
+            "description": "Continue with simple sequences",
+            "targetStoryId": "story_sequences_02",
+            "difficultyLevel": 1
+          }
+        ],
+        "culturalNotes": {
+          "kentePattern": "The Dame-Dame (checkerboard) pattern is one of the oldest and most basic Kente patterns. It represents duality and balance - the interplay of opposites in harmony.",
+          "regionalContext": "In Ghana, young apprentice weavers traditionally begin by learning simple patterns like Dame-Dame before advancing to more complex designs."
+        },
+        "learningConcepts": ["sequences", "patterns"]
+      },
+      {
+        "id": "story_sequences_02",
+        "title": "Building with Blocks",
+        "theme": "Sequences",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 1,
+        "content": [
+          {
+            "id": "seq02_block1",
+            "text": "\"Well done on your first pattern!\" Grandfather Kwame said, examining Kofi's work. \"You've created a simple sequence, just like the first row of a Kente cloth.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "seq02_block2",
+            "text": "Kofi beamed with pride. \"What can I make next, Grandfather?\"",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "seq02_block3",
+            "text": "\"Real Kente cloths are made of many sequences put together,\" Grandfather explained. \"Let's try building a longer sequence with more blocks.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "seq02_block4",
+            "text": "\"This time, let's create the Babadua pattern - simple stripes. In code, like in weaving, we can create complex patterns by combining simple elements in sequence.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false,
+            "imagePath": "assets/images/patterns/stripes_pattern.png"
+          },
+          {
+            "id": "seq02_block5",
+            "text": "Grandfather pointed to the digital loom on the tablet. \"I've started you with a stripes pattern block. Now add more blocks to create a longer sequence.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "seq02_block6",
+            "text": "\"Remember, in both coding and weaving, the order of your sequence matters. Just like how these patterns have meaning in our culture, the order of commands in code determines what happens.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          }
+        ],
+        "challenge": {
+          "id": "intro_sequences_02",
+          "title": "Build a Longer Sequence",
+          "description": "Create a more complex pattern by adding more blocks in sequence.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "structure"],
+            "minConnections": 3
+          },
+          "difficulty": 1,
+          "availableBlockTypes": ["pattern", "color", "structure"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_intro_variables_01",
+            "description": "Learn about colors and their meanings",
+            "targetStoryId": "story_variables_01",
+            "difficultyLevel": 1
+          }
+        ],
+        "culturalNotes": {
+          "kentePattern": "Babadua (stripes) is a simple but meaningful pattern that represents simplicity, continuity, and progress.",
+          "regionalContext": "Striped patterns in Kente cloth often represent life's journey - continuous and flowing forward."
+        },
+        "learningConcepts": ["sequences", "patterns"]
+      },
+      {
+        "id": "story_variables_01",
+        "title": "The Language of Colors",
+        "theme": "Variables",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 1,
+        "content": [
+          {
+            "id": "var01_block1",
+            "text": "The next day, Kofi found his grandfather sorting through spools of colorful thread. Each color was bright and beautiful.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "var01_block2",
+            "text": "\"Why are there so many different colors, Grandfather?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "var01_block3",
+            "text": "\"In Kente weaving, colors are like variables in coding,\" Grandfather explained. \"Each color holds a special meaning - a value that helps tell our story.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "var01_block4",
+            "text": "He held up a golden thread. \"This gold color represents wealth and royalty.\" Then he showed a blue thread. \"This blue represents harmony and love.\" Next came a red thread. \"And this red represents political strength and passion.\"",
+            "delay": 0,
+            "displayDuration": 6000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "var01_block5",
+            "text": "\"So when I use a color in my pattern, I'm giving it meaning?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "var01_block6",
+            "text": "\"Exactly!\" Grandfather nodded. \"Just like variables in code store important information, colors in Kente store cultural meaning. Let's try creating a pattern using different colors and their meanings.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          }
+        ],
+        "challenge": {
+          "id": "intro_colors_01",
+          "title": "Color Variables in Kente",
+          "description": "Create a pattern using at least three different colors, each with its own meaning.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color"],
+            "minColors": 3
+          },
+          "difficulty": 1,
+          "availableBlockTypes": ["pattern", "color"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_intro_loops_01",
+            "description": "Learn about repeating patterns",
+            "targetStoryId": "story_loops_01",
+            "difficultyLevel": 2
+          }
+        ],
+        "culturalNotes": {
+          "kenteColors": "In Kente weaving, colors carry deep symbolic meaning: Gold represents wealth and royalty, blue represents peace and harmony, red represents political strength and passion, green represents growth and renewal, black represents spiritual strength and maturity, white represents purity and festive occasions.",
+          "regionalContext": "Color symbolism is an important part of Ghanaian visual language and communication, not just in Kente but in many aspects of traditional life."
+        },
+        "learningConcepts": ["variables", "patterns", "culturalContext"]
+      },
+      {
+        "id": "story_loops_01",
+        "title": "Patterns That Repeat",
+        "theme": "Loops",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 2,
+        "content": [
+          {
+            "id": "loop01_block1",
+            "text": "As Kofi and his grandfather walked through the marketplace, Kofi noticed something about the Kente cloths on display.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "loop01_block2",
+            "text": "\"Grandfather, I notice that many patterns repeat over and over in the cloth. Why is that?\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "loop01_block3",
+            "text": "Grandfather smiled. \"Good observation! In Kente weaving, we often repeat patterns many times. This is similar to loops in coding.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "loop01_block4",
+            "text": "\"What's a loop?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "loop01_block5",
+            "text": "\"A loop is a way to repeat something multiple times without having to create each repetition individually,\" Grandfather explained. \"Like when I weave the same pattern ten times, I don't need to plan it ten times - I just repeat the same sequence.\"",
+            "delay": 0,
+            "displayDuration": 6000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "loop01_block6",
+            "text": "Grandfather pointed to a cloth with a zigzag pattern. \"See this Nkyimkyim pattern? Instead of creating each zigzag individually, the weaver uses the same pattern over and over in a loop.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false,
+            "imagePath": "assets/images/patterns/zigzag_pattern.png"
+          },
+          {
+            "id": "loop01_block7",
+            "text": "\"Let's try using a loop in your digital loom,\" Grandfather suggested. \"It will make your work more efficient, just like it makes weaving more efficient.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "intro_loops_01",
+          "title": "Creating Patterns with Loops",
+          "description": "Create a repeating pattern using a loop block to make your coding more efficient.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "loop"],
+            "minConnections": 2
+          },
+          "difficulty": 2,
+          "availableBlockTypes": ["pattern", "color", "loop"],
+          "contentStartIndex": 5,
+          "contentEndIndex": 7
+        },
+        "branches": [
+          {
+            "id": "branch_intro_loops_02",
+            "description": "Explore more complex loop patterns",
+            "targetStoryId": "story_loops_02",
+            "difficultyLevel": 2
+          }
+        ],
+        "culturalNotes": {
+          "kentePattern": "The Nkyimkyim (zigzag) pattern represents dynamism and life's journey with its twists and turns. It teaches resilience and adaptability.",
+          "regionalContext": "Repetition in Kente cloth is not just practical but symbolic, representing continuity, persistence, and the cyclical nature of life."
+        },
+        "learningConcepts": ["loops", "patterns", "efficiency"]
+      },
+      {
+        "id": "story_loops_02",
+        "title": "Patterns Within Patterns",
+        "theme": "Nested Loops",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 2,
+        "content": [
+          {
+            "id": "loop02_block1",
+            "text": "\"You've learned to use loops well,\" Grandfather Kwame said, looking at Kofi's latest pattern. \"But master weavers use an even more powerful technique.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "loop02_block2",
+            "text": "\"What kind of technique?\" Kofi asked eagerly.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "loop02_block3",
+            "text": "\"Patterns within patterns,\" Grandfather said mysteriously. He unfolded an intricate Kente cloth with a complex design called Adweneasa.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false,
+            "imagePath": "assets/images/patterns/complex_pattern.png"
+          },
+          {
+            "id": "loop02_block4",
+            "text": "\"Look closely,\" Grandfather instructed. \"This pattern has repetitions, but within each repetition, there are smaller repetitions.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "loop02_block5",
+            "text": "Kofi studied the cloth. \"I see it! There's a big pattern that repeats, and inside each one, there's a smaller pattern that also repeats!\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "loop02_block6",
+            "text": "\"Exactly! In coding, we call these nested loops - loops inside other loops. They create complex patterns efficiently. I've started a loop for your outer pattern. Now, try adding a loop inside it.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "intro_loops_02",
+          "title": "Nested Patterns with Loops",
+          "description": "Create a complex pattern using a loop inside another loop.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "loop"],
+            "minLoopCount": 2,
+            "requiresNesting": true
+          },
+          "difficulty": 2,
+          "availableBlockTypes": ["pattern", "color", "loop"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_intro_structure_01",
+            "description": "Learn about organizing patterns",
+            "targetStoryId": "story_structure_01",
+            "difficultyLevel": 2
+          }
+        ],
+        "culturalNotes": {
+          "kentePattern": "The Adweneasa pattern (meaning 'my skill is exhausted') is one of the most complex Kente patterns, representing the height of weaving artistry. It features intricate designs within designs.",
+          "regionalContext": "Master weavers in Ghana are known for their ability to create these complex nested patterns, which require mathematical precision and planning."
+        },
+        "learningConcepts": ["loops", "nested_loops", "patterns", "complexity"]
+      },
+      {
+        "id": "story_structure_01",
+        "title": "The Weaver's Plan",
+        "theme": "Structure",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 2,
+        "content": [
+          {
+            "id": "struct01_block1",
+            "text": "Kofi watched as his grandfather carefully laid out threads on a table before starting a new Kente cloth.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "struct01_block2",
+            "text": "\"Why are you arranging them like that before weaving?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "struct01_block3",
+            "text": "\"Organization is essential in both weaving and coding,\" Grandfather explained. \"Before I start, I need to structure my work. I need to know which patterns go where, how they connect, and how they'll work together.\"",
+            "delay": 0,
+            "displayDuration": 6000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "struct01_block4",
+            "text": "He pointed to his careful arrangement. \"This is like the structure of a good program. Everything has its place and purpose, making the whole design clearer and easier to work with.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "struct01_block5",
+            "text": "\"So structure helps keep your work organized?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "struct01_block6",
+            "text": "\"Exactly! Without good structure, complex designs become confusing and difficult to create or maintain. Try using structure blocks in your digital loom to organize your pattern elements.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "intro_structure_01",
+          "title": "Organizing Patterns with Structure",
+          "description": "Create a well-organized pattern using structure blocks to arrange your pattern elements.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "structure"],
+            "minConnections": 4
+          },
+          "difficulty": 2,
+          "availableBlockTypes": ["pattern", "color", "structure"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_intro_conditionals_01",
+            "description": "Learn about making choices in patterns",
+            "targetStoryId": "story_conditionals_01",
+            "difficultyLevel": 3
+          }
+        ],
+        "culturalNotes": {
+          "kenteStructure": "The careful planning of Kente cloth involves considering balance, symmetry, and the relationship between different pattern elements - similar to well-structured code.",
+          "regionalContext": "Master weavers in Ghana often spend as much time planning their designs as they do weaving them, demonstrating the importance of structure in creating complex works."
+        },
+        "learningConcepts": ["structure", "organization", "planning", "patterns"]
+      },
+      {
+        "id": "story_conditionals_01",
+        "title": "The Chieftain's Cloth",
+        "theme": "Conditionals",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 3,
+        "content": [
+          {
+            "id": "cond01_block1",
+            "text": "Kofi and his grandfather were invited to the palace, where the chief was commissioning a special Kente cloth for an upcoming festival.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "cond01_block2",
+            "text": "\"The chief has specific requirements,\" Grandfather explained. \"If it's for a joyous occasion, we use bright colors. If it's for a solemn occasion, we use more subdued colors.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "cond01_block3",
+            "text": "Kofi thought about this. \"So you make different choices depending on the situation?\"",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "cond01_block4",
+            "text": "\"Exactly! These are like conditional statements in coding,\" Grandfather said. \"'If' this condition is true, 'then' do this action, 'else' do something different.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "cond01_block5",
+            "text": "\"For example,\" he continued, \"IF this cloth is for the Yam Festival, THEN use gold and green to symbolize harvest. ELSE IF it's for the chief's coronation, THEN use gold and purple to symbolize royalty.\"",
+            "delay": 0,
+            "displayDuration": 6000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "cond01_block6",
+            "text": "\"So conditionals help us make choices based on different situations?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "cond01_block7",
+            "text": "\"That's right! Let's practice using conditional blocks in your digital loom to create a pattern that adapts based on different conditions.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "intro_conditionals_01",
+          "title": "Making Choices in Patterns",
+          "description": "Create a pattern that uses conditional blocks to make decisions about color or pattern type.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "conditional"],
+            "minConnections": 3
+          },
+          "difficulty": 3,
+          "availableBlockTypes": ["pattern", "color", "structure", "conditional"],
+          "contentStartIndex": 4,
+          "contentEndIndex": 7
+        },
+        "branches": [
+          {
+            "id": "branch_intro_functions_01",
+            "description": "Learn about creating reusable pattern components",
+            "targetStoryId": "story_functions_01",
+            "difficultyLevel": 3
+          }
+        ],
+        "culturalNotes": {
+          "kenteContext": "Different Kente patterns and colors are chosen for specific occasions, with the cloth's design communicating the nature and significance of the event.",
+          "regionalContext": "In Ashanti tradition, cloth selection follows a set of cultural rules based on the occasion, the wearer's status, and the message to be conveyed."
+        },
+        "learningConcepts": ["conditionals", "decision_making", "patterns", "cultural_rules"]
+      },
+      {
+        "id": "story_functions_01",
+        "title": "The Master's Signature",
+        "theme": "Functions",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 3,
+        "content": [
+          {
+            "id": "func01_block1",
+            "text": "Kofi noticed that his grandfather used a particular pattern element in many different cloths. It was a distinctive design that appeared in different sizes and colors.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "func01_block2",
+            "text": "\"Why do you use that same design element in so many different cloths?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "func01_block3",
+            "text": "\"This is my signature pattern,\" Grandfather explained proudly. \"Every master weaver develops techniques and pattern elements they can reuse in different contexts. It's efficient and becomes part of our identity as weavers.\"",
+            "delay": 0,
+            "displayDuration": 6000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "func01_block4",
+            "text": "\"In coding, we call these reusable components 'functions',\" Grandfather continued. \"You define the pattern once, give it a name, and then call it whenever you need it.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "func01_block5",
+            "text": "Kofi thought about this. \"So instead of recreating the same pattern over and over, you just... call it?\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "func01_block6",
+            "text": "\"Exactly!\" Grandfather said. \"And the best part is, if I decide to improve the pattern, I only need to change it in one place, and all instances of it will be updated. Let's try creating your own reusable pattern component.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "intro_functions_01",
+          "title": "Reusable Pattern Components",
+          "description": "Create a function block that defines a reusable pattern component, then use it multiple times in your design.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "function"],
+            "minConnections": 3,
+            "functionUsageCount": 2
+          },
+          "difficulty": 3,
+          "availableBlockTypes": ["pattern", "color", "function", "structure"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_combined_concepts_01",
+            "description": "Learn to combine loops and conditionals",
+            "targetStoryId": "story_combined_01",
+            "difficultyLevel": 4
+          }
+        ],
+        "culturalNotes": {
+          "kenteSignature": "Master weavers develop distinctive techniques and motifs that identify their work, similar to how functions in code encapsulate a programmer's approach to solving problems.",
+          "regionalContext": "Kente weavers in Ghana often pass down their signature patterns from master to apprentice, creating lineages of weaving traditions that span generations."
+        },
+        "learningConcepts": ["functions", "reusability", "patterns"]
+      },
+      {
+        "id": "story_combined_01",
+        "title": "The Festival Pattern",
+        "theme": "Combined Concepts",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 4,
+        "content": [
+          {
+            "id": "comb01_block1",
+            "text": "A grand festival was approaching, and Grandfather Kwame had been commissioned to create a special Kente cloth for the event. He invited Kofi to help with the design.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb01_block2",
+            "text": "\"This design needs to be special,\" Grandfather said. \"We need to combine different patterns that change throughout the cloth.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb01_block3",
+            "text": "He showed Kofi a sketch of the pattern called Fatia Fata Nkruma, meaning 'embracing diversity.'",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false,
+            "imagePath": "assets/images/patterns/festival_pattern.png"
+          },
+          {
+            "id": "comb01_block4",
+            "text": "\"This complex pattern needs both loops and conditionals,\" Grandfather explained. \"We need to repeat patterns, but also change them based on their position in the cloth.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb01_block5",
+            "text": "\"So we need to combine different concepts we've learned?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "comb01_block6",
+            "text": "\"Yes! The most powerful patterns come from combining different coding concepts together. Let's use loops to create repetition, but place conditionals inside those loops to create variations.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "comb01_block7",
+            "text": "\"In both coding and weaving, true mastery comes from knowing how to combine simple techniques to create something complex and beautiful,\" Grandfather added. \"Let's see what you can create.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "combined_concepts_01",
+          "title": "Loops and Conditionals Together",
+          "description": "Create a pattern that uses both loops and conditionals together, creating variations within repetitions.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "loop", "conditional"],
+            "minConnections": 4,
+            "loopWithConditional": true
+          },
+          "difficulty": 4,
+          "availableBlockTypes": ["pattern", "color", "loop", "conditional", "structure"],
+          "contentStartIndex": 4,
+          "contentEndIndex": 7
+        },
+        "branches": [
+          {
+            "id": "branch_combined_concepts_02",
+            "description": "Learn to combine functions and loops",
+            "targetStoryId": "story_combined_02",
+            "difficultyLevel": 4
+          }
+        ],
+        "culturalNotes": {
+          "kentePattern": "Fatia Fata Nkruma is a complex pattern that represents embracing diversity and bringing together different elements in harmony.",
+          "regionalContext": "Festival cloths often showcase a weaver's most complex techniques, as they are displayed publicly and serve as a demonstration of skill and cultural knowledge."
+        },
+        "learningConcepts": ["loops", "conditionals", "combined_concepts", "patterns"]
+      },
+      {
+        "id": "story_combined_02",
+        "title": "The Royal Commission",
+        "theme": "Combined Concepts",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 4,
+        "content": [
+          {
+            "id": "comb02_block1",
+            "text": "Word of Grandfather Kwame and Kofi's work had reached the royal palace. The queen mother herself had commissioned a special Kente cloth.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb02_block2",
+            "text": "\"This is a great honor,\" Grandfather told Kofi. \"And a perfect opportunity to show you how to combine functions and loops.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb02_block3",
+            "text": "\"How will we use them together?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "comb02_block4",
+            "text": "\"We'll create function blocks for different royal symbols, then use loops to repeat them in a structured pattern,\" Grandfather explained. \"This combines efficiency with reusability.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb02_block5",
+            "text": "He showed Kofi his design plan. \"See how I've defined each symbol once as a function, then used loops to arrange them? This makes the pattern both elegant and efficient.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "comb02_block6",
+            "text": "\"By combining functions and loops, we can create complex patterns while keeping our code organized and efficient,\" Grandfather said. \"Now it's your turn to try.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "combined_concepts_02",
+          "title": "Functions and Loops Together",
+          "description": "Create a pattern that defines reusable components with functions, then arranges them using loops.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "function", "loop"],
+            "minConnections": 5,
+            "functionInLoop": true
+          },
+          "difficulty": 4,
+          "availableBlockTypes": ["pattern", "color", "function", "loop", "structure"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_advanced_concepts_01",
+            "description": "Learn about using variables in patterns",
+            "targetStoryId": "story_variables_02",
+            "difficultyLevel": 5
+          }
+        ],
+        "culturalNotes": {
+          "kenteRoyalty": "Royal Kente cloths feature the most complex and meaningful patterns, often incorporating symbols of power, wisdom, and leadership.",
+          "regionalContext": "In Ashanti tradition, certain Kente patterns are reserved for royalty, with specific symbols and colors that can only be worn by those of royal lineage."
+        },
+        "learningConcepts": ["functions", "loops", "combined_concepts", "patterns"]
+      },
+      {
+        "id": "story_variables_02",
+        "title": "The Changing Pattern",
+        "theme": "Advanced Variables",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 5,
+        "content": [
+          {
+            "id": "var02_block1",
+            "text": "Kofi noticed that his grandfather's latest Kente design seemed to change subtly from one end to the other.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "var02_block2",
+            "text": "\"How does the pattern change like that, Grandfather?\" Kofi asked, pointing to the graduated colors and evolving design.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "var02_block3",
+            "text": "\"Ah, this is advanced weaving,\" Grandfather said with pride. \"Just as in coding, we use variables that can change value throughout the program.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "var02_block4",
+            "text": "\"Instead of using fixed colors or patterns, I use variables whose values change as the weaving progresses,\" he explained. \"This creates a dynamic pattern that evolves across the cloth.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "var02_block5",
+            "text": "\"So variables don't just hold static information - they can change?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "var02_block6",
+            "text": "\"Exactly! That's what makes variables so powerful,\" Grandfather replied. \"Let's try using variable blocks that can change value based on conditions, creating a dynamic pattern that adapts and evolves.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "advanced_concepts_01",
+          "title": "Variables in Patterns",
+          "description": "Create a pattern using variables that change value based on conditions, creating a dynamic, evolving design.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "variable", "conditional"],
+            "minConnections": 5,
+            "variableWithConditional": true
+          },
+          "difficulty": 5,
+          "availableBlockTypes": ["pattern", "color", "variable", "conditional", "structure"],
+          "contentStartIndex": 3,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_advanced_concepts_02",
+            "description": "Explore recursion in patterns",
+            "targetStoryId": "story_recursion_01",
+            "difficultyLevel": 5
+          }
+        ],
+        "culturalNotes": {
+          "kenteEvolution": "Some of the most sophisticated Kente cloths feature patterns that evolve across the cloth, telling a progressive story or representing a journey.",
+          "regionalContext": "Adaptive patterns in traditional weaving represent the weaver's ability to respond to change and incorporate new elements while maintaining cultural continuity."
+        },
+        "learningConcepts": ["variables", "dynamic_values", "conditionals", "patterns"]
+      },
+      {
+        "id": "story_recursion_01",
+        "title": "Patterns Within Patterns Within Patterns",
+        "theme": "Recursion",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 5,
+        "content": [
+          {
+            "id": "recur01_block1",
+            "text": "Grandfather Kwame took Kofi to a special exhibition of ancient Kente cloths. One particularly complex pattern caught Kofi's eye.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "recur01_block2",
+            "text": "\"This pattern looks like it contains smaller versions of itself!\" Kofi exclaimed, noticing how the design seemed to repeat at different scales.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "recur01_block3",
+            "text": "\"You have a good eye,\" Grandfather said. \"This is what we call a recursive pattern. Like a tree with branches that have smaller branches, which have even smaller branches.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "recur01_block4",
+            "text": "\"In coding, recursion is when a function calls itself,\" Grandfather explained. \"It's like telling a story that contains the same story inside it, but smaller.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "recur01_block5",
+            "text": "\"That sounds complicated,\" Kofi said, studying the intricate design.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "recur01_block6",
+            "text": "\"It is one of the most advanced concepts,\" Grandfather agreed. \"But it creates some of the most beautiful patterns. The key is to define a pattern that includes itself, but stops at some point to avoid going forever.\"",
+            "delay": 0,
+            "displayDuration": 6000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "recur01_block7",
+            "text": "\"Let's try creating a recursive pattern - one that contains smaller versions of itself,\" Grandfather suggested. \"This will challenge your understanding of functions and patterns.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "advanced_concepts_02",
+          "title": "Recursion in Patterns",
+          "description": "Create a self-similar recursive pattern where a design contains smaller versions of itself.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "function", "recursive"],
+            "minConnections": 4,
+            "hasRecursion": true
+          },
+          "difficulty": 5,
+          "availableBlockTypes": ["pattern", "color", "function", "loop", "structure", "recursive"],
+          "contentStartIndex": 4,
+          "contentEndIndex": 7
+        },
+        "branches": [
+          {
+            "id": "branch_mastery_challenge_01",
+            "description": "Take on the master weaver's challenge",
+            "targetStoryId": "story_mastery_01",
+            "difficultyLevel": 5
+          }
+        ],
+        "culturalNotes": {
+          "kenteRecursion": "Some traditional Kente patterns feature self-similarity across scales, reflecting the fractal patterns found in many African design traditions.",
+          "regionalContext": "Recursive geometric patterns can be found in many traditional African arts, representing the infinity of nature and the cyclical nature of life and time."
+        },
+        "learningConcepts": ["recursion", "self_similarity", "functions", "patterns"]
+      },
+      {
+        "id": "story_mastery_01",
+        "title": "The Master Weaver's Journey",
+        "theme": "Comprehensive Challenge",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 5,
+        "content": [
+          {
+            "id": "master01_block1",
+            "text": "After many months of learning, Kofi had mastered many different programming concepts through the art of Kente weaving.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "master01_block2",
+            "text": "\"You have come far in your journey,\" Grandfather Kwame said proudly. \"From simple sequences to complex recursion, you have learned many concepts.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "master01_block3",
+            "text": "\"Thank you, Grandfather,\" Kofi replied. \"I've learned how patterns are like programs, and how Kente weaving connects to coding principles.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "master01_block4",
+            "text": "Grandfather nodded. \"The time has come for your final challenge - to create a complete Kente cloth design that tells a meaningful story using all the concepts you've learned.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "master01_block5",
+            "text": "\"Your design should include sequences, loops, functions, conditionals, and variables - all working together in harmony, just as they do in well-crafted code.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "master01_block6",
+            "text": "\"Remember that the most beautiful Kente cloths, like the most elegant code, combine complexity with clarity, tradition with innovation,\" Grandfather said. \"Now, show me what you have learned.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "mastery_challenge_01",
+          "title": "Complete Kente Cloth Design",
+          "description": "Create a comprehensive Kente cloth design using all the programming concepts you've learned, telling a meaningful story through pattern and color.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color", "loop", "conditional", "function"],
+            "minBlockCount": 15,
+            "minConnections": 12,
+            "requiredPatterns": ["checker", "stripes", "zigzag"],
+            "requiredColors": ["black", "gold", "red"]
+          },
+          "difficulty": 5,
+          "availableBlockTypes": ["pattern", "color", "loop", "conditional", "function", "variable", "structure", "recursive"],
+          "contentStartIndex": 4,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_debugging_01",
+            "description": "Learn about fixing pattern errors",
+            "targetStoryId": "story_debugging_01",
+            "difficultyLevel": 3
+          },
+          {
+            "id": "branch_creativity_challenge_01",
+            "description": "Express your own story through code",
+            "targetStoryId": "story_creativity_01",
+            "difficultyLevel": 4
+          }
+        ],
+        "culturalNotes": {
+          "kenteMastery": "Becoming a master Kente weaver requires years of practice and the integration of many different techniques into a cohesive artistic vision.",
+          "regionalContext": "In Ghana, the journey from apprentice to master weaver parallels the journey of learning to code - from basic concepts to comprehensive understanding and creative application."
+        },
+        "learningConcepts": ["comprehensive", "integration", "patterns", "storytelling"]
+      },
+      {
+        "id": "story_debugging_01",
+        "title": "Fixing the Festival Cloth",
+        "theme": "Debugging",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 3,
+        "content": [
+          {
+            "id": "debug01_block1",
+            "text": "The day before a major festival, Grandfather Kwame was examining a Kente cloth he had commissioned from another weaver. He frowned as he spotted several mistakes in the pattern.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "debug01_block2",
+            "text": "\"This won't do for the festival,\" he said. \"There are several errors in this pattern that need to be fixed.\"",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "debug01_block3",
+            "text": "\"What's wrong with it?\" Kofi asked, studying the cloth.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "debug01_block4",
+            "text": "\"The patterns don't connect properly in some places, and some colors are used incorrectly,\" Grandfather explained. \"Finding and fixing errors is an important skill in both weaving and coding.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "debug01_block5",
+            "text": "\"In coding, we call this 'debugging' - the process of finding and fixing errors in our code,\" Grandfather continued. \"Even experienced programmers and weavers make mistakes. The skill is in identifying and correcting them.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "debug01_block6",
+            "text": "\"I've set up a pattern with some intentional errors in your digital loom,\" Grandfather said. \"See if you can find and fix them all. Look for disconnected blocks, incorrect connections, and blocks that should be connected but aren't.\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "debugging_01",
+          "title": "Fixing Pattern Errors",
+          "description": "Identify and fix the errors in this pattern to create a valid, connected design.",
+          "successCriteria": {
+            "requiresBlockType": ["pattern", "color"],
+            "minConnections": 2,
+            "allBlocksConnected": true
+          },
+          "difficulty": 3,
+          "availableBlockTypes": ["pattern", "color", "structure"],
+          "contentStartIndex": 4,
+          "contentEndIndex": 6
+        },
+        "branches": [
+          {
+            "id": "branch_creativity_challenge_01",
+            "description": "Express your own story through code",
+            "targetStoryId": "story_creativity_01",
+            "difficultyLevel": 4
+          }
+        ],
+        "culturalNotes": {
+          "kenteQuality": "In traditional Kente weaving, quality control is rigorous. Cloths with errors are unraveled and rewoven rather than being sold with imperfections.",
+          "regionalContext": "The ability to spot and fix errors in patterns is highly valued in Ghanaian weaving traditions, as it ensures the cultural and aesthetic integrity of the cloth."
+        },
+        "learningConcepts": ["debugging", "error_correction", "problem_solving", "patterns"]
+      },
+      {
+        "id": "story_creativity_01",
+        "title": "Your Pattern, Your Story",
+        "theme": "Creative Expression",
+        "region": "Ashanti",
+        "characterName": "Kofi",
+        "ageGroup": "7-15",
+        "difficultyLevel": 4,
+        "content": [
+          {
+            "id": "creative01_block1",
+            "text": "After mastering many techniques, Kofi was ready for a different kind of challenge. Grandfather Kwame presented him with a blank design board.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "creative01_block2",
+            "text": "\"Now that you understand the principles, it's time for you to express your own story through code and pattern,\" Grandfather said.",
+            "delay": 0,
+            "displayDuration": 4000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "creative01_block3",
+            "text": "\"My own story?\" Kofi asked.",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "creative01_block4",
+            "text": "\"Yes. The greatest weavers and programmers use their skills not just to follow instructions, but to express their own ideas and solve their own problems,\" Grandfather explained.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "creative01_block5",
+            "text": "\"Think about what story you want to tell. What colors have meaning for you? What patterns represent your journey? How can you combine the coding concepts you've learned to create something uniquely yours?\"",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": false
+          },
+          {
+            "id": "creative01_block6",
+            "text": "\"Remember that in both weaving and coding, the technical skills are just tools. The true art lies in what you choose to create with those tools,\" Grandfather said with a smile.",
+            "delay": 0,
+            "displayDuration": 5000,
+            "waitForInteraction": true
+          },
+          {
+            "id": "creative01_block7",
+            "text": "\"Now, show me your story through pattern and code.\"",
+            "delay": 0,
+            "displayDuration": 3000,
+            "waitForInteraction": true
+          }
+        ],
+        "challenge": {
+          "id": "creativity_challenge_01",
+          "title": "Express Your Story",
+          "description": "Create a Kente pattern that tells your own unique story, using the concepts you've learned in a creative way.",
+          "successCriteria": {
+            "minBlockCount": 10,
+            "minConnections": 8,
+            "hasStoryContext": true
+          },
+          "difficulty": 4,
+          "availableBlockTypes": ["pattern", "color", "loop", "conditional", "function", "structure"],
+          "contentStartIndex": 4,
+          "contentEndIndex": 7
+        },
+        "branches": [],
+        "culturalNotes": {
+          "kenteStories": "Traditional Kente cloths often tell stories through their patterns and colors, expressing historical events, proverbs, or personal narratives.",
+          "regionalContext": "In Ghanaian culture, creative expression through textile arts is a way of preserving history, sharing wisdom, and defining both individual and community identity."
+        },
+        "learningConcepts": ["creativity", "expression", "storytelling", "patterns"]
+      }
+    ]
+  }

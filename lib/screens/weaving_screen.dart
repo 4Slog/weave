@@ -149,7 +149,7 @@ class _WeavingScreenState extends State<WeavingScreen> {
     }
     
     // Play background music
-    _audioService.playMusic(AudioType.learningTheme);
+    _audioService.playMusic('audio/learning_theme.mp3');
   }
   
   @override

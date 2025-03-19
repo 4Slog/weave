@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kente_codeweaver/models/badge_model.dart';
 import 'package:kente_codeweaver/models/user_progress.dart';
+import 'package:kente_codeweaver/models/skill_level.dart';
 import 'package:kente_codeweaver/services/adaptive_learning_service.dart';
 import 'package:kente_codeweaver/services/storage_service.dart';
 import 'dart:math';
@@ -37,14 +38,17 @@ extension BadgeAdaptiveLearningExtension on AdaptiveLearningService {
     Map<String, double> skillValues = {};
     progress.skills.forEach((key, value) {
       switch (value) {
+        case SkillLevel.novice:
+          skillValues[key.toString().split('.').last] = 0.1;
+          break;
         case SkillLevel.beginner:
-          skillValues[key.name] = 0.3;
+          skillValues[key.toString().split('.').last] = 0.3;
           break;
         case SkillLevel.intermediate:
-          skillValues[key.name] = 0.7;
+          skillValues[key.toString().split('.').last] = 0.7;
           break;
         case SkillLevel.advanced:
-          skillValues[key.name] = 1.0;
+          skillValues[key.toString().split('.').last] = 1.0;
           break;
       }
     });
@@ -192,11 +196,10 @@ class BadgeService {
   }
   
   /// Get badge details by ID
-  BadgeModel? getBadgeById(String badgeId) {
+  Future<BadgeModel?> getBadgeById(String badgeId) async {
     try {
-      return getAvailableBadges().then(
-        (badges) => badges.firstWhere((b) => b.id == badgeId)
-      );
+      final badges = await getAvailableBadges();
+      return badges.firstWhere((b) => b.id == badgeId);
     } catch (e) {
       return null;
     }

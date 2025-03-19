@@ -70,8 +70,26 @@ class AudioService {
         return 'audio/success.mp3';
       case AudioType.failure:
         return 'audio/failure.mp3';
-      case AudioType.button:
+      case AudioType.buttonTap:
         return 'audio/button_tap.mp3';
+      case AudioType.navigationTap:
+        return 'audio/navigation_tap.mp3';
+      case AudioType.confirmationTap:
+        return 'audio/confirmation_tap.mp3';
+      case AudioType.cancelTap:
+        return 'audio/cancel_tap.mp3';
+      case AudioType.hint:
+        return 'audio/button_tap.mp3'; // Using button tap sound for hints
+      case AudioType.celebration:
+        return 'audio/achievement.mp3'; // Using achievement sound for celebration
+      case AudioType.culturalIntro:
+        return 'audio/navigation_tap.mp3'; // Using navigation sound for cultural intro
+      case AudioType.mainTheme:
+        return 'audio/main_theme.mp3';
+      case AudioType.learningTheme:
+        return 'audio/learning_theme.mp3';
+      case AudioType.challengeTheme:
+        return 'audio/challenge_theme.mp3';
       default:
         return 'audio/button_tap.mp3';
     }

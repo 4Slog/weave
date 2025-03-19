@@ -270,6 +270,37 @@ class BlockModel {
     );
   }
   
+  /// Create a copy of this block with optional changes
+  BlockModel copyWith({
+    String? id,
+    String? name,
+    BlockType? type,
+    String? subtype,
+    Offset? position,
+    Size? size,
+    List<BlockConnection>? connections,
+    Map<String, dynamic>? properties,
+    Map<String, dynamic>? metadata,
+    PatternDifficulty? difficulty,
+    String? iconPath,
+    String? colorHex,
+  }) {
+    return BlockModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      subtype: subtype ?? this.subtype,
+      position: position ?? this.position,
+      size: size ?? this.size,
+      connections: connections ?? this.connections.map((conn) => conn.copyWith()).toList(),
+      properties: properties ?? Map.from(this.properties),
+      metadata: metadata ?? Map.from(this.metadata),
+      difficulty: difficulty ?? this.difficulty,
+      iconPath: iconPath ?? this.iconPath,
+      colorHex: colorHex ?? this.colorHex,
+    );
+  }
+  
   /// Create a copy with a new ID
   BlockModel copyWithNewId() {
     return BlockModel(

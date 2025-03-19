@@ -228,7 +228,7 @@ class StoryMentorService {
         // Check for missing required block type
         if (hint['condition'] == 'missingBlockType' && 
             hint.containsKey('blockType') && 
-            !blockCollection.containsBlockType(hint['blockType']) && 
+            !blockCollection.containsBlockTypeName(hint['blockType']) && 
             _currentChallengeContext.containsKey('validation') &&
             _currentChallengeContext['validation'].containsKey('requiredBlockTypes') &&
             List<String>.from(_currentChallengeContext['validation']['requiredBlockTypes'])
@@ -366,7 +366,17 @@ class StoryMentorService {
       String hintText = '';
       try {
         if (response != null) {
-          hintText = response.text ?? '';
+          // Simplest approach: convert to string and extract text
+          final responseStr = response.toString();
+          hintText = responseStr;
+          
+          // Try to clean up the response if possible
+          if (responseStr.contains('text:')) {
+            final textMatch = RegExp(r'text: ([^,}]+)').firstMatch(responseStr);
+            if (textMatch != null && textMatch.group(1) != null) {
+              hintText = textMatch.group(1)!.trim();
+            }
+          }
         }
       } catch (e) {
         debugPrint('Error extracting text from Gemini response: $e');
@@ -439,7 +449,17 @@ class StoryMentorService {
       String enhancedHint = '';
       try {
         if (response != null) {
-          enhancedHint = response.text ?? '';
+          // Simplest approach: convert to string and extract text
+          final responseStr = response.toString();
+          enhancedHint = responseStr;
+          
+          // Try to clean up the response if possible
+          if (responseStr.contains('text:')) {
+            final textMatch = RegExp(r'text: ([^,}]+)').firstMatch(responseStr);
+            if (textMatch != null && textMatch.group(1) != null) {
+              enhancedHint = textMatch.group(1)!.trim();
+            }
+          }
         }
       } catch (e) {
         debugPrint('Error extracting text from Gemini response: $e');
@@ -543,7 +563,17 @@ class StoryMentorService {
       String hintText = '';
       try {
         if (response != null) {
-          hintText = response.text ?? '';
+          // Simplest approach: convert to string and extract text
+          final responseStr = response.toString();
+          hintText = responseStr;
+          
+          // Try to clean up the response if possible
+          if (responseStr.contains('text:')) {
+            final textMatch = RegExp(r'text: ([^,}]+)').firstMatch(responseStr);
+            if (textMatch != null && textMatch.group(1) != null) {
+              hintText = textMatch.group(1)!.trim();
+            }
+          }
         }
       } catch (e) {
         debugPrint('Error extracting text from Gemini response: $e');
@@ -635,7 +665,17 @@ class StoryMentorService {
       String analysisText = '';
       try {
         if (response != null) {
-          analysisText = response.text ?? '';
+          // Simplest approach: convert to string and extract text
+          final responseStr = response.toString();
+          analysisText = responseStr;
+          
+          // Try to clean up the response if possible
+          if (responseStr.contains('text:')) {
+            final textMatch = RegExp(r'text: ([^,}]+)').firstMatch(responseStr);
+            if (textMatch != null && textMatch.group(1) != null) {
+              analysisText = textMatch.group(1)!.trim();
+            }
+          }
         }
       } catch (e) {
         debugPrint('Error extracting text from Gemini response: $e');
@@ -718,7 +758,7 @@ class StoryMentorService {
       
       // Make sure all required types are present
       for (var type in requiredTypes) {
-        if (!pattern.containsBlockType(type)) {
+        if (!pattern.containsBlockTypeName(type)) {
           return false; // Missing a required block type
         }
       }
@@ -907,13 +947,21 @@ class StoryMentorService {
       if (achievement.containsKey('requiredBlockTypes')) {
         final types = achievement['requiredBlockTypes'] as List;
         earned = types.every((type) {
-          // For now, just check if the pattern contains any block of this type
-          // This is a simplification - in a real implementation, we would need to
-          // properly convert the type string to a BlockType enum
-          return pattern.blocks.any((block) => 
-            block.type.toString().toLowerCase().contains(type.toString().toLowerCase()) ||
-            block.subtype.toLowerCase().contains(type.toString().toLowerCase())
-          );
+          // Check if the pattern contains any block of this type
+          // We need to handle both string types and BlockType enum values
+          final typeStr = type.toString().toLowerCase();
+          
+          // Check if any block in the pattern matches this type
+          return pattern.blocks.any((block) {
+            // Check the block's type (as string) against the required type
+            final blockTypeStr = block.type.toString().toLowerCase();
+            
+            // Also check the block's subtype if available
+            final blockSubtypeStr = block.subtype.toLowerCase();
+            
+            // Return true if either the type or subtype matches
+            return blockTypeStr.contains(typeStr) || blockSubtypeStr.contains(typeStr);
+          });
         });
       }
       

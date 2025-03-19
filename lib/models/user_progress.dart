@@ -4,6 +4,79 @@ import 'package:kente_codeweaver/models/badge_model.dart';
 import 'package:kente_codeweaver/models/skill_level.dart';
 import 'package:kente_codeweaver/models/skill_type.dart';
 
+/// Enum representing different learning styles
+enum LearningStyle {
+  /// Visual learners prefer image-based and spatial content
+  visual,
+  
+  /// Logical learners prefer structured, analytical content
+  logical,
+  
+  /// Practical learners prefer hands-on examples and applications
+  practical,
+  
+  /// Verbal learners prefer text and explanation-based content
+  verbal,
+  
+  /// Social learners prefer collaborative challenges and sharing
+  social,
+  
+  /// Reflective learners prefer taking time to think and analyze
+  reflective,
+}
+
+/// Extension methods for learning style
+extension LearningStyleExtension on LearningStyle {
+  /// Get a human-readable name for the learning style
+  String get displayName {
+    switch (this) {
+      case LearningStyle.visual:
+        return 'Visual';
+      case LearningStyle.logical:
+        return 'Logical';
+      case LearningStyle.practical:
+        return 'Practical';
+      case LearningStyle.verbal:
+        return 'Verbal';
+      case LearningStyle.social:
+        return 'Social';
+      case LearningStyle.reflective:
+        return 'Reflective';
+    }
+  }
+  
+  /// Get a description of the learning style
+  String get description {
+    switch (this) {
+      case LearningStyle.visual:
+        return 'You learn best through images, diagrams, and spatial arrangements';
+      case LearningStyle.logical:
+        return 'You learn best through logic, reasoning, and systems';
+      case LearningStyle.practical:
+        return 'You learn best through hands-on practice and real-world applications';
+      case LearningStyle.verbal:
+        return 'You learn best through words, both written and spoken';
+      case LearningStyle.social:
+        return 'You learn best through interaction with others and collaborative work';
+      case LearningStyle.reflective:
+        return 'You learn best through thinking, analyzing, and reflecting';
+    }
+  }
+  
+  /// Get the string representation of the learning style
+  String toStringValue() {
+    return toString().split('.').last;
+  }
+  
+  /// Create a learning style from a string
+  static LearningStyle fromString(String value) {
+    return LearningStyle.values.firstWhere(
+      (style) => style.toString().split('.').last == value,
+      orElse: () => LearningStyle.visual,
+    );
+  }
+}
+
 /// Represents a user's progress in the Kente Codeweaver application
 class UserProgress {
   /// Unique identifier for the user
@@ -36,6 +109,9 @@ class UserProgress {
   /// Map of skill types to skill levels
   final Map<SkillType, SkillLevel> skills;
   
+  /// Map of concept IDs to proficiency values (0.0 to 1.0)
+  final Map<String, double> skillProficiency;
+  
   /// List of concepts that have been mastered
   final List<String> conceptsMastered;
   
@@ -48,8 +124,11 @@ class UserProgress {
   /// List of completed challenge IDs
   final List<String> completedChallenges;
   
-  /// User's preferred learning style (visual, logical, practical)
-  final String preferredLearningStyle;
+  /// User's preferred learning style
+  final LearningStyle preferredLearningStyle;
+  
+  /// Learning style confidence scores (0.0 to 1.0)
+  final Map<LearningStyle, double> learningStyleConfidence;
   
   /// User's experience points
   final int experiencePoints;
@@ -66,6 +145,12 @@ class UserProgress {
   /// User preferences
   final Map<String, dynamic> preferences;
   
+  /// Engagement metrics
+  final Map<String, dynamic> engagementMetrics;
+  
+  /// Session history
+  final List<Map<String, dynamic>> sessionHistory;
+  
   /// Create a user progress object
   UserProgress({
     required this.userId,
@@ -78,16 +163,20 @@ class UserProgress {
     this.learningMetrics = const {},
     this.narrativeContext = const {},
     this.skills = const {},
+    this.skillProficiency = const {},
     this.conceptsMastered = const [],
     this.conceptsInProgress = const [],
     this.challengeAttempts = const {},
     this.completedChallenges = const [],
-    this.preferredLearningStyle = 'visual',
+    this.preferredLearningStyle = LearningStyle.visual,
+    this.learningStyleConfidence = const {},
     this.experiencePoints = 0,
     this.level = 1,
     this.streak = 0,
     DateTime? lastActiveDate,
     this.preferences = const {},
+    this.engagementMetrics = const {},
+    this.sessionHistory = const [],
   }) : this.lastActiveDate = lastActiveDate ?? DateTime.now();
   
   /// Create a copy with updated fields
@@ -102,16 +191,20 @@ class UserProgress {
     Map<String, dynamic>? learningMetrics,
     Map<String, dynamic>? narrativeContext,
     Map<SkillType, SkillLevel>? skills,
+    Map<String, double>? skillProficiency,
     List<String>? conceptsMastered,
     List<String>? conceptsInProgress,
     Map<String, int>? challengeAttempts,
     List<String>? completedChallenges,
-    String? preferredLearningStyle,
+    LearningStyle? preferredLearningStyle,
+    Map<LearningStyle, double>? learningStyleConfidence,
     int? experiencePoints,
     int? level,
     int? streak,
     DateTime? lastActiveDate,
     Map<String, dynamic>? preferences,
+    Map<String, dynamic>? engagementMetrics,
+    List<Map<String, dynamic>>? sessionHistory,
   }) {
     return UserProgress(
       userId: userId ?? this.userId,
@@ -124,16 +217,20 @@ class UserProgress {
       learningMetrics: learningMetrics ?? this.learningMetrics,
       narrativeContext: narrativeContext ?? this.narrativeContext,
       skills: skills ?? this.skills,
+      skillProficiency: skillProficiency ?? this.skillProficiency,
       conceptsMastered: conceptsMastered ?? this.conceptsMastered,
       conceptsInProgress: conceptsInProgress ?? this.conceptsInProgress,
       challengeAttempts: challengeAttempts ?? this.challengeAttempts,
       completedChallenges: completedChallenges ?? this.completedChallenges,
       preferredLearningStyle: preferredLearningStyle ?? this.preferredLearningStyle,
+      learningStyleConfidence: learningStyleConfidence ?? this.learningStyleConfidence,
       experiencePoints: experiencePoints ?? this.experiencePoints,
       level: level ?? this.level,
       streak: streak ?? this.streak,
       lastActiveDate: lastActiveDate ?? this.lastActiveDate,
       preferences: preferences ?? this.preferences,
+      engagementMetrics: engagementMetrics ?? this.engagementMetrics,
+      sessionHistory: sessionHistory ?? this.sessionHistory,
     );
   }
   
@@ -184,6 +281,35 @@ class UserProgress {
       });
     }
     
+    // Parse skill proficiency
+    final Map<String, double> proficiencyMap = {};
+    if (json['skillProficiency'] != null) {
+      final proficiencyJson = json['skillProficiency'] as Map<String, dynamic>;
+      proficiencyJson.forEach((conceptId, proficiency) {
+        proficiencyMap[conceptId] = proficiency is double 
+            ? proficiency 
+            : double.tryParse(proficiency.toString()) ?? 0.0;
+      });
+    }
+    
+    // Parse learning style confidence
+    final Map<LearningStyle, double> styleConfidence = {};
+    if (json['learningStyleConfidence'] != null) {
+      final confidenceJson = json['learningStyleConfidence'] as Map<String, dynamic>;
+      confidenceJson.forEach((styleStr, confidence) {
+        try {
+          final style = LearningStyle.values.firstWhere(
+            (s) => s.toString().split('.').last == styleStr,
+          );
+          styleConfidence[style] = confidence is double 
+              ? confidence 
+              : double.tryParse(confidence.toString()) ?? 0.0;
+        } catch (e) {
+          // Skip invalid entries
+        }
+      });
+    }
+    
     // Parse challenge attempts
     final Map<String, int> attempts = {};
     if (json['challengeAttempts'] != null) {
@@ -200,6 +326,22 @@ class UserProgress {
         lastActive = DateTime.parse(json['lastActiveDate']);
       } catch (e) {
         lastActive = DateTime.now();
+      }
+    }
+    
+    // Parse session history
+    final List<Map<String, dynamic>> sessions = [];
+    if (json['sessionHistory'] != null) {
+      for (final sessionJson in (json['sessionHistory'] as List<dynamic>)) {
+        sessions.add(Map<String, dynamic>.from(sessionJson));
+      }
+    }
+    
+    // Parse preferred learning style
+    LearningStyle preferredStyle = LearningStyle.visual;
+    if (json['preferredLearningStyle'] != null) {
+      if (json['preferredLearningStyle'] is String) {
+        preferredStyle = LearningStyleExtension.fromString(json['preferredLearningStyle']);
       }
     }
     
@@ -222,6 +364,7 @@ class UserProgress {
           ? Map<String, dynamic>.from(json['narrativeContext']) 
           : {},
       skills: skillMap,
+      skillProficiency: proficiencyMap,
       conceptsMastered: json['conceptsMastered'] != null 
           ? List<String>.from(json['conceptsMastered']) 
           : [],
@@ -232,7 +375,8 @@ class UserProgress {
       completedChallenges: json['completedChallenges'] != null 
           ? List<String>.from(json['completedChallenges']) 
           : [],
-      preferredLearningStyle: json['preferredLearningStyle'] ?? 'visual',
+      preferredLearningStyle: preferredStyle,
+      learningStyleConfidence: styleConfidence,
       experiencePoints: json['experiencePoints'] is int 
           ? json['experiencePoints'] 
           : int.tryParse(json['experiencePoints']?.toString() ?? '0') ?? 0,
@@ -246,6 +390,10 @@ class UserProgress {
       preferences: json['preferences'] != null 
           ? Map<String, dynamic>.from(json['preferences']) 
           : {},
+      engagementMetrics: json['engagementMetrics'] != null 
+          ? Map<String, dynamic>.from(json['engagementMetrics']) 
+          : {},
+      sessionHistory: sessions,
     );
   }
   
@@ -256,6 +404,12 @@ class UserProgress {
     skills.forEach((skillType, skillLevel) {
       skillsJson[skillType.toString().split('.').last] = 
           skillLevel.toString().split('.').last;
+    });
+    
+    // Convert learning style confidence to JSON-friendly format
+    final Map<String, double> confidenceJson = {};
+    learningStyleConfidence.forEach((style, confidence) {
+      confidenceJson[style.toString().split('.').last] = confidence;
     });
     
     return {
@@ -269,16 +423,20 @@ class UserProgress {
       'learningMetrics': learningMetrics,
       'narrativeContext': narrativeContext,
       'skills': skillsJson,
+      'skillProficiency': skillProficiency,
       'conceptsMastered': conceptsMastered,
       'conceptsInProgress': conceptsInProgress,
       'challengeAttempts': challengeAttempts,
       'completedChallenges': completedChallenges,
-      'preferredLearningStyle': preferredLearningStyle,
+      'preferredLearningStyle': preferredLearningStyle.toStringValue(),
+      'learningStyleConfidence': confidenceJson,
       'experiencePoints': experiencePoints,
       'level': level,
       'streak': streak,
       'lastActiveDate': lastActiveDate.toIso8601String(),
       'preferences': preferences,
+      'engagementMetrics': engagementMetrics,
+      'sessionHistory': sessionHistory,
     };
   }
   
@@ -483,28 +641,6 @@ class UserProgress {
     );
   }
   
-  /// Get the skill level for a specific skill type
-  SkillLevel getSkillLevel(SkillType skillType) {
-    return skills[skillType] ?? SkillLevel.novice;
-  }
-  
-  /// Add experience points to user progress
-  UserProgress addExperience(int amount) {
-    final newXp = experiencePoints + amount;
-    int newLevel = level;
-    
-    // Check if level up (simple formula: each level requires level*100 XP)
-    while (newXp >= newLevel * 100) {
-      newLevel++;
-    }
-    
-    return copyWith(
-      experiencePoints: newXp,
-      level: newLevel,
-      lastActiveDate: DateTime.now(),
-    );
-  }
-  
   /// Check if a story is completed
   bool isStoryCompleted(String storyId) {
     return completedStories.contains(storyId);
@@ -580,8 +716,36 @@ class UserProgress {
       'earnedBadges': earnedBadgesCount,
       'masteredConcepts': masteredConceptsCount,
       'completedChallenges': completedChallengesCount,
-      'preferredLearningStyle': preferredLearningStyle,
+      'preferredLearningStyle': preferredLearningStyle.toStringValue(),
       'lastActiveDate': lastActiveDate.toIso8601String(),
+      'engagementScore': calculateEngagementScore(),
     };
+  }
+  
+  /// Calculate an engagement score based on user activity (0.0 to 1.0)
+  double calculateEngagementScore() {
+    // Factors that contribute to engagement:
+    // 1. Streak (consecutive days of activity)
+    // 2. Completed challenges
+    // 3. Mastered concepts
+    // 4. Session frequency (from session history)
+    
+    double streakScore = (streak / 7).clamp(0.0, 1.0); // Max score at 7-day streak
+    double challengeScore = (completedChallengesCount / 10).clamp(0.0, 1.0); // Max score at 10 challenges
+    double conceptScore = (masteredConceptsCount / 5).clamp(0.0, 1.0); // Max score at 5 mastered concepts
+    
+    // Session frequency score (based on session history)
+    double sessionScore = 0.0;
+    if (sessionHistory.isNotEmpty) {
+      // More recent sessions get higher weight
+      int totalSessions = sessionHistory.length;
+      sessionScore = (totalSessions / 10).clamp(0.0, 1.0); // Max score at 10 sessions
+    }
+    
+    // Weighted average of all factors
+    return (streakScore * 0.3) + 
+           (challengeScore * 0.3) + 
+           (conceptScore * 0.2) + 
+           (sessionScore * 0.2);
   }
 }
