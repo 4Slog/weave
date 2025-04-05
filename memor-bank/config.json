@@ -1,0 +1,23 @@
+{
+  "appName": "weave",
+  "trackMetrics": true,
+  "retentionPeriod": 30,
+  "notifyOnFailure": true,
+  "compareWithPreviousBuild": true,
+  "buildTypes": [
+    "debug",
+    "profile",
+    "release"
+  ],
+  "metrics": {
+    "buildTime": true,
+    "appSize": true,
+    "memoryUsage": true,
+    "startupTime": false
+  },
+  "notifications": {
+    "email": false,
+    "slack": false,
+    "desktop": true
+  }
+}

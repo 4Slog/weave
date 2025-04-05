@@ -6,10 +6,70 @@
   <component name="ChangeListManager">
     <list default="true" id="567e612d-0b43-4aed-a997-350cb2aa5131" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weave.iml" beforeDir="false" afterPath="$PROJECT_DIR$/weave.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/badge_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/block_collection.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/block_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/block_type.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/connection_types.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/content_block_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/emotional_tone.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/pattern_difficulty.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/pattern_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/proficiency_level.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/skill_level.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/skill_type.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/story_branch_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/story_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/tts_settings.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/user_progress.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/user_progress_extensions.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/navigation/app_router.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/painters/connections_painter.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/painters/pattern_painter.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/badge_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/block_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/learning_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/pattern_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/settings_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/story_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/block_workspace.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/block_workspace_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/settings_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/story_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weaving_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/welcome_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/adaptive_learning_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/audio_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/badge_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/block_definition_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/challenge_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/cultural_data_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/engagement_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/gemini_story_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/learning_analysis_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/storage_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/story_memory_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/story_mentor_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/tts_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/theme/app_theme.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/badge_display_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/block_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/breadcrumb_navigation.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/contextual_hint_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/cultural_context_card.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/narrative_choice_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/pattern_creation_workspace.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/story_card.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

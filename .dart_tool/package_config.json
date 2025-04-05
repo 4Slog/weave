@@ -266,6 +266,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "get_it",
+      "rootUri": "file:///C:/Users/sowup/AppData/Local/Pub/Cache/hosted/pub.dev/get_it-7.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "glob",
       "rootUri": "file:///C:/Users/sowup/AppData/Local/Pub/Cache/hosted/pub.dev/glob-2.1.3",
       "packageUri": "lib/",
@@ -686,7 +692,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2025-03-18T09:01:25.725273Z",
+  "generated": "2025-04-03T19:17:17.582246Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/Users/sowup/dev/flutter",

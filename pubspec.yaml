@@ -23,6 +23,7 @@ dependencies:
   uuid: ^4.5.1
   audioplayers: ^6.0.0
   http: ^1.2.0  # Added for service HTTP requests
+  get_it: ^7.6.7  # Added for dependency injection
 
 dev_dependencies:
   flutter_test:
