@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_model.dart';
-import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
 import 'package:kente_codeweaver/features/storytelling/models/emotional_tone.dart';
+import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
 import 'package:uuid/uuid.dart';
 
 /// Represents a challenge associated with a story
@@ -156,7 +155,7 @@ class StoryModel {
   final String ageGroup;
 
   /// Content blocks that make up the narrative
-  final List<ContentBlock> content;
+  final List<ContentBlockModel> content;
 
   /// Challenge associated with this story
   final StoryChallenge? challenge;
@@ -204,10 +203,10 @@ class StoryModel {
   /// Create a StoryModel from JSON data
   factory StoryModel.fromJson(Map<String, dynamic> json) {
     // Parse content blocks
-    List<ContentBlock> contentBlocks = [];
+    List<ContentBlockModel> contentBlocks = [];
     if (json['content'] != null) {
       contentBlocks = (json['content'] as List)
-          .map((blockJson) => ContentBlock(
+          .map((blockJson) => ContentBlockModel(
                 id: blockJson['id'] ?? const Uuid().v4(),
                 text: blockJson['text'] ?? '',
                 delay: blockJson['delay'] ?? 0,
@@ -320,7 +319,7 @@ class StoryModel {
     String? region,
     String? characterName,
     String? ageGroup,
-    List<ContentBlock>? content,
+    List<ContentBlockModel>? content,
     StoryChallenge? challenge,
     List<StoryBranch>? branches,
     Map<String, String>? culturalNotes,

@@ -1,17 +1,21 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_gemini/flutter_gemini.dart' as gemini;
-import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
+import 'package:kente_codeweaver/core/services/gemini_service.dart';
 import 'package:kente_codeweaver/features/storytelling/models/emotional_tone.dart';
 import 'package:kente_codeweaver/features/storytelling/models/story_branch_model.dart';
 import 'package:kente_codeweaver/features/storytelling/models/story_model.dart';
+import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
 import 'package:kente_codeweaver/features/learning/models/skill_level.dart';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
 import 'package:kente_codeweaver/core/services/storage_service.dart';
 import 'package:kente_codeweaver/features/cultural/services/cultural_data_service.dart';
 import 'package:kente_codeweaver/features/storytelling/models/tts_settings.dart';
+import 'package:kente_codeweaver/features/storytelling/services/ai/prompt_template_manager.dart';
+import 'package:kente_codeweaver/features/storytelling/services/ai/content_validator.dart';
+import 'package:kente_codeweaver/features/storytelling/services/ai/story_cache_service.dart';
 
 /// Helper class for extracting JSON from text and other utility functions
 class GeminiStoryServiceHelper {
@@ -54,6 +58,40 @@ class GeminiStoryServiceHelper {
       return 5; // Expert
     }
   }
+
+  /// Get difficulty level (1-5) from skill level
+  static int getDifficultyFromSkillLevel(SkillLevel skillLevel) {
+    switch (skillLevel) {
+      case SkillLevel.beginner:
+        return 1;
+      case SkillLevel.intermediate:
+        return 3;
+      case SkillLevel.advanced:
+        return 5;
+      default:
+        return 1;
+    }
+  }
+
+  /// Validate a story response
+  static bool validateStoryResponse(String responseText, List<String> requiredFields) {
+    try {
+      final jsonStr = extractJsonFromText(responseText);
+      final data = jsonDecode(jsonStr) as Map<String, dynamic>;
+
+      // Check for required fields
+      for (final field in requiredFields) {
+        if (!data.containsKey(field) || data[field] == null || data[field].toString().isEmpty) {
+          return false;
+        }
+      }
+
+      return true;
+    } catch (e) {
+      debugPrint('Error validating story response: $e');
+      return false;
+    }
+  }
 }
 
 /// Service for AI-driven storytelling
@@ -66,9 +104,11 @@ class GeminiStoryServiceHelper {
 /// - Better error handling for offline scenarios
 /// - Caching mechanisms for generated content
 /// - Removal of age-based references in story generation
+/// - Content validation for quality control
+/// - FIFO caching for efficient memory usage
 class GeminiStoryService {
-  /// Gemini instance for API interactions
-  late final gemini.Gemini _gemini;
+  /// Gemini service for API interactions
+  final GeminiService _geminiService = GeminiService();
 
   /// Storage service for caching stories
   final StorageService _storageService;
@@ -76,57 +116,44 @@ class GeminiStoryService {
   /// Cultural data service for integrating cultural context
   final EnhancedCulturalDataService _culturalDataService;
 
+  /// Cache service for AI-generated stories
+  final StoryCacheService _cacheService;
+
   /// Random number generator for variety in stories
   final Random _random = Random();
 
-  /// Flag indicating if the device is online (determined by API response)
-  bool _isOnline = true;
-
   /// Flag indicating if the service is initialized
   bool _isInitialized = false;
-
-  /// Cache for generated stories to reduce API calls
-  final Map<String, StoryModel> _storyCache = {};
-
-  /// Cache for generated story branches to reduce API calls
-  final Map<String, List<StoryBranchModel>> _branchCache = {};
 
   /// Create a new GeminiStoryService with optional dependencies
   GeminiStoryService({
     StorageService? storageService,
     EnhancedCulturalDataService? culturalDataService,
+    StoryCacheService? cacheService,
   }) :
     _storageService = storageService ?? StorageService(),
-    _culturalDataService = culturalDataService ?? EnhancedCulturalDataService();
+    _culturalDataService = culturalDataService ?? EnhancedCulturalDataService(),
+    _cacheService = cacheService ?? StoryCacheService();
 
-  /// Initializes the Gemini service with the API key from environment variables.
+  /// Initializes the service and its dependencies
   ///
-  /// Throws an exception if the API key is not found or initialization fails.
+  /// Uses the shared GeminiService for Gemini API access
   Future<void> initialize() async {
     if (_isInitialized) return;
 
     try {
-      // Get API key from environment variables
-      final String? apiKey = dotenv.env['GEMINI_API_KEY'];
-      if (apiKey == null || apiKey.isEmpty) {
-        throw Exception('GEMINI_API_KEY not found');
-      }
-
-      // Initialize Gemini with the API key
-      gemini.Gemini.init(apiKey: apiKey);
-      _gemini = gemini.Gemini.instance;
+      // Initialize the Gemini service
+      await _geminiService.initialize();
 
       // Initialize cultural data service
       await _culturalDataService.initialize();
-
-      // Check connectivity by making a simple API call
-      await checkConnectivity();
 
       _isInitialized = true;
       debugPrint('GeminiStoryService initialized successfully');
     } catch (e) {
       debugPrint('Failed to initialize GeminiStoryService: $e');
-      throw Exception('Failed to initialize GeminiStoryService: $e');
+      // Set to initialized anyway to prevent repeated initialization attempts
+      _isInitialized = true;
     }
   }
 
@@ -137,19 +164,16 @@ class GeminiStoryService {
     }
   }
 
-  /// Check connectivity by making a simple API call
+  /// Check connectivity by using the GeminiService
   Future<bool> checkConnectivity() async {
-    try {
-      // Try a simple API call to check connectivity
-      final response = await _gemini.prompt(parts: [gemini.Part.text("Hello")]);
+    return _geminiService.isOnline;
+  }
 
-      _isOnline = response != null;
-      return _isOnline;
-    } catch (e) {
-      debugPrint('Error checking connectivity: $e');
-      _isOnline = false;
-      return false;
-    }
+  /// Set offline mode (for testing)
+  /// This is a no-op now as we use the shared GeminiService
+  void setOfflineMode(bool offline) {
+    // No longer directly controls online state
+    // Would need to modify GeminiService if this functionality is needed
   }
 
   /// Generate a story based on user progress and learning concepts
@@ -173,12 +197,15 @@ class GeminiStoryService {
     final cacheKey = 'story_${userProgress.userId}_${learningConcepts.join('_')}_${emotionalTone.name}';
 
     // Check if story is cached
-    if (_storyCache.containsKey(cacheKey)) {
-      return _storyCache[cacheKey]!;
+    final cachedStory = await _cacheService.getCachedStory(cacheKey);
+    if (cachedStory != null) {
+      debugPrint('Using cached story for key: $cacheKey');
+      return cachedStory;
     }
 
     // If offline, return a default story
-    if (!_isOnline) {
+    if (!_geminiService.isOnline) {
+      debugPrint('Device is offline, using default story');
       return _getDefaultStory(
         learningConcepts: learningConcepts,
         emotionalTone: emotionalTone,
@@ -193,36 +220,56 @@ class GeminiStoryService {
     // Get skill level from user progress
     final skillLevel = GeminiStoryServiceHelper.getDifficultyFromUserProgress(userProgress);
 
-    // Create a prompt for generating the story
-    final prompt = _createStoryPrompt(
+    // Get previous stories for continuity
+    final previousStories = await _getPreviousStories(userProgress.userId);
+
+    // Create a prompt for generating the story using the template manager
+    final prompt = PromptTemplateManager.createStoryPrompt(
       learningConcepts: learningConcepts,
       skillLevel: skillLevel,
       culturalContext: culturalInfo['description'] ?? '',
       emotionalTone: emotionalTone,
-      previousStories: await _getPreviousStories(userProgress.userId),
+      previousStories: previousStories,
     );
 
     try {
       // Generate the story using Gemini
-      final response = await _gemini.prompt(parts: [gemini.Part.text(prompt)]);
+      debugPrint('Generating story with Gemini AI...');
+      final response = await _geminiService.instance.prompt(parts: [gemini.Part.text(prompt)]);
 
       // Get the response text
       final responseText = response?.toString() ?? '';
 
       // If the response is empty, return a default story
       if (responseText.isEmpty) {
+        debugPrint('Empty response from Gemini, using default story');
         return _getDefaultStory(
           learningConcepts: learningConcepts,
           emotionalTone: emotionalTone,
         );
       }
 
-      // Try to extract JSON from the response
-      try {
-        final jsonStr = GeminiStoryServiceHelper.extractJsonFromText(responseText);
-        final storyData = jsonDecode(jsonStr) as Map<String, dynamic>;
+      // Validate the response
+      final validationResult = ContentValidator.validateStoryResponse(
+        responseText: responseText,
+        requiredFields: ['title', 'content'],
+        learningConcepts: learningConcepts,
+      );
 
-        // Create a StoryModel from the response
+      if (validationResult.isValid && validationResult.extractedJson != null) {
+        // Create a StoryModel from the validated response
+        final storyData = validationResult.extractedJson as Map<String, dynamic>;
+
+        // Extract cultural notes if available
+        Map<String, String> culturalNotes = {'context': culturalInfo['description'] ?? ''};
+        if (storyData['culturalNotes'] != null && storyData['culturalNotes'] is Map) {
+          final notes = storyData['culturalNotes'] as Map;
+          notes.forEach((key, value) {
+            culturalNotes[key.toString()] = value.toString();
+          });
+        }
+
+        // Create the story model
         final story = StoryModel(
           id: 'story_${DateTime.now().millisecondsSinceEpoch}',
           title: storyData['title'] ?? 'Untitled Story',
@@ -233,20 +280,21 @@ class GeminiStoryService {
           content: _createContentBlocksFromText(storyData['content'] ?? responseText),
           learningConcepts: learningConcepts,
           emotionalTone: emotionalTone,
-          culturalNotes: {'context': culturalInfo['description'] ?? ''},
+          culturalNotes: culturalNotes,
         );
 
         // Cache the story
-        _storyCache[cacheKey] = story;
+        await _cacheService.cacheStory(cacheKey, story);
 
         // Save the story to storage for continuity
         await _saveStory(userProgress.userId, story);
 
+        debugPrint('Successfully generated and cached story: ${story.title}');
         return story;
-      } catch (e) {
-        debugPrint('Error parsing story JSON: $e');
+      } else {
+        // If validation failed, log the errors and create a simple story from the text
+        debugPrint('Validation failed: ${validationResult.errors.join(', ')}');
 
-        // If we can't parse the JSON, create a simple story from the text
         final story = StoryModel(
           id: 'story_${DateTime.now().millisecondsSinceEpoch}',
           title: 'A Kente Weaving Adventure',
@@ -261,7 +309,7 @@ class GeminiStoryService {
         );
 
         // Cache the story
-        _storyCache[cacheKey] = story;
+        await _cacheService.cacheStory(cacheKey, story);
 
         // Save the story to storage for continuity
         await _saveStory(userProgress.userId, story);
@@ -293,21 +341,155 @@ class GeminiStoryService {
     List<String>? conceptsToTeach,
     UserProgress? userProgress,
   }) async {
+    await _ensureInitialized();
+
     // Convert skill level to learning concepts
     final List<String> learningConcepts = conceptsToTeach ?? _getLearningConceptsForSkillLevel(skillLevel);
 
-    // For now, just use the regular story generation with the new parameters
-    return generateStory(
-      learningConcepts: learningConcepts,
-      emotionalTone: EmotionalTone.excited,
-      userProgress: userProgress ?? UserProgress(
-        userId: 'default_user',
-        name: 'Learner',
-        level: 1,
-        conceptsMastered: conceptsToTeach ?? [],
-        conceptsInProgress: [],
-      ),
+    // Create a default user progress if not provided
+    final UserProgress progress = userProgress ?? UserProgress(
+      userId: 'default_user',
+      name: 'Learner',
+      level: 1,
+      conceptsMastered: conceptsToTeach ?? [],
+      conceptsInProgress: [],
     );
+
+    // Create a cache key for the enhanced story
+    final cacheKey = 'enhanced_story_${theme}_${skillLevel.toString().split('.').last}_${characterName ?? 'default'}';
+
+    // Check if story is cached
+    final cachedStory = await _cacheService.getCachedStory(cacheKey);
+    if (cachedStory != null) {
+      debugPrint('Using cached enhanced story for key: $cacheKey');
+      return cachedStory;
+    }
+
+    // If offline, return a default story
+    if (!_geminiService.isOnline) {
+      debugPrint('Device is offline, using default enhanced story');
+      return _getDefaultStory(
+        learningConcepts: learningConcepts,
+        emotionalTone: EmotionalTone.excited,
+      );
+    }
+
+    // Get cultural context
+    final culturalInfo = await _culturalDataService.getRandomCulturalInfo();
+
+    // Get previous stories for continuity
+    final previousStories = await _getPreviousStories(progress.userId);
+
+    // Create a prompt for generating the enhanced story using the template manager
+    final prompt = PromptTemplateManager.createEnhancedStoryPrompt(
+      learningConcepts: learningConcepts,
+      skillLevel: GeminiStoryServiceHelper.getDifficultyFromSkillLevel(skillLevel),
+      culturalContext: culturalInfo['description'] ?? '',
+      emotionalTone: EmotionalTone.excited,
+      previousStories: previousStories,
+      characterName: characterName,
+      narrativeContext: narrativeContext,
+      theme: theme,
+    );
+
+    try {
+      // Generate the story using Gemini
+      debugPrint('Generating enhanced story with Gemini AI...');
+      final response = await _geminiService.instance.prompt(parts: [gemini.Part.text(prompt)]);
+
+      // Get the response text
+      final responseText = response?.toString() ?? '';
+
+      // If the response is empty, return a default story
+      if (responseText.isEmpty) {
+        debugPrint('Empty response from Gemini, using default enhanced story');
+        return _getDefaultStory(
+          learningConcepts: learningConcepts,
+          emotionalTone: EmotionalTone.excited,
+        );
+      }
+
+      // Validate the response
+      final validationResult = ContentValidator.validateStoryResponse(
+        responseText: responseText,
+        requiredFields: ['title', 'content', 'theme', 'characterName'],
+        learningConcepts: learningConcepts,
+      );
+
+      if (validationResult.isValid && validationResult.extractedJson != null) {
+        // Create a StoryModel from the validated response
+        final storyData = validationResult.extractedJson as Map<String, dynamic>;
+
+        // Extract cultural notes if available
+        Map<String, String> culturalNotes = {'context': culturalInfo['description'] ?? ''};
+        if (storyData['culturalNotes'] != null && storyData['culturalNotes'] is Map) {
+          final notes = storyData['culturalNotes'] as Map;
+          notes.forEach((key, value) {
+            culturalNotes[key.toString()] = value.toString();
+          });
+        }
+
+        // Create challenge if available
+        StoryChallenge? challenge;
+        if (storyData['challenge'] != null && storyData['challenge'] is Map<String, dynamic>) {
+          final challengeData = storyData['challenge'] as Map<String, dynamic>;
+          challenge = StoryChallenge(
+            id: 'challenge_${DateTime.now().millisecondsSinceEpoch}',
+            title: challengeData['title'] ?? 'Coding Challenge',
+            description: challengeData['description'] ?? 'Complete the pattern',
+            successCriteria: challengeData['successCriteria'] ?? {},
+            difficulty: challengeData['difficulty'] ?? GeminiStoryServiceHelper.getDifficultyFromSkillLevel(skillLevel),
+            availableBlockTypes: challengeData['availableBlockTypes'] != null
+                ? List<String>.from(challengeData['availableBlockTypes'])
+                : ['move', 'turn', 'repeat'],
+            contentStartIndex: 0,
+            contentEndIndex: 0,
+          );
+        }
+
+        // Create the story model
+        final story = StoryModel(
+          id: 'enhanced_story_${DateTime.now().millisecondsSinceEpoch}',
+          title: storyData['title'] ?? 'Untitled Story',
+          theme: storyData['theme'] ?? theme,
+          region: storyData['region'] ?? 'Ghana',
+          characterName: storyData['characterName'] ?? characterName ?? 'Kofi',
+          ageGroup: '7-15',
+          content: _createContentBlocksFromText(storyData['content'] ?? responseText),
+          learningConcepts: learningConcepts,
+          emotionalTone: EmotionalTone.excited,
+          culturalNotes: culturalNotes,
+          challenge: challenge,
+          difficultyLevel: GeminiStoryServiceHelper.getDifficultyFromSkillLevel(skillLevel),
+        );
+
+        // Cache the story
+        await _cacheService.cacheStory(cacheKey, story);
+
+        // Save the story to storage for continuity
+        await _saveStory(progress.userId, story);
+
+        debugPrint('Successfully generated and cached enhanced story: ${story.title}');
+        return story;
+      } else {
+        // If validation failed, log the errors and fall back to regular story generation
+        debugPrint('Enhanced story validation failed: ${validationResult.errors.join(', ')}');
+        return generateStory(
+          learningConcepts: learningConcepts,
+          emotionalTone: EmotionalTone.excited,
+          userProgress: progress,
+        );
+      }
+    } catch (e) {
+      debugPrint('Error generating enhanced story: $e');
+
+      // Fall back to regular story generation
+      return generateStory(
+        learningConcepts: learningConcepts,
+        emotionalTone: EmotionalTone.excited,
+        userProgress: progress,
+      );
+    }
   }
 
   /// Get learning concepts based on skill level
@@ -343,12 +525,15 @@ class GeminiStoryService {
     final cacheKey = 'branches_${parentStory.id}_$choiceCount';
 
     // Check if branches are cached
-    if (_branchCache.containsKey(cacheKey)) {
-      return _branchCache[cacheKey]!;
+    final cachedBranches = await _cacheService.getCachedBranches(cacheKey);
+    if (cachedBranches != null) {
+      debugPrint('Using cached branches for key: $cacheKey');
+      return cachedBranches;
     }
 
     // If offline, return default branches
-    if (!_isOnline) {
+    if (!_geminiService.isOnline) {
+      debugPrint('Device is offline, using default branches');
       return _getDefaultBranches(
         parentStory: parentStory,
         choiceCount: choiceCount,
@@ -358,8 +543,8 @@ class GeminiStoryService {
     // Get skill level from user progress
     final skillLevel = GeminiStoryServiceHelper.getDifficultyFromUserProgress(userProgress);
 
-    // Create a prompt for generating the branches
-    final prompt = _createBranchPrompt(
+    // Create a prompt for generating the branches using the template manager
+    final prompt = PromptTemplateManager.createBranchPrompt(
       parentStory: parentStory,
       skillLevel: skillLevel,
       choiceCount: choiceCount,
@@ -367,26 +552,38 @@ class GeminiStoryService {
 
     try {
       // Generate the branches using Gemini
-      final response = await _gemini.prompt(parts: [gemini.Part.text(prompt)]);
+      debugPrint('Generating story branches with Gemini AI...');
+      final response = await _geminiService.instance.prompt(parts: [gemini.Part.text(prompt)]);
 
       // Get the response text
       final responseText = response?.toString() ?? '';
 
       // If the response is empty, return default branches
       if (responseText.isEmpty) {
+        debugPrint('Empty response from Gemini, using default branches');
         return _getDefaultBranches(
           parentStory: parentStory,
           choiceCount: choiceCount,
         );
       }
 
-      // Try to extract JSON from the response
-      try {
-        final jsonStr = GeminiStoryServiceHelper.extractJsonFromText(responseText);
-        final branchesData = jsonDecode(jsonStr) as List<dynamic>;
+      // Validate the response
+      final validationResult = ContentValidator.validateBranchesResponse(
+        responseText: responseText,
+        requiredFields: ['choiceText', 'content'],
+        expectedCount: choiceCount,
+      );
 
-        // Create StoryBranchModel list from the response
+      if (validationResult.isValid && validationResult.extractedJson != null) {
+        // Create StoryBranchModel list from the validated response
+        final branchesData = validationResult.extractedJson as List<dynamic>;
+
         final branches = branchesData.map((branchData) {
+          // Extract focus concept if available
+          final focusConcept = branchData['focusConcept'] as String? ??
+              (parentStory.learningConcepts.isNotEmpty ? parentStory.learningConcepts.first : null);
+
+          // Create the branch model
           return StoryBranchModel(
             id: 'branch_${DateTime.now().millisecondsSinceEpoch}_${_random.nextInt(1000)}',
             description: branchData['description'] ?? 'Story continuation',
@@ -396,15 +593,20 @@ class GeminiStoryService {
             content: branchData['content'] ?? 'The story continues...',
             learningConcepts: parentStory.learningConcepts,
             emotionalTone: _parseEmotionalTone(branchData['emotionalTone']),
+            focusConcept: focusConcept,
+            hasChoices: branchData['hasChoices'] as bool? ?? false,
+            choicePrompt: branchData['choicePrompt'] as String?,
           );
         }).toList();
 
         // Cache the branches
-        _branchCache[cacheKey] = branches;
+        await _cacheService.cacheBranches(cacheKey, branches);
 
+        debugPrint('Successfully generated and cached ${branches.length} story branches');
         return branches;
-      } catch (e) {
-        debugPrint('Error parsing branches JSON: $e');
+      } else {
+        // If validation failed, log the errors and return default branches
+        debugPrint('Branch validation failed: ${validationResult.errors.join(', ')}');
         return _getDefaultBranches(
           parentStory: parentStory,
           choiceCount: choiceCount,
@@ -438,12 +640,15 @@ class GeminiStoryService {
     final cacheKey = 'continue_${selectedBranch.id}';
 
     // Check if continued story is cached
-    if (_storyCache.containsKey(cacheKey)) {
-      return _storyCache[cacheKey]!;
+    final cachedStory = await _cacheService.getCachedStory(cacheKey);
+    if (cachedStory != null) {
+      debugPrint('Using cached continuation for key: $cacheKey');
+      return cachedStory;
     }
 
     // If offline, return a default continuation
-    if (!_isOnline) {
+    if (!_geminiService.isOnline) {
+      debugPrint('Device is offline, using default continuation');
       return _getDefaultContinuation(
         selectedBranch: selectedBranch,
       );
@@ -452,65 +657,100 @@ class GeminiStoryService {
     // Get skill level from user progress
     final skillLevel = GeminiStoryServiceHelper.getDifficultyFromUserProgress(userProgress);
 
-    // Create a prompt for continuing the story
-    final prompt = _createContinuationPrompt(
+    // Create a prompt for continuing the story using the template manager
+    final prompt = PromptTemplateManager.createContinuationPrompt(
       selectedBranch: selectedBranch,
       skillLevel: skillLevel,
     );
 
     try {
       // Generate the continuation using Gemini
-      final response = await _gemini.prompt(parts: [gemini.Part.text(prompt)]);
+      debugPrint('Generating story continuation with Gemini AI...');
+      final response = await _geminiService.instance.prompt(parts: [gemini.Part.text(prompt)]);
 
       // Get the response text
       final responseText = response?.toString() ?? '';
 
       // If the response is empty, return a default continuation
       if (responseText.isEmpty) {
+        debugPrint('Empty response from Gemini, using default continuation');
         return _getDefaultContinuation(
           selectedBranch: selectedBranch,
         );
       }
 
-      // Try to extract JSON from the response
-      try {
-        final jsonStr = GeminiStoryServiceHelper.extractJsonFromText(responseText);
-        final storyData = jsonDecode(jsonStr) as Map<String, dynamic>;
+      // Validate the response
+      final validationResult = ContentValidator.validateContinuationResponse(
+        responseText: responseText,
+        requiredFields: ['title', 'content'],
+        learningConcepts: selectedBranch.learningConcepts,
+      );
 
-        // Create a StoryModel from the response
+      if (validationResult.isValid && validationResult.extractedJson != null) {
+        // Create a StoryModel from the validated response
+        final storyData = validationResult.extractedJson as Map<String, dynamic>;
+
+        // Extract cultural notes if available
+        Map<String, String> culturalNotes = {};
+        if (storyData['culturalNotes'] != null && storyData['culturalNotes'] is Map) {
+          final notes = storyData['culturalNotes'] as Map;
+          notes.forEach((key, value) {
+            culturalNotes[key.toString()] = value.toString();
+          });
+        }
+
+        // Create challenge if available
+        StoryChallenge? challenge;
+        if (storyData['challenge'] != null && storyData['challenge'] is Map<String, dynamic>) {
+          final challengeData = storyData['challenge'] as Map<String, dynamic>;
+          challenge = StoryChallenge(
+            id: 'challenge_${DateTime.now().millisecondsSinceEpoch}',
+            title: challengeData['title'] ?? 'Coding Challenge',
+            description: challengeData['description'] ?? 'Complete the pattern',
+            successCriteria: challengeData['successCriteria'] ?? {},
+            difficulty: challengeData['difficulty'] ?? skillLevel,
+            availableBlockTypes: challengeData['availableBlockTypes'] != null
+                ? List<String>.from(challengeData['availableBlockTypes'])
+                : ['move', 'turn', 'repeat'],
+            contentStartIndex: 0,
+            contentEndIndex: 0,
+          );
+        }
+
+        // Create the story model
         final story = StoryModel(
-          id: 'story_${DateTime.now().millisecondsSinceEpoch}',
+          id: 'continuation_${DateTime.now().millisecondsSinceEpoch}',
           title: storyData['title'] ?? 'Continued Story',
           theme: storyData['theme'] ?? 'general',
           region: storyData['region'] ?? 'Ghana',
           characterName: storyData['characterName'] ?? 'Kwame',
-          ageGroup: storyData['ageGroup'] ?? '7-12',
+          ageGroup: '7-15',
           content: _createContentBlocksFromText('${selectedBranch.content}\n\n${storyData['content'] ?? responseText}'),
           learningConcepts: selectedBranch.learningConcepts,
           emotionalTone: selectedBranch.emotionalTone,
-          culturalNotes: storyData['culturalNotes'] != null ?
-            Map<String, String>.from(storyData['culturalNotes']) :
-            {},
+          culturalNotes: culturalNotes,
+          challenge: challenge,
         );
 
         // Cache the story
-        _storyCache[cacheKey] = story;
+        await _cacheService.cacheStory(cacheKey, story);
 
         // Save the story to storage for continuity
         await _saveStory(userProgress.userId, story);
 
+        debugPrint('Successfully generated and cached story continuation: ${story.title}');
         return story;
-      } catch (e) {
-        debugPrint('Error parsing continuation JSON: $e');
+      } else {
+        // If validation failed, log the errors and create a simple continuation from the text
+        debugPrint('Continuation validation failed: ${validationResult.errors.join(', ')}');
 
-        // If we can't parse the JSON, create a simple continuation from the text
         final story = StoryModel(
-          id: 'story_${DateTime.now().millisecondsSinceEpoch}',
+          id: 'continuation_${DateTime.now().millisecondsSinceEpoch}',
           title: 'Continued Adventure',
           theme: 'general',
           region: 'Ghana',
           characterName: 'Kwame',
-          ageGroup: '7-12',
+          ageGroup: '7-15',
           content: _createContentBlocksFromText('${selectedBranch.content}\n\n$responseText'),
           learningConcepts: selectedBranch.learningConcepts,
           emotionalTone: selectedBranch.emotionalTone,
@@ -518,7 +758,7 @@ class GeminiStoryService {
         );
 
         // Cache the story
-        _storyCache[cacheKey] = story;
+        await _cacheService.cacheStory(cacheKey, story);
 
         // Save the story to storage for continuity
         await _saveStory(userProgress.userId, story);
@@ -535,129 +775,7 @@ class GeminiStoryService {
     }
   }
 
-  /// Create a prompt for generating a story
-  String _createStoryPrompt({
-    required List<String> learningConcepts,
-    required int skillLevel,
-    required String culturalContext,
-    required EmotionalTone emotionalTone,
-    required List<Map<String, dynamic>> previousStories,
-  }) {
-    final skillLevelText = skillLevel == 1 ? 'beginner' : skillLevel == 3 ? 'intermediate' : 'advanced';
-    final emotionalToneText = emotionalTone.name;
 
-    final previousStoriesText = previousStories.isEmpty
-        ? "This is the user's first story."
-        : "Previous stories: ${previousStories.map((s) => s['title']).join(', ')}";
-
-    return """
-You are an expert storyteller creating an educational story about coding concepts through the lens of Kente weaving from Ghana.
-
-Learning concepts to focus on: ${learningConcepts.join(', ')}
-Skill level: $skillLevelText
-Emotional tone: $emotionalToneText
-Cultural context: $culturalContext
-$previousStoriesText
-
-Create an engaging, culturally rich story that teaches the specified learning concepts. The story should be appropriate for the user's skill level, not mentioning age but focusing on their coding knowledge. Incorporate the cultural context naturally into the narrative.
-
-The story should have the following elements:
-1. A clear beginning, middle, and end
-2. Characters that the reader can relate to
-3. A problem or challenge related to the learning concepts
-4. A resolution that demonstrates the learning concepts
-5. Cultural elements that enrich the story
-6. An emotional tone that matches the specified tone
-
-Format your response as a JSON object with the following structure:
-{
-  "title": "Story title",
-  "content": "Full story content with paragraphs",
-  "hasChoices": true/false (whether the story should have branching choices),
-  "choicePrompt": "Text prompting the user to make a choice (if hasChoices is true)"
-}
-
-Make the story approximately 300-500 words long, engaging, and educational.
-""";
-  }
-
-  /// Create a prompt for generating story branches
-  String _createBranchPrompt({
-    required StoryModel parentStory,
-    required int skillLevel,
-    required int choiceCount,
-  }) {
-    final skillLevelText = skillLevel == 1 ? 'beginner' : skillLevel == 3 ? 'intermediate' : 'advanced';
-
-    return """
-You are creating branching choices for an educational story about coding concepts through Kente weaving.
-
-Parent story title: ${parentStory.title}
-Parent story content: ${parentStory.content}
-Learning concepts: ${parentStory.learningConcepts.join(', ')}
-Skill level: $skillLevelText
-Number of choices to generate: $choiceCount
-
-Create $choiceCount different story branches that could follow from this story. Each branch should:
-1. Start with a clear choice the user can make
-2. Continue the story in a different direction
-3. Still teach the same learning concepts
-4. Maintain cultural relevance to Kente weaving
-5. Have a different emotional tone if possible
-
-Format your response as a JSON array of branch objects with the following structure:
-[
-  {
-    "choiceText": "Short text describing the choice (e.g., 'Follow the river')",
-    "content": "Content that continues the story based on this choice (100-200 words)",
-    "emotionalTone": "One of: happy, sad, excited, tense, curious, neutral"
-  },
-  {
-    "choiceText": "...",
-    "content": "...",
-    "emotionalTone": "..."
-  }
-]
-
-Make each branch distinct and interesting, with different potential outcomes.
-""";
-  }
-
-  /// Create a prompt for continuing a story from a branch
-  String _createContinuationPrompt({
-    required StoryBranchModel selectedBranch,
-    required int skillLevel,
-  }) {
-    final skillLevelText = skillLevel == 1 ? 'beginner' : skillLevel == 3 ? 'intermediate' : 'advanced';
-
-    return """
-You are continuing an educational story about coding concepts through Kente weaving based on a user's choice.
-
-Selected branch content: ${selectedBranch.content}
-Learning concepts: ${selectedBranch.learningConcepts.join(', ')}
-Emotional tone: ${selectedBranch.emotionalTone.name}
-Skill level: $skillLevelText
-
-Continue the story based on the selected branch. The continuation should:
-1. Flow naturally from the branch content
-2. Develop the story further with a clear middle and end
-3. Reinforce the learning concepts
-4. Maintain the emotional tone
-5. Keep the cultural context of Kente weaving
-6. Be appropriate for the user's skill level
-
-Format your response as a JSON object with the following structure:
-{
-  "title": "Title for the continued story",
-  "content": "Content that continues the story (200-400 words)",
-  "culturalContext": "Brief description of cultural elements included",
-  "hasChoices": true/false (whether this continuation should have further choices),
-  "choicePrompt": "Text prompting the user to make another choice (if hasChoices is true)"
-}
-
-Make the continuation engaging, educational, and satisfying.
-""";
-  }
 
   /// Get a default story when offline or when API fails
   StoryModel _getDefaultStory({
@@ -778,7 +896,7 @@ The patterns of the threads mirror the patterns in code, a beautiful intersectio
   }
 
   /// Create content blocks from text
-  List<ContentBlock> _createContentBlocksFromText(String text) {
+  List<ContentBlockModel> _createContentBlocksFromText(String text) {
     // Split text into paragraphs
     final paragraphs = text.split('\n\n');
 
@@ -787,7 +905,7 @@ The patterns of the threads mirror the patterns in code, a beautiful intersectio
       // Skip empty paragraphs
       if (paragraph.trim().isEmpty) return null;
 
-      return ContentBlock(
+      return ContentBlockModel(
         id: 'block_${DateTime.now().millisecondsSinceEpoch}_${_random.nextInt(1000)}',
         text: paragraph.trim(),
         ttsSettings: TTSSettings(
@@ -800,7 +918,7 @@ The patterns of the threads mirror the patterns in code, a beautiful intersectio
         displayDuration: 0,
         waitForInteraction: false,
       );
-    }).whereType<ContentBlock>().toList();
+    }).whereType<ContentBlockModel>().toList();
   }
 
   /// Parse emotional tone from string

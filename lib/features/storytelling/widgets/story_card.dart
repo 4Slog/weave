@@ -87,8 +87,8 @@ class StoryCard extends StatelessWidget {
     );
   }
 
-  /// Helper method to get content text from ContentBlock list
-  String _getContentText(List<ContentBlock> content) {
+  /// Helper method to get content text from ContentBlockModel list
+  String _getContentText(List<ContentBlockModel> content) {
     if (content.isEmpty) return "No content available";
 
     // Combine the first few content blocks

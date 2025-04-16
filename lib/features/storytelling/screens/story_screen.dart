@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:kente_codeweaver/features/storytelling/models/story_model.dart';
 import 'package:kente_codeweaver/features/storytelling/models/story_branch_model.dart';
-import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
 import 'package:kente_codeweaver/features/storytelling/models/emotional_tone.dart';
+import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
 import 'package:kente_codeweaver/core/services/tts_service.dart';
 import 'package:kente_codeweaver/features/engagement/services/engagement_service.dart';
 import 'package:kente_codeweaver/core/services/audio_service.dart';
 import 'package:kente_codeweaver/features/block_workspace/providers/block_provider.dart';
 import 'package:kente_codeweaver/features/storytelling/providers/story_provider.dart';
 import 'package:kente_codeweaver/features/badges/providers/badge_provider.dart';
-import 'package:kente_codeweaver/features/storytelling/widgets/narrative_choice_widget.dart';
 import 'package:kente_codeweaver/features/badges/widgets/badge_display_widget.dart';
+import 'package:kente_codeweaver/features/storytelling/widgets/detailed_narrative_choice_widget.dart';
 import 'package:provider/provider.dart';
 
 /// Enhanced screen that displays a story with branching narratives,
@@ -131,14 +132,110 @@ class _StoryScreenState extends State<StoryScreen> with SingleTickerProviderStat
     }
   }
 
+  /// Get story from route arguments
+  StoryModel? _getStoryFromArguments(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+
+    // If arguments are a StoryModel, return it directly
+    if (args is StoryModel) {
+      return args;
+    }
+
+    // If arguments are a Map with storyId, get the story from the provider
+    if (args is Map<String, dynamic> && args.containsKey('storyId')) {
+      final storyProvider = Provider.of<StoryProvider>(context, listen: false);
+      final storyId = args['storyId'];
+
+      // Find the story in the provider's stories list
+      try {
+        return storyProvider.stories.firstWhere((s) => s.id == storyId);
+      } catch (e) {
+        // If story not found, select it in the provider (which will load it if needed)
+        storyProvider.selectStory(storyId);
+        return storyProvider.selectedStory;
+      }
+    }
+
+    // If no valid arguments, return null
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Get story from route arguments
-    final StoryModel story = ModalRoute.of(context)!.settings.arguments as StoryModel;
-
     // Get providers
     final storyProvider = Provider.of<StoryProvider>(context);
     final badgeProvider = Provider.of<BadgeProvider>(context);
+
+    // Handle loading state
+    if (storyProvider.isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Loading Story')),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    // Handle error state
+    if (storyProvider.error != null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Story Error')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Failed to load story: ${storyProvider.error}'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => storyProvider.clearError(),
+                child: const Text('Try Again'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Get story from route arguments
+    final StoryModel? story = _getStoryFromArguments(context);
+
+    // If no story found, show error
+    if (story == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Story Error')),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Story not found'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Go Back'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Web-specific warning for features that might not work in browser
+    if (kIsWeb && !_isInitialized) {
+      // Show a one-time warning about web limitations
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Some features like AI story generation may be limited in web browser.'),
+              duration: Duration(seconds: 5),
+            ),
+          );
+          setState(() {
+            _isInitialized = true;
+          });
+        }
+      });
+    }
 
     // Track story view
     _engagementService.recordStoryProgress(
@@ -269,7 +366,7 @@ class _StoryScreenState extends State<StoryScreen> with SingleTickerProviderStat
     }
 
     final dynamic contentBlock = story.content[_currentBlockIndex];
-    if (contentBlock is ContentBlock) {
+    if (contentBlock is ContentBlockModel) {
       return contentBlock.text;
     } else if (contentBlock is Map<dynamic, dynamic>) {
       return contentBlock['text'] ?? '';
@@ -285,7 +382,7 @@ class _StoryScreenState extends State<StoryScreen> with SingleTickerProviderStat
     }
 
     final dynamic contentBlock = story.content[_currentBlockIndex];
-    if (contentBlock is ContentBlock) {
+    if (contentBlock is ContentBlockModel) {
       return contentBlock.ttsSettings.tone;
     } else if (contentBlock is Map<dynamic, dynamic> && contentBlock.containsKey('emotionalTone')) {
       final toneStr = contentBlock['emotionalTone'];
@@ -384,7 +481,7 @@ class _StoryScreenState extends State<StoryScreen> with SingleTickerProviderStat
       final dynamic contentBlock = story.content[i];
       final bool isActive = i == _currentBlockIndex;
 
-      if (contentBlock is ContentBlock) {
+      if (contentBlock is ContentBlockModel) {
         contentWidgets.add(_buildContentBlockWidget(contentBlock, isActive));
       } else if (contentBlock is Map<dynamic, dynamic>) {
         contentWidgets.add(_buildContentBlockFromMap(contentBlock, isActive));
@@ -394,8 +491,8 @@ class _StoryScreenState extends State<StoryScreen> with SingleTickerProviderStat
     return contentWidgets;
   }
 
-  /// Build a widget for a ContentBlock
-  Widget _buildContentBlockWidget(ContentBlock block, bool isActive) {
+  /// Build a widget for a ContentBlockModel
+  Widget _buildContentBlockWidget(ContentBlockModel block, bool isActive) {
     // Get emotional tone color
     final EmotionalTone tone = block.ttsSettings.tone;
     final Color toneColor = tone.color.withAlpha(isActive ? 51 : 13);

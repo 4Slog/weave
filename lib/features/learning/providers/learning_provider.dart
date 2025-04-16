@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
 import 'package:kente_codeweaver/features/learning/services/adaptive_learning_service.dart';
 import 'package:kente_codeweaver/features/badges/services/badge_service.dart';
@@ -7,7 +8,6 @@ import 'package:kente_codeweaver/features/learning/models/skill_level.dart';
 import 'package:kente_codeweaver/features/learning/models/skill_type.dart';
 import 'package:kente_codeweaver/features/learning/services/learning_analysis_service.dart';
 import 'package:kente_codeweaver/core/services/storage_service.dart';
-import 'dart:convert';
 
 /// Provider for learning state management with improved skill tracking,
 /// personalized learning paths, milestone tracking, and learning analytics

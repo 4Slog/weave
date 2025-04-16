@@ -3,9 +3,12 @@ import 'package:kente_codeweaver/features/storytelling/models/story_model.dart';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_collection.dart';
 import 'package:kente_codeweaver/features/welcome/screens/welcome_screen.dart';
+import 'package:kente_codeweaver/features/home/screens/home_screen.dart';
 import 'package:kente_codeweaver/features/storytelling/screens/story_screen.dart';
 import 'package:kente_codeweaver/features/block_workspace/screens/block_workspace_screen.dart';
 import 'package:kente_codeweaver/features/settings/screens/settings_screen.dart';
+import 'package:kente_codeweaver/features/badges/screens/achievements_screen.dart';
+import 'package:kente_codeweaver/features/home/screens/asset_demo_screen.dart';
 
 /// Central routing configuration for the Kente Codeweaver application.
 ///
@@ -20,6 +23,11 @@ class AppRouter {
   static const String tutorial = '/tutorial';
   static const String settings = '/settings';
   static const String achievements = '/achievements';
+  static const String assetDemo = '/asset-demo';
+
+  /// Generate a route based on the route settings
+  /// Page transition animation duration
+  static const Duration transitionDuration = Duration(milliseconds: 300);
 
   /// Generate a route based on the route settings
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,17 +36,25 @@ class AppRouter {
     final routeName = settings.name;
 
     if (routeName == home) {
-      return MaterialPageRoute(builder: (_) => WelcomeScreen());
+      // Check if we're coming from welcome screen
+      if (args is bool && args) {
+        // If true, go to HomeScreen
+        return _createRoute(HomeScreen(), settings);
+      }
+      // Otherwise, go to WelcomeScreen
+      return _createRoute(WelcomeScreen(), settings);
     } else if (routeName == story) {
-      // Check if we have a StoryModel as argument
+      // Check if we have a StoryModel or Map as argument
       if (args is StoryModel) {
-        return MaterialPageRoute(
-          builder: (_) => StoryScreen(),
-          settings: RouteSettings(name: story, arguments: args),
-        );
+        return _createRoute(StoryScreen(), settings);
+      } else if (args is Map<String, dynamic> && args.containsKey('storyId')) {
+        // Handle story ID passed as a map
+        // We need to get the StoryModel from the StoryProvider
+        // For now, we'll pass the map and let the StoryScreen handle it
+        return _createRoute(StoryScreen(), settings);
       }
       // If no story provided, navigate to home
-      return MaterialPageRoute(builder: (_) => WelcomeScreen());
+      return _createRoute(WelcomeScreen(), settings);
     } else if (routeName == challenge) {
       // Challenge screen requires a StoryModel and/or challenge ID
       if (args is Map<String, dynamic>) {
@@ -108,16 +124,37 @@ class AppRouter {
     } else if (routeName == AppRouter.achievements) {
       // Achievements screen requires user ID
       if (args is String) {
-        // TODO: Create AchievementsScreen
-        // For now, navigate back home
-        return MaterialPageRoute(builder: (_) => WelcomeScreen());
+        return _createRoute(AchievementsScreen(userId: args), settings);
+      } else if (args is Map<String, dynamic> && args.containsKey('userId')) {
+        // Handle user ID passed as a map
+        return _createRoute(AchievementsScreen(userId: args['userId']), settings);
       }
-      // If no user ID provided, navigate to home
-      return MaterialPageRoute(builder: (_) => WelcomeScreen());
+      // If no user ID provided, use default
+      return _createRoute(AchievementsScreen(userId: 'default_user'), settings);
+    } else if (routeName == AppRouter.assetDemo) {
+      // Asset demo screen
+      return _createRoute(AssetDemoScreen(), settings);
     } else {
       // If route is not recognized, navigate to home
-      return MaterialPageRoute(builder: (_) => WelcomeScreen());
+      return _createRoute(WelcomeScreen(), settings);
     }
+  }
+
+  /// Create a route with transition animation
+  static Route _createRoute(Widget page, RouteSettings settings) {
+    return PageRouteBuilder(
+      settings: settings,
+      transitionDuration: transitionDuration,
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
+    );
   }
 
 
@@ -159,7 +196,12 @@ class AppRouter {
 
   /// Navigate to home screen
   static void goHome(BuildContext context) {
-    navigateAndReplace(context, home);
+    navigateAndReplace(context, home, arguments: true);
+  }
+
+  /// Navigate to welcome screen
+  static void goToWelcome(BuildContext context) {
+    navigateAndReplace(context, home, arguments: false);
   }
 
   /// Navigate to a story

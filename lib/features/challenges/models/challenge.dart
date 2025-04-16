@@ -1,41 +1,40 @@
-import 'package:flutter/material.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/pattern_difficulty.dart';
 
 /// Represents a coding challenge in the application
 class Challenge {
   /// Unique identifier for this challenge
   final String id;
-  
+
   /// Title of the challenge
   final String title;
-  
+
   /// Description of the challenge
   final String description;
-  
+
   /// Difficulty level of the challenge
   final PatternDifficulty difficulty;
-  
+
   /// Required block types for completing the challenge
   final List<String> requiredBlockTypes;
-  
+
   /// Concepts taught by this challenge
   final List<String> concepts;
-  
+
   /// Hint text for the challenge
   final String hint;
-  
+
   /// Cultural context information
   final Map<String, dynamic> culturalContext;
-  
+
   /// Whether this challenge is part of a story
   final bool isStoryChallenge;
-  
+
   /// ID of the story this challenge belongs to (if any)
   final String? storyId;
-  
+
   /// Concept ID associated with this challenge
   final String conceptId;
-  
+
   /// Constructor
   Challenge({
     required this.id,
@@ -50,7 +49,7 @@ class Challenge {
     this.storyId,
     required this.conceptId,
   });
-  
+
   /// Create a copy with optional new values
   Challenge copyWith({
     String? id,
@@ -79,7 +78,7 @@ class Challenge {
       conceptId: conceptId ?? this.conceptId,
     );
   }
-  
+
   /// Create from JSON
   factory Challenge.fromJson(Map<String, dynamic> json) {
     return Challenge(
@@ -96,7 +95,7 @@ class Challenge {
       conceptId: json['conceptId'] ?? '',
     );
   }
-  
+
   /// Convert to JSON
   Map<String, dynamic> toJson() {
     return {
@@ -119,13 +118,13 @@ class Challenge {
 class StoryChallenge extends Challenge {
   /// Position in the story sequence
   final int sequencePosition;
-  
+
   /// Whether this challenge unlocks a new story branch
   final bool unlocksNewBranch;
-  
+
   /// ID of the branch this challenge unlocks (if any)
   final String? branchId;
-  
+
   /// Constructor
   StoryChallenge({
     required String id,
@@ -154,7 +153,7 @@ class StoryChallenge extends Challenge {
     storyId: storyId,
     conceptId: conceptId,
   );
-  
+
   /// Create a copy with optional new values
   @override
   StoryChallenge copyWith({
@@ -189,7 +188,7 @@ class StoryChallenge extends Challenge {
       branchId: branchId ?? this.branchId,
     );
   }
-  
+
   /// Create from JSON
   factory StoryChallenge.fromJson(Map<String, dynamic> json) {
     return StoryChallenge(
@@ -208,7 +207,7 @@ class StoryChallenge extends Challenge {
       branchId: json['branchId'],
     );
   }
-  
+
   /// Convert to JSON
   @override
   Map<String, dynamic> toJson() {

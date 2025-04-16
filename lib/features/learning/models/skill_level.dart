@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 /// Defines the skill proficiency levels a user can achieve
 enum SkillLevel {

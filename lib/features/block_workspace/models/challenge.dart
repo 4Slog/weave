@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
 
 /// Model representing a coding challenge in the block workspace
 class Challenge {

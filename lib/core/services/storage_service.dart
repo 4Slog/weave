@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_collection.dart';
 import 'package:kente_codeweaver/features/patterns/models/pattern_model.dart';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
@@ -685,5 +685,18 @@ class StorageService {
     }
 
     return keys;
+  }
+
+  /// Remove progress data
+  Future<void> removeProgress(String key) async {
+    await _ensureInitialized();
+
+    final String fullKey = _progressKeyPrefix + key;
+
+    if (_useHive && _userProgressBox != null) {
+      await _userProgressBox!.delete(fullKey);
+    } else if (_prefs != null) {
+      await _prefs!.remove(fullKey);
+    }
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:kente_codeweaver/features/storytelling/models/emotional_tone.dart';
 import 'package:kente_codeweaver/features/storytelling/models/tts_settings.dart';
-import 'package:kente_codeweaver/features/storytelling/models/content_block.dart';
+import 'package:kente_codeweaver/features/storytelling/models/content_block_model.dart';
 
 /// State of the TTS service
 enum TTSState {
@@ -50,7 +50,7 @@ class TTSService {
   TTSSettings _settings = TTSSettings();
 
   /// Queue of content blocks to speak
-  final List<ContentBlock> _speakQueue = [];
+  final List<ContentBlockModel> _speakQueue = [];
 
   /// Flag indicating if the queue is currently being processed
   bool _isProcessingQueue = false;
@@ -303,7 +303,7 @@ class TTSService {
   ///
   /// @param blocks The content blocks to speak
   /// @return A future that completes when all blocks have been spoken
-  Future<void> speakContentBlocks(List<ContentBlock> blocks) async {
+  Future<void> speakContentBlocks(List<ContentBlockModel> blocks) async {
     if (!_isInitialized) {
       await initialize();
     }
@@ -338,18 +338,8 @@ class TTSService {
       // Apply appropriate settings for the block
       TTSSettings blockSettings = _settings;
 
-      // Apply emotional tone if specified
-      if (block.emotionalTone != null) {
-        blockSettings = blockSettings.applyEmotionalTone(
-          block.emotionalTone!,
-          intensity: block.toneIntensity ?? ToneIntensity.moderate,
-        );
-      }
-
-      // Apply storytelling style if specified
-      if (block.storytellingStyle != null) {
-        blockSettings = blockSettings.applyStorytellingStyle(block.storytellingStyle!);
-      }
+      // Apply TTS settings from the block
+      blockSettings = block.ttsSettings;
 
       // Apply settings
       await applySettings(blockSettings);

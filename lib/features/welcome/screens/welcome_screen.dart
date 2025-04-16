@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 import 'package:kente_codeweaver/features/learning/providers/learning_provider.dart';
 import 'package:kente_codeweaver/features/storytelling/providers/story_provider.dart';
+import 'package:kente_codeweaver/core/navigation/app_router.dart';
 
 /// Welcome screen for the application
 class WelcomeScreen extends StatefulWidget {
   /// Constructor
-  const WelcomeScreen({Key? key}) : super(key: key);
-  
+  const WelcomeScreen({super.key});
+
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
   /// Animation controller
   late AnimationController _animationController;
-  
+
   /// Fade animation
   late Animation<double> _fadeAnimation;
-  
+
   /// Scale animation
   late Animation<double> _scaleAnimation;
-  
+
   /// Is loading
   bool _isLoading = false;
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize animation controller
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 1500),
     );
-    
+
     // Initialize animations
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -42,70 +44,95 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
         curve: Interval(0.0, 0.5, curve: Curves.easeIn),
       ),
     );
-    
+
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Interval(0.5, 1.0, curve: Curves.easeOut),
       ),
     );
-    
+
     // Start animation
     _animationController.forward();
-    
-    // Initialize providers
-    _initializeProviders();
+
+    // Initialize providers after the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeProviders();
+    });
   }
-  
+
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-  
+
   /// Initialize providers
   Future<void> _initializeProviders() async {
+    if (!mounted) return;
+
     setState(() {
       _isLoading = true;
     });
-    
+
     try {
       final learningProvider = Provider.of<LearningProvider>(context, listen: false);
       final storyProvider = Provider.of<StoryProvider>(context, listen: false);
-      
-      // Initialize providers
-      await learningProvider.initialize('default_user');
-      await storyProvider.initialize();
-      
+
+      // Initialize providers with timeouts to prevent indefinite waiting
+      await Future.wait([
+        learningProvider.initialize('default_user').timeout(
+          Duration(seconds: 10),
+          onTimeout: () {
+            debugPrint('Learning provider initialization timed out');
+            return; // Return without throwing to continue
+          },
+        ),
+        storyProvider.initialize().timeout(
+          Duration(seconds: 10),
+          onTimeout: () {
+            debugPrint('Story provider initialization timed out');
+            return; // Return without throwing to continue
+          },
+        ),
+      ]);
+
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
       });
     } catch (e) {
+      debugPrint('Error during provider initialization: $e');
+
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
       });
-      
+
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to initialize: ${e.toString()}')),
+        SnackBar(
+          content: Text('Some features may be limited: ${e.toString()}'),
+          duration: Duration(seconds: 5),
+          action: SnackBarAction(
+            label: 'Retry',
+            onPressed: () => _initializeProviders(),
+          ),
+        ),
       );
     }
   }
-  
-  /// Start a story
-  void _startStory() {
-    Navigator.pushNamed(
-      context,
-      '/story',
-      arguments: {'storyId': 'story_001'},
-    );
+
+  /// Start the app journey by going to the home screen
+  void _startJourney() {
+    AppRouter.goHome(context);
   }
-  
+
   /// Open settings
   void _openSettings() {
-    Navigator.pushNamed(context, '/settings');
+    AppRouter.goToSettings(context);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +173,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                           color: Colors.white,
                         ),
                         SizedBox(height: 24),
-                        
+
                         // Title
                         Text(
                           'Kente Codeweaver',
@@ -157,7 +184,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                           ),
                         ),
                         SizedBox(height: 8),
-                        
+
                         // Subtitle
                         Text(
                           'Learn coding through storytelling',
@@ -168,11 +195,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 48),
-                        
+
                         // Start button
                         ElevatedButton(
-                          onPressed: _startStory,
-                          child: Text('Start Adventure'),
+                          onPressed: _startJourney,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.amber,
                             foregroundColor: Colors.black87,
@@ -181,13 +207,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
+                          child: Text('Start Adventure'),
                         ),
                         SizedBox(height: 16),
-                        
+
                         // Settings button
                         OutlinedButton(
                           onPressed: _openSettings,
-                          child: Text('Settings'),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: Colors.white,
                             side: BorderSide(color: Colors.white),
@@ -196,6 +222,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
+                          child: Text('Settings'),
                         ),
                       ],
                     ),

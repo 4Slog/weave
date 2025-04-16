@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:kente_codeweaver/features/storytelling/providers/story_provider.dart';
 import 'package:kente_codeweaver/features/learning/providers/learning_provider.dart';
+import 'package:kente_codeweaver/features/badges/providers/badge_provider.dart';
 import 'package:kente_codeweaver/core/navigation/app_router.dart';
 
 /// Home screen of the application
@@ -20,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Learning provider
   late LearningProvider _learningProvider;
 
+  /// Badge provider
+  late BadgeProvider _badgeProvider;
+
   /// Selected tab index
   int _selectedTabIndex = 0;
 
@@ -28,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _storyProvider = Provider.of<StoryProvider>(context, listen: false);
     _learningProvider = Provider.of<LearningProvider>(context, listen: false);
+    _badgeProvider = Provider.of<BadgeProvider>(context, listen: false);
 
     _initializeProviders();
   }
@@ -36,6 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _initializeProviders() async {
     await _storyProvider.initialize();
     await _learningProvider.initialize('current_user');
+
+    // Initialize badge provider if not already initialized
+    if (!_badgeProvider.isInitialized) {
+      await _badgeProvider.initialize('current_user');
+    }
   }
 
   @override
@@ -44,10 +54,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Kente Codeweaver'),
         actions: [
+          // Achievements button
+          IconButton(
+            icon: const Icon(Icons.emoji_events),
+            tooltip: 'Achievements',
+            onPressed: () {
+              AppRouter.goToAchievements(context, 'current_user');
+            },
+          ),
+          // Settings button
           IconButton(
             icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
             onPressed: () {
-              Navigator.pushNamed(context, AppRouter.settings);
+              AppRouter.goToSettings(context);
             },
           ),
         ],
@@ -123,7 +143,8 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.only(bottom: 16),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(
+                  // Use the AppRouter to navigate to the story
+                  AppRouter.navigateTo(
                     context,
                     AppRouter.story,
                     arguments: {'storyId': story.id},
@@ -192,10 +213,10 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.only(bottom: 16),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(
+                  // Use the AppRouter to navigate to the challenge
+                  AppRouter.goToChallenge(
                     context,
-                    AppRouter.challenge,
-                    arguments: {'challengeId': challenge['id']},
+                    challengeId: challenge['id'],
                   );
                 },
                 child: Padding(
@@ -337,7 +358,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Achievements',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              AppRouter.goToAchievements(context, 'current_user');
+                            },
+                            child: const Text('View All'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
                       _buildAchievementRow('First Challenge', true),
                       const SizedBox(height: 16),
                       _buildAchievementRow('5 Challenges Completed', completedChallenges >= 5),
@@ -346,6 +384,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+              ),
+
+              // Asset Demo Button
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRouter.assetDemo);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
+                child: const Text('Explore Assets Demo'),
               ),
             ],
           ),

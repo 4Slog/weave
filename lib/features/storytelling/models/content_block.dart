@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:kente_codeweaver/features/storytelling/models/emotional_tone.dart';
 import 'package:kente_codeweaver/features/storytelling/models/tts_settings.dart';
 
@@ -6,31 +5,31 @@ import 'package:kente_codeweaver/features/storytelling/models/tts_settings.dart'
 class ContentBlock {
   /// The text to be spoken
   final String text;
-  
+
   /// The emotional tone to apply (optional)
   final EmotionalTone? emotionalTone;
-  
+
   /// The intensity of the emotional tone (optional)
   final ToneIntensity? toneIntensity;
-  
+
   /// The storytelling style to apply (optional)
   final StorytellingStyle? storytellingStyle;
-  
+
   /// The voice gender to use (optional)
   final VoiceGender? voiceGender;
-  
+
   /// Whether to use cultural pronunciation (optional)
   final bool? useCulturalPronunciation;
-  
+
   /// The delay before speaking this block in milliseconds (optional)
   final int? delayBeforeMs;
-  
+
   /// The delay after speaking this block in milliseconds (optional)
   final int? delayAfterMs;
-  
+
   /// The ID of this content block (optional)
   final String? id;
-  
+
   /// Additional metadata for this content block (optional)
   final Map<String, dynamic>? metadata;
 
@@ -47,7 +46,7 @@ class ContentBlock {
     this.id,
     this.metadata,
   });
-  
+
   /// Creates a copy of this content block with the given fields replaced
   ContentBlock copyWith({
     String? text,
@@ -74,7 +73,7 @@ class ContentBlock {
       metadata: metadata ?? this.metadata,
     );
   }
-  
+
   /// Creates a content block from a map
   factory ContentBlock.fromMap(Map<String, dynamic> map) {
     return ContentBlock(
@@ -100,7 +99,7 @@ class ContentBlock {
           : null,
     );
   }
-  
+
   /// Converts this content block to a map
   Map<String, dynamic> toMap() {
     return {
@@ -116,7 +115,7 @@ class ContentBlock {
       'metadata': metadata,
     };
   }
-  
+
   /// Helper method to parse voice gender from string
   static VoiceGender? _parseVoiceGender(String genderStr) {
     try {
@@ -128,7 +127,7 @@ class ContentBlock {
       return VoiceGender.female;
     }
   }
-  
+
   @override
   String toString() => 'ContentBlock(text: $text, emotionalTone: $emotionalTone)';
 }

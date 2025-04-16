@@ -4,8 +4,8 @@ import 'package:kente_codeweaver/features/block_workspace/models/block_model.dar
 import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_collection.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/pattern_difficulty.dart';
-import 'package:kente_codeweaver/features/patterns/models/pattern_model.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/connection_types.dart';
+import 'package:kente_codeweaver/features/patterns/models/pattern_model.dart';
 import 'package:kente_codeweaver/features/block_workspace/services/block_definition_service.dart';
 import 'package:kente_codeweaver/core/services/storage_service.dart';
 import 'package:uuid/uuid.dart';

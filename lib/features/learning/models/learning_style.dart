@@ -2,24 +2,33 @@
 enum LearningStyle {
   /// Visual learners prefer images, diagrams, and spatial understanding
   visual,
-  
+
   /// Auditory learners prefer spoken explanations and discussions
   auditory,
-  
+
   /// Reading/writing learners prefer text-based information
   reading,
-  
+
   /// Kinesthetic learners prefer hands-on activities and examples
   kinesthetic,
-  
+
   /// Logical learners prefer reasoning and systems thinking
   logical,
-  
+
   /// Social learners prefer group learning and discussion
   social,
-  
+
   /// Solitary learners prefer self-study and independent thinking
   solitary,
+
+  /// Practical learners prefer real-world applications
+  practical,
+
+  /// Verbal learners prefer words, both written and spoken
+  verbal,
+
+  /// Reflective learners prefer thinking things through
+  reflective,
 }
 
 /// Extension methods for LearningStyle
@@ -41,11 +50,17 @@ extension LearningStyleExtension on LearningStyle {
         return 'Social';
       case LearningStyle.solitary:
         return 'Solitary';
+      case LearningStyle.practical:
+        return 'Practical';
+      case LearningStyle.verbal:
+        return 'Verbal';
+      case LearningStyle.reflective:
+        return 'Reflective';
       default:
         return 'Unknown';
     }
   }
-  
+
   /// Get a description of this learning style
   String get description {
     switch (this) {
@@ -63,11 +78,17 @@ extension LearningStyleExtension on LearningStyle {
         return 'Learns best through group learning and discussion';
       case LearningStyle.solitary:
         return 'Learns best through self-study and independent thinking';
+      case LearningStyle.practical:
+        return 'Learns best through real-world applications and examples';
+      case LearningStyle.verbal:
+        return 'Learns best through words, both written and spoken';
+      case LearningStyle.reflective:
+        return 'Learns best through thinking things through and reflection';
       default:
         return 'Unknown learning style';
     }
   }
-  
+
   /// Get recommended content types for this learning style
   List<String> get recommendedContentTypes {
     switch (this) {
@@ -85,11 +106,17 @@ extension LearningStyleExtension on LearningStyle {
         return ['group discussions', 'peer teaching', 'collaborative projects'];
       case LearningStyle.solitary:
         return ['self-paced tutorials', 'independent projects', 'reflection exercises'];
+      case LearningStyle.practical:
+        return ['real-world examples', 'case studies', 'practical applications', 'problem-solving'];
+      case LearningStyle.verbal:
+        return ['written text', 'spoken explanations', 'discussions', 'word-based activities'];
+      case LearningStyle.reflective:
+        return ['thought experiments', 'reflection exercises', 'analysis tasks', 'journals'];
       default:
         return ['mixed content'];
     }
   }
-  
+
   /// Get recommended teaching approaches for this learning style
   List<String> get recommendedApproaches {
     switch (this) {
@@ -107,11 +134,17 @@ extension LearningStyleExtension on LearningStyle {
         return ['Encourage group work', 'Facilitate discussions', 'Use peer teaching'];
       case LearningStyle.solitary:
         return ['Provide self-paced materials', 'Allow independent exploration', 'Offer reflection time'];
+      case LearningStyle.practical:
+        return ['Provide real-world examples', 'Show practical applications', 'Use case studies'];
+      case LearningStyle.verbal:
+        return ['Use word-based activities', 'Encourage discussions', 'Provide written materials'];
+      case LearningStyle.reflective:
+        return ['Allow time for reflection', 'Ask thought-provoking questions', 'Encourage analysis'];
       default:
         return ['Use mixed approaches'];
     }
   }
-  
+
   /// Get the primary VARK category for this learning style
   String get varkCategory {
     switch (this) {
@@ -123,11 +156,17 @@ extension LearningStyleExtension on LearningStyle {
         return 'R';
       case LearningStyle.kinesthetic:
         return 'K';
+      case LearningStyle.verbal:
+        return 'A/R';
+      case LearningStyle.practical:
+        return 'K';
+      case LearningStyle.reflective:
+        return 'R';
       default:
         return 'Mixed';
     }
   }
-  
+
   /// Get the compatibility score with another learning style (0.0-1.0)
   double compatibilityWith(LearningStyle other) {
     // Define compatibility matrix
@@ -196,10 +235,10 @@ extension LearningStyleExtension on LearningStyle {
         LearningStyle.solitary: 1.0,
       },
     };
-    
+
     return compatibilityMatrix[this]?[other] ?? 0.5;
   }
-  
+
   /// Get learning style from string
   static LearningStyle fromString(String value) {
     switch (value.toLowerCase()) {
@@ -219,6 +258,12 @@ extension LearningStyleExtension on LearningStyle {
         return LearningStyle.social;
       case 'solitary':
         return LearningStyle.solitary;
+      case 'practical':
+        return LearningStyle.practical;
+      case 'verbal':
+        return LearningStyle.verbal;
+      case 'reflective':
+        return LearningStyle.reflective;
       default:
         return LearningStyle.visual; // Default to visual
     }

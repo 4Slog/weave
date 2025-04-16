@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gemini API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #response {
+            white-space: pre-wrap;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3367d6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gemini API Test</h1>
+    <p>This page tests your Gemini API key by making a simple request to the API.</p>
+    
+    <div>
+        <label for="apiKey">API Key:</label>
+        <input type="text" id="apiKey" size="50" value="AIzaSyBr9-dGTyS1Q_SAGgd2SuSVt5JoSly7Tlc">
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <button onclick="testAPI()">Test API Key</button>
+    </div>
+    
+    <div id="response"></div>
+    
+    <script>
+        async function testAPI() {
+            const apiKey = document.getElementById('apiKey').value;
+            const responseElement = document.getElementById('response');
+            
+            responseElement.textContent = "Testing API key...";
+            
+            try {
+                // Try different API endpoints
+                const endpoints = [
+                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+                    "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent",
+                    "https://generativelanguage.googleapis.com/v1beta3/models/gemini-pro:generateContent"
+                ];
+                
+                let success = false;
+                let responseText = "";
+                
+                for (const endpoint of endpoints) {
+                    try {
+                        responseElement.textContent = `Testing endpoint: ${endpoint}...`;
+                        
+                        const response = await fetch(`${endpoint}?key=${apiKey}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                contents: [{
+                                    parts: [{
+                                        text: "Write a short story about a weaver learning to code."
+                                    }]
+                                }]
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            responseText = data.candidates[0].content.parts[0].text;
+                            success = true;
+                            responseElement.textContent = `Success with endpoint: ${endpoint}\n\nResponse:\n${responseText}`;
+                            break;
+                        } else {
+                            const errorData = await response.json();
+                            responseElement.textContent += `\nError with endpoint ${endpoint}: ${response.status} - ${JSON.stringify(errorData)}`;
+                        }
+                    } catch (endpointError) {
+                        responseElement.textContent += `\nException with endpoint ${endpoint}: ${endpointError.message}`;
+                    }
+                }
+                
+                if (!success) {
+                    responseElement.textContent += "\n\nAll endpoints failed. Please check your API key and try again.";
+                }
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

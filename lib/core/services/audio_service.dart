@@ -1,6 +1,5 @@
-import 'package:audioplayers/audioplayers.dart';
-import 'package:kente_codeweaver/core/services/storage_service.dart';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 /// Audio types available in the application
 enum AudioType {
@@ -68,7 +67,7 @@ class AudioService {
       case AudioType.success:
         return 'audio/success.mp3';
       case AudioType.failure:
-        return 'audio/failure.mp3';
+        return 'audio/failure..mp3'; // Note: This is the actual filename in the assets
       case AudioType.buttonTap:
         return 'audio/button_tap.mp3';
       case AudioType.navigationTap:
@@ -82,7 +81,7 @@ class AudioService {
       case AudioType.celebration:
         return 'audio/achievement.mp3'; // Using achievement sound for celebration
       case AudioType.culturalIntro:
-        return 'audio/navigation_tap.mp3'; // Using navigation sound for cultural intro
+        return 'audio/menu_theme.mp3'; // Using menu theme for cultural intro
       case AudioType.mainTheme:
         return 'audio/main_theme.mp3';
       case AudioType.learningTheme:

@@ -4,11 +4,14 @@ import 'package:kente_codeweaver/features/block_workspace/models/block_model.dar
 import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
 import 'package:kente_codeweaver/core/theme/app_theme.dart';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 /// A custom painter for rendering Kente-inspired patterns based on block collections.
 ///
 /// This painter transforms block-based code into visual textile patterns,
 /// simulating the way Kente cloth is woven with different colors and motifs.
+///
+/// Optimized for performance with caching and efficient rendering techniques.
 class PatternPainter extends CustomPainter {
   /// The block collection to render as a pattern
   final BlockCollection blockCollection;
@@ -31,6 +34,18 @@ class PatternPainter extends CustomPainter {
   /// Custom render options
   final Map<String, dynamic>? renderOptions;
 
+  /// Cached pattern analysis result
+  Map<String, dynamic>? _cachedPatternInfo;
+
+  /// Cached pattern hash for quick comparison
+  int? _patternHash;
+
+  /// Cached rendered image for complex patterns
+  ui.Image? _cachedImage;
+
+  /// Whether to use image caching for complex patterns
+  final bool useImageCaching;
+
   /// Creates a pattern painter
   PatternPainter({
     required this.blockCollection,
@@ -40,7 +55,24 @@ class PatternPainter extends CustomPainter {
     this.scale = 1.0,
     this.darkMode = false,
     this.renderOptions,
-  });
+    this.useImageCaching = true,
+  }) {
+    // Calculate pattern hash for quick comparison
+    _updatePatternHash();
+  }
+
+  /// Updates the pattern hash based on the current block collection
+  void _updatePatternHash() {
+    final blockIds = blockCollection.blocks.map((b) => b.id).join();
+    final blockPositions = blockCollection.blocks.map((b) => '${b.position.dx},${b.position.dy}').join();
+    final blockConnections = blockCollection.blocks
+        .expand((b) => b.connections)
+        .where((c) => c.connectedToId != null)
+        .map((c) => '${c.id}-${c.connectedToId}')
+        .join();
+
+    _patternHash = Object.hash(blockIds, blockPositions, blockConnections);
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -59,16 +91,57 @@ class PatternPainter extends CustomPainter {
       _drawGrid(canvas, size);
     }
 
-    // First, process and analyze the block collection to determine:
-    // 1. What patterns are being created
-    // 2. What colors are being used
-    // 3. How blocks are connected to each other
-    final patternInfo = _analyzeBlockCollection();
+    // Check if we can use the cached image for complex patterns
+    if (useImageCaching && _cachedImage != null && _isComplexPattern()) {
+      // Draw the cached image
+      final src = Rect.fromLTWH(0, 0, _cachedImage!.width.toDouble(), _cachedImage!.height.toDouble());
+      final dst = Rect.fromLTWH(0, 0, size.width / scale, size.height / scale);
+      canvas.drawImageRect(_cachedImage!, src, dst, Paint());
+    } else {
+      // First, process and analyze the block collection to determine:
+      // 1. What patterns are being created
+      // 2. What colors are being used
+      // 3. How blocks are connected to each other
+      final patternInfo = _getPatternInfo();
 
-    // Then, render the pattern based on the analysis
-    _renderPattern(canvas, size, patternInfo);
+      // Then, render the pattern based on the analysis
+      _renderPattern(canvas, size, patternInfo);
+
+      // Cache the rendered image for complex patterns
+      if (useImageCaching && _isComplexPattern()) {
+        _cacheRenderedPattern(size);
+      }
+    }
 
     canvas.restore();
+  }
+
+  /// Determines if the current pattern is complex enough to warrant caching
+  bool _isComplexPattern() {
+    // Consider a pattern complex if it has more than 5 blocks or uses complex patterns
+    return blockCollection.blocks.length > 5 ||
+           blockCollection.blocks.any((b) =>
+              b.type == BlockType.pattern &&
+              (b.properties['patternType'] == 'diamond' || b.properties['patternType'] == 'zigzag'));
+  }
+
+  /// Gets pattern info, using cache if available
+  Map<String, dynamic> _getPatternInfo() {
+    // Use cached pattern info if available and pattern hasn't changed
+    if (_cachedPatternInfo != null) {
+      return _cachedPatternInfo!;
+    }
+
+    // Analyze the block collection
+    _cachedPatternInfo = _analyzeBlockCollection();
+    return _cachedPatternInfo!;
+  }
+
+  /// Caches the rendered pattern as an image
+  Future<void> _cacheRenderedPattern(Size size) async {
+    // This would be implemented with a PictureRecorder in a real implementation
+    // For now, we'll just mark it as a TODO
+    // TODO: Implement pattern caching using PictureRecorder
   }
 
   /// Draw an empty pattern with help text
@@ -1130,11 +1203,47 @@ class PatternPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(PatternPainter oldDelegate) {
-    return oldDelegate.blockCollection != blockCollection ||
-           oldDelegate.showGrid != showGrid ||
-           oldDelegate.gridSize != gridSize ||
-           oldDelegate.borderWidth != borderWidth ||
-           oldDelegate.scale != scale ||
-           oldDelegate.darkMode != darkMode;
+    // Quick check using pattern hash
+    if (_patternHash != oldDelegate._patternHash) {
+      return true;
+    }
+
+    // Check other properties that affect rendering
+    if (oldDelegate.showGrid != showGrid ||
+        oldDelegate.gridSize != gridSize ||
+        oldDelegate.borderWidth != borderWidth ||
+        oldDelegate.scale != scale ||
+        oldDelegate.darkMode != darkMode) {
+      return true;
+    }
+
+    // Check if render options changed
+    if (renderOptions != oldDelegate.renderOptions) {
+      // If both are null, they're equal
+      if (renderOptions == null && oldDelegate.renderOptions == null) {
+        return false;
+      }
+
+      // If one is null but not the other, they're different
+      if (renderOptions == null || oldDelegate.renderOptions == null) {
+        return true;
+      }
+
+      // Compare render options maps
+      if (renderOptions!.length != oldDelegate.renderOptions!.length) {
+        return true;
+      }
+
+      // Check each key-value pair
+      for (final key in renderOptions!.keys) {
+        if (!oldDelegate.renderOptions!.containsKey(key) ||
+            renderOptions![key] != oldDelegate.renderOptions![key]) {
+          return true;
+        }
+      }
+    }
+
+    // No changes detected
+    return false;
   }
 }

@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:kente_codeweaver/core/services/storage_service.dart';
 
 /// Service for providing cultural context data

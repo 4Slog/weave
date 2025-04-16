@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
 import 'package:kente_codeweaver/features/learning/models/skill_type.dart';
 import 'package:kente_codeweaver/features/learning/models/skill_level.dart';
-import 'package:kente_codeweaver/features/badges/models/badge_model.dart';
 
 /// Extension methods for UserProgress to support skills and progress tracking
 extension UserProgressExtensions on UserProgress {

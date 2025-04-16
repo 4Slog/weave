@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 /// Defines the various skill types that users can develop in the application
 enum SkillType {

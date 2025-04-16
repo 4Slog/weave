@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
 
 // Using LearningStyle from user_progress.dart
@@ -242,7 +241,7 @@ class LearningAnalysisService {
     priority = _adjustPriorityForLearningStyle(hintType, priority);
 
     // Ensure priority is within bounds
-    return min(10, max(0, priority));
+    return priority.clamp(0, 10);
   }
 
   /// Adjust hint priority based on learning style

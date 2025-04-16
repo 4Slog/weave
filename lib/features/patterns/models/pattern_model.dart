@@ -1,48 +1,46 @@
-import 'package:flutter/material.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_collection.dart';
-import 'package:uuid/uuid.dart';
 
 /// Represents a user-created pattern
 class PatternModel {
   /// Unique identifier for this pattern
   final String id;
-  
+
   /// ID of the user who created this pattern
   final String userId;
-  
+
   /// Name of the pattern
   final String name;
-  
+
   /// Description of the pattern
   final String description;
-  
+
   /// Tags associated with this pattern
   final List<String> tags;
-  
+
   /// ID of the challenge this pattern was created for (if any)
   final String? challengeId;
-  
+
   /// Cultural context information
   final Map<String, dynamic> culturalContext;
-  
+
   /// The blocks that make up this pattern
   final BlockCollection blockCollection;
-  
+
   /// User rating (0-5)
   final double rating;
-  
+
   /// Whether this pattern is shared publicly
   final bool isShared;
-  
+
   /// When this pattern was created
   final DateTime createdAt;
-  
+
   /// When this pattern was last modified
   final DateTime modifiedAt;
-  
+
   /// Calculated difficulty level (1-5)
   final int difficultyLevel;
-  
+
   /// Constructor
   PatternModel({
     required this.id,
@@ -58,11 +56,11 @@ class PatternModel {
     DateTime? createdAt,
     DateTime? modifiedAt,
     int? difficultyLevel,
-  }) : 
-    this.createdAt = createdAt ?? DateTime.now(),
-    this.modifiedAt = modifiedAt ?? DateTime.now(),
-    this.difficultyLevel = difficultyLevel ?? _calculateDifficulty(blockCollection);
-  
+  }) :
+    createdAt = createdAt ?? DateTime.now(),
+    modifiedAt = modifiedAt ?? DateTime.now(),
+    difficultyLevel = difficultyLevel ?? _calculateDifficulty(blockCollection);
+
   /// Create a copy with optional new values
   PatternModel copyWith({
     String? id,
@@ -95,7 +93,7 @@ class PatternModel {
       difficultyLevel: difficultyLevel ?? this.difficultyLevel,
     );
   }
-  
+
   /// Create from JSON
   factory PatternModel.fromJson(Map<String, dynamic> json) {
     return PatternModel(
@@ -109,14 +107,14 @@ class PatternModel {
       blockCollection: BlockCollection.fromJson(json['blockCollection']),
       rating: (json['rating'] ?? 0.0).toDouble(),
       isShared: json['isShared'] ?? false,
-      createdAt: json['createdAt'] != null ? 
+      createdAt: json['createdAt'] != null ?
           DateTime.parse(json['createdAt']) : DateTime.now(),
-      modifiedAt: json['modifiedAt'] != null ? 
+      modifiedAt: json['modifiedAt'] != null ?
           DateTime.parse(json['modifiedAt']) : DateTime.now(),
       difficultyLevel: json['difficultyLevel'] ?? 1,
     );
   }
-  
+
   /// Convert to JSON
   Map<String, dynamic> toJson() {
     return {
@@ -135,24 +133,19 @@ class PatternModel {
       'difficultyLevel': difficultyLevel,
     };
   }
-  
+
   /// Calculate difficulty level based on block collection
   static int _calculateDifficulty(BlockCollection collection) {
-    // Calculate difficulty based on:
-    // - Number of blocks
-    // - Types of blocks used
-    // - Complexity of connections
-    
-    int blockCount = collection.blocks.length;
-    int complexityScore = 0;
-    
+    // Calculate difficulty based on number of blocks
     // Simple scoring system:
     // 1-5 blocks = level 1
     // 6-10 blocks = level 2
     // 11-15 blocks = level 3
     // 16-20 blocks = level 4
     // 21+ blocks = level 5
-    
+
+    int blockCount = collection.blocks.length;
+
     if (blockCount <= 5) {
       return 1;
     } else if (blockCount <= 10) {
@@ -164,6 +157,32 @@ class PatternModel {
     } else {
       return 5;
     }
+  }
+
+  /// Get the number of blocks in this pattern
+  int get blockCount => blockCollection.blocks.length;
+
+  /// Get the number of connections in this pattern
+  int get connectionCount => blockCollection.countConnections();
+
+  /// Check if this pattern has a specific block type
+  bool hasBlockType(String blockType) {
+    return blockCollection.containsBlockTypeName(blockType);
+  }
+
+  /// Get the structure of this pattern as a string
+  /// This is a simplified implementation
+  String get structure {
+    // In a real implementation, this would return a structured representation
+    // of the pattern's blocks and connections
+    return blockCollection.blocks.map((block) => block.type).join('-');
+  }
+
+  /// Get the output of this pattern as a string
+  /// This is a simplified implementation
+  String get output {
+    // In a real implementation, this would execute the pattern and return its output
+    return 'Pattern output for $name';
   }
 }
 

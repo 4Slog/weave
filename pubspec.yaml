@@ -23,7 +23,12 @@ dependencies:
   uuid: ^4.5.1
   audioplayers: ^6.0.0
   http: ^1.2.0  # Added for service HTTP requests
-  get_it: ^7.6.7  # Added for dependency injection
+  get_it: ^8.0.3  # Added for dependency injection
+  cached_network_image: ^3.3.1  # For caching network images
+  flutter_cache_manager: ^3.3.1  # For managing cached assets
+  flutter_svg: ^2.0.9  # For SVG support if needed
+  package_info_plus: ^8.3.0  # For app version information
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -41,7 +46,18 @@ flutter:
     - assets/audio/
     - assets/fonts/
     - assets/data/blocks.json
+    - assets/data/challenges.json
     - assets/data/colors_cultural_info.json
+    - assets/data/cultural_coding_mappings.json
     - assets/data/patterns_cultural_info.json
     - assets/data/regional_info.json
+    - assets/data/stories.json
     - assets/data/symbols_cultural_info.json
+
+  # Fonts configuration can be added here when custom fonts are needed
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: assets/fonts/CustomFont-Regular.ttf
+  #       - asset: assets/fonts/CustomFont-Bold.ttf
+  #         weight: 700

@@ -1,6 +1,5 @@
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:kente_codeweaver/features/badges/models/badge_model.dart';
+import 'package:kente_codeweaver/features/learning/models/learning_path_type.dart';
 import 'package:kente_codeweaver/features/learning/models/skill_level.dart';
 import 'package:kente_codeweaver/features/learning/models/skill_type.dart';
 
@@ -8,19 +7,19 @@ import 'package:kente_codeweaver/features/learning/models/skill_type.dart';
 enum LearningStyle {
   /// Visual learners prefer image-based and spatial content
   visual,
-  
+
   /// Logical learners prefer structured, analytical content
   logical,
-  
+
   /// Practical learners prefer hands-on examples and applications
   practical,
-  
+
   /// Verbal learners prefer text and explanation-based content
   verbal,
-  
+
   /// Social learners prefer collaborative challenges and sharing
   social,
-  
+
   /// Reflective learners prefer taking time to think and analyze
   reflective,
 }
@@ -44,7 +43,7 @@ extension LearningStyleExtension on LearningStyle {
         return 'Reflective';
     }
   }
-  
+
   /// Get a description of the learning style
   String get description {
     switch (this) {
@@ -62,12 +61,12 @@ extension LearningStyleExtension on LearningStyle {
         return 'You learn best through thinking, analyzing, and reflecting';
     }
   }
-  
+
   /// Get the string representation of the learning style
   String toStringValue() {
     return toString().split('.').last;
   }
-  
+
   /// Create a learning style from a string
   static LearningStyle fromString(String value) {
     return LearningStyle.values.firstWhere(
@@ -81,82 +80,92 @@ extension LearningStyleExtension on LearningStyle {
 class UserProgress {
   /// Unique identifier for the user
   final String userId;
-  
+
   /// Name of the user (if provided)
   final String name;
-  
+
   /// List of completed story IDs
   final List<String> completedStories;
-  
+
   /// List of completed story branch IDs
   final List<String> completedStoryBranches;
-  
+
+  /// List of completed milestone IDs
+  final List<String> completedMilestones;
+
   /// Badges earned by the user
   final List<BadgeModel> earnedBadges;
-  
+
   /// Map of story IDs to completion metrics
   final Map<String, Map<String, dynamic>> storyMetrics;
-  
+
   /// Map of story IDs to user decisions
   final Map<String, Map<String, String>> storyDecisions;
-  
+
   /// Adaptive learning metrics
   final Map<String, dynamic> learningMetrics;
-  
+
   /// Narrative context for personalized stories
   final Map<String, dynamic> narrativeContext;
-  
+
   /// Map of skill types to skill levels
   final Map<SkillType, SkillLevel> skills;
-  
+
   /// Map of concept IDs to proficiency values (0.0 to 1.0)
   final Map<String, double> skillProficiency;
-  
+
   /// List of concepts that have been mastered
   final List<String> conceptsMastered;
-  
+
   /// List of concepts that are currently being learned
   final List<String> conceptsInProgress;
-  
+
   /// Map of challenge IDs to number of attempts
   final Map<String, int> challengeAttempts;
-  
+
   /// List of completed challenge IDs
   final List<String> completedChallenges;
-  
+
   /// User's preferred learning style
   final LearningStyle preferredLearningStyle;
-  
+
+  /// User's preferred learning path type
+  final LearningPathType learningPathType;
+
   /// Learning style confidence scores (0.0 to 1.0)
   final Map<LearningStyle, double> learningStyleConfidence;
-  
+
   /// User's experience points
   final int experiencePoints;
-  
+
   /// User's current level
   final int level;
-  
+
   /// User's streak (consecutive days of activity)
   final int streak;
-  
+
   /// Last active date (for streak calculation)
   final DateTime lastActiveDate;
-  
+
   /// User preferences
   final Map<String, dynamic> preferences;
-  
+
   /// Engagement metrics
   final Map<String, dynamic> engagementMetrics;
-  
+
   /// Session history
   final List<Map<String, dynamic>> sessionHistory;
-  
+
+  /// Total time spent in minutes
+  final int totalTimeSpentMinutes;
+
   /// Create a user progress object
   UserProgress({
     required this.userId,
     required this.name,
     this.completedStories = const [],
     this.completedStoryBranches = const [],
+    this.completedMilestones = const [],
     this.earnedBadges = const [],
     this.storyMetrics = const {},
     this.storyDecisions = const {},
@@ -169,6 +178,7 @@ class UserProgress {
     this.challengeAttempts = const {},
     this.completedChallenges = const [],
     this.preferredLearningStyle = LearningStyle.visual,
+    this.learningPathType = LearningPathType.balanced,
     this.learningStyleConfidence = const {},
     this.experiencePoints = 0,
     this.level = 1,
@@ -177,14 +187,16 @@ class UserProgress {
     this.preferences = const {},
     this.engagementMetrics = const {},
     this.sessionHistory = const [],
-  }) : this.lastActiveDate = lastActiveDate ?? DateTime.now();
-  
+    this.totalTimeSpentMinutes = 0,
+  }) : lastActiveDate = lastActiveDate ?? DateTime.now();
+
   /// Create a copy with updated fields
   UserProgress copyWith({
     String? userId,
     String? name,
     List<String>? completedStories,
     List<String>? completedStoryBranches,
+    List<String>? completedMilestones,
     List<BadgeModel>? earnedBadges,
     Map<String, Map<String, dynamic>>? storyMetrics,
     Map<String, Map<String, String>>? storyDecisions,
@@ -197,6 +209,7 @@ class UserProgress {
     Map<String, int>? challengeAttempts,
     List<String>? completedChallenges,
     LearningStyle? preferredLearningStyle,
+    LearningPathType? learningPathType,
     Map<LearningStyle, double>? learningStyleConfidence,
     int? experiencePoints,
     int? level,
@@ -205,12 +218,14 @@ class UserProgress {
     Map<String, dynamic>? preferences,
     Map<String, dynamic>? engagementMetrics,
     List<Map<String, dynamic>>? sessionHistory,
+    int? totalTimeSpentMinutes,
   }) {
     return UserProgress(
       userId: userId ?? this.userId,
       name: name ?? this.name,
       completedStories: completedStories ?? this.completedStories,
       completedStoryBranches: completedStoryBranches ?? this.completedStoryBranches,
+      completedMilestones: completedMilestones ?? this.completedMilestones,
       earnedBadges: earnedBadges ?? this.earnedBadges,
       storyMetrics: storyMetrics ?? this.storyMetrics,
       storyDecisions: storyDecisions ?? this.storyDecisions,
@@ -223,6 +238,7 @@ class UserProgress {
       challengeAttempts: challengeAttempts ?? this.challengeAttempts,
       completedChallenges: completedChallenges ?? this.completedChallenges,
       preferredLearningStyle: preferredLearningStyle ?? this.preferredLearningStyle,
+      learningPathType: learningPathType ?? this.learningPathType,
       learningStyleConfidence: learningStyleConfidence ?? this.learningStyleConfidence,
       experiencePoints: experiencePoints ?? this.experiencePoints,
       level: level ?? this.level,
@@ -231,9 +247,10 @@ class UserProgress {
       preferences: preferences ?? this.preferences,
       engagementMetrics: engagementMetrics ?? this.engagementMetrics,
       sessionHistory: sessionHistory ?? this.sessionHistory,
+      totalTimeSpentMinutes: totalTimeSpentMinutes ?? this.totalTimeSpentMinutes,
     );
   }
-  
+
   /// Create from JSON
   factory UserProgress.fromJson(Map<String, dynamic> json) {
     // Parse badges
@@ -243,7 +260,7 @@ class UserProgress {
         badges.add(BadgeModel.fromJson(badgeJson));
       }
     }
-    
+
     // Parse story metrics
     final Map<String, Map<String, dynamic>> metrics = {};
     if (json['storyMetrics'] != null) {
@@ -252,7 +269,7 @@ class UserProgress {
         metrics[storyId] = Map<String, dynamic>.from(storyMetric);
       });
     }
-    
+
     // Parse story decisions
     final Map<String, Map<String, String>> decisions = {};
     if (json['storyDecisions'] != null) {
@@ -261,7 +278,7 @@ class UserProgress {
         decisions[storyId] = Map<String, String>.from(storyDecision);
       });
     }
-    
+
     // Parse skills
     final Map<SkillType, SkillLevel> skillMap = {};
     if (json['skills'] != null) {
@@ -280,18 +297,18 @@ class UserProgress {
         }
       });
     }
-    
+
     // Parse skill proficiency
     final Map<String, double> proficiencyMap = {};
     if (json['skillProficiency'] != null) {
       final proficiencyJson = json['skillProficiency'] as Map<String, dynamic>;
       proficiencyJson.forEach((conceptId, proficiency) {
-        proficiencyMap[conceptId] = proficiency is double 
-            ? proficiency 
+        proficiencyMap[conceptId] = proficiency is double
+            ? proficiency
             : double.tryParse(proficiency.toString()) ?? 0.0;
       });
     }
-    
+
     // Parse learning style confidence
     final Map<LearningStyle, double> styleConfidence = {};
     if (json['learningStyleConfidence'] != null) {
@@ -301,15 +318,15 @@ class UserProgress {
           final style = LearningStyle.values.firstWhere(
             (s) => s.toString().split('.').last == styleStr,
           );
-          styleConfidence[style] = confidence is double 
-              ? confidence 
+          styleConfidence[style] = confidence is double
+              ? confidence
               : double.tryParse(confidence.toString()) ?? 0.0;
         } catch (e) {
           // Skip invalid entries
         }
       });
     }
-    
+
     // Parse challenge attempts
     final Map<String, int> attempts = {};
     if (json['challengeAttempts'] != null) {
@@ -318,7 +335,7 @@ class UserProgress {
         attempts[challengeId] = count is int ? count : int.tryParse(count.toString()) ?? 0;
       });
     }
-    
+
     // Parse last active date
     DateTime? lastActive;
     if (json['lastActiveDate'] != null) {
@@ -328,7 +345,7 @@ class UserProgress {
         lastActive = DateTime.now();
       }
     }
-    
+
     // Parse session history
     final List<Map<String, dynamic>> sessions = [];
     if (json['sessionHistory'] != null) {
@@ -336,7 +353,7 @@ class UserProgress {
         sessions.add(Map<String, dynamic>.from(sessionJson));
       }
     }
-    
+
     // Parse preferred learning style
     LearningStyle preferredStyle = LearningStyle.visual;
     if (json['preferredLearningStyle'] != null) {
@@ -344,79 +361,103 @@ class UserProgress {
         preferredStyle = LearningStyleExtension.fromString(json['preferredLearningStyle']);
       }
     }
-    
+
+    // Parse learning path type
+    LearningPathType pathType = LearningPathType.balanced;
+    if (json['learningPathType'] != null) {
+      if (json['learningPathType'] is String) {
+        final pathTypeStr = json['learningPathType'] as String;
+        try {
+          pathType = LearningPathType.values.firstWhere(
+            (type) => type.toString().split('.').last == pathTypeStr,
+            orElse: () => LearningPathType.balanced,
+          );
+        } catch (e) {
+          // Use default if parsing fails
+        }
+      }
+    }
+
     return UserProgress(
       userId: json['userId'] ?? '',
       name: json['name'] ?? 'Learner',
-      completedStories: json['completedStories'] != null 
-          ? List<String>.from(json['completedStories']) 
+      completedStories: json['completedStories'] != null
+          ? List<String>.from(json['completedStories'])
           : [],
-      completedStoryBranches: json['completedStoryBranches'] != null 
-          ? List<String>.from(json['completedStoryBranches']) 
+      completedStoryBranches: json['completedStoryBranches'] != null
+          ? List<String>.from(json['completedStoryBranches'])
+          : [],
+      completedMilestones: json['completedMilestones'] != null
+          ? List<String>.from(json['completedMilestones'])
           : [],
       earnedBadges: badges,
       storyMetrics: metrics,
       storyDecisions: decisions,
-      learningMetrics: json['learningMetrics'] != null 
-          ? Map<String, dynamic>.from(json['learningMetrics']) 
+      learningMetrics: json['learningMetrics'] != null
+          ? Map<String, dynamic>.from(json['learningMetrics'])
           : {},
-      narrativeContext: json['narrativeContext'] != null 
-          ? Map<String, dynamic>.from(json['narrativeContext']) 
+      narrativeContext: json['narrativeContext'] != null
+          ? Map<String, dynamic>.from(json['narrativeContext'])
           : {},
       skills: skillMap,
       skillProficiency: proficiencyMap,
-      conceptsMastered: json['conceptsMastered'] != null 
-          ? List<String>.from(json['conceptsMastered']) 
+      conceptsMastered: json['conceptsMastered'] != null
+          ? List<String>.from(json['conceptsMastered'])
           : [],
-      conceptsInProgress: json['conceptsInProgress'] != null 
-          ? List<String>.from(json['conceptsInProgress']) 
+      conceptsInProgress: json['conceptsInProgress'] != null
+          ? List<String>.from(json['conceptsInProgress'])
           : [],
       challengeAttempts: attempts,
-      completedChallenges: json['completedChallenges'] != null 
-          ? List<String>.from(json['completedChallenges']) 
+      completedChallenges: json['completedChallenges'] != null
+          ? List<String>.from(json['completedChallenges'])
           : [],
       preferredLearningStyle: preferredStyle,
+      learningPathType: pathType,
       learningStyleConfidence: styleConfidence,
-      experiencePoints: json['experiencePoints'] is int 
-          ? json['experiencePoints'] 
+      experiencePoints: json['experiencePoints'] is int
+          ? json['experiencePoints']
           : int.tryParse(json['experiencePoints']?.toString() ?? '0') ?? 0,
-      level: json['level'] is int 
-          ? json['level'] 
+      level: json['level'] is int
+          ? json['level']
           : int.tryParse(json['level']?.toString() ?? '1') ?? 1,
-      streak: json['streak'] is int 
-          ? json['streak'] 
+      streak: json['streak'] is int
+          ? json['streak']
           : int.tryParse(json['streak']?.toString() ?? '0') ?? 0,
       lastActiveDate: lastActive,
-      preferences: json['preferences'] != null 
-          ? Map<String, dynamic>.from(json['preferences']) 
+      preferences: json['preferences'] != null
+          ? Map<String, dynamic>.from(json['preferences'])
           : {},
-      engagementMetrics: json['engagementMetrics'] != null 
-          ? Map<String, dynamic>.from(json['engagementMetrics']) 
+      engagementMetrics: json['engagementMetrics'] != null
+          ? Map<String, dynamic>.from(json['engagementMetrics'])
           : {},
       sessionHistory: sessions,
+      totalTimeSpentMinutes: json['totalTimeSpentMinutes'] is int
+          ? json['totalTimeSpentMinutes']
+          : int.tryParse(json['totalTimeSpentMinutes']?.toString() ?? '0') ?? 0,
     );
   }
-  
+
   /// Convert to JSON
   Map<String, dynamic> toJson() {
     // Convert skills to JSON-friendly format
     final Map<String, String> skillsJson = {};
     skills.forEach((skillType, skillLevel) {
-      skillsJson[skillType.toString().split('.').last] = 
+      skillsJson[skillType.toString().split('.').last] =
           skillLevel.toString().split('.').last;
     });
-    
+
     // Convert learning style confidence to JSON-friendly format
     final Map<String, double> confidenceJson = {};
     learningStyleConfidence.forEach((style, confidence) {
       confidenceJson[style.toString().split('.').last] = confidence;
     });
-    
+
     return {
       'userId': userId,
       'name': name,
       'completedStories': completedStories,
       'completedStoryBranches': completedStoryBranches,
+      'completedMilestones': completedMilestones,
       'earnedBadges': earnedBadges.map((badge) => badge.toJson()).toList(),
       'storyMetrics': storyMetrics,
       'storyDecisions': storyDecisions,
@@ -429,6 +470,7 @@ class UserProgress {
       'challengeAttempts': challengeAttempts,
       'completedChallenges': completedChallenges,
       'preferredLearningStyle': preferredLearningStyle.toStringValue(),
+      'learningPathType': learningPathType.toString().split('.').last,
       'learningStyleConfidence': confidenceJson,
       'experiencePoints': experiencePoints,
       'level': level,
@@ -437,36 +479,37 @@ class UserProgress {
       'preferences': preferences,
       'engagementMetrics': engagementMetrics,
       'sessionHistory': sessionHistory,
+      'totalTimeSpentMinutes': totalTimeSpentMinutes,
     };
   }
-  
+
   /// Helper method to add a completed story
   UserProgress addCompletedStory(String storyId, Map<String, dynamic> metrics) {
     final newCompletedStories = List<String>.from(completedStories);
     if (!newCompletedStories.contains(storyId)) {
       newCompletedStories.add(storyId);
     }
-    
+
     final newStoryMetrics = Map<String, Map<String, dynamic>>.from(storyMetrics);
     newStoryMetrics[storyId] = metrics;
-    
+
     // Update last active date and check streak
     final now = DateTime.now();
     final yesterday = DateTime.now().subtract(Duration(days: 1));
-    
+
     int newStreak = streak;
-    if (lastActiveDate.year == yesterday.year && 
-        lastActiveDate.month == yesterday.month && 
+    if (lastActiveDate.year == yesterday.year &&
+        lastActiveDate.month == yesterday.month &&
         lastActiveDate.day == yesterday.day) {
       // Consecutive day, increment streak
       newStreak++;
-    } else if (lastActiveDate.year != now.year || 
-               lastActiveDate.month != now.month || 
+    } else if (lastActiveDate.year != now.year ||
+               lastActiveDate.month != now.month ||
                lastActiveDate.day != now.day) {
       // Not consecutive and not today, reset streak
       newStreak = 1;
     }
-    
+
     return copyWith(
       completedStories: newCompletedStories,
       storyMetrics: newStoryMetrics,
@@ -474,144 +517,161 @@ class UserProgress {
       streak: newStreak,
     );
   }
-  
+
   /// Helper method to add a completed story branch
   UserProgress addCompletedStoryBranch(String branchId) {
     final newCompletedBranches = List<String>.from(completedStoryBranches);
     if (!newCompletedBranches.contains(branchId)) {
       newCompletedBranches.add(branchId);
     }
-    
+
     return copyWith(
       completedStoryBranches: newCompletedBranches,
       lastActiveDate: DateTime.now(),
     );
   }
-  
+
+  /// Helper method to add a completed milestone
+  UserProgress addCompletedMilestone(String milestoneId) {
+    final newCompletedMilestones = List<String>.from(completedMilestones);
+    if (!newCompletedMilestones.contains(milestoneId)) {
+      newCompletedMilestones.add(milestoneId);
+    }
+
+    // Award experience points for completing a milestone
+    final newXp = experiencePoints + 40;
+
+    return copyWith(
+      completedMilestones: newCompletedMilestones,
+      experiencePoints: newXp,
+      lastActiveDate: DateTime.now(),
+    );
+  }
+
   /// Helper method to add a story decision
   UserProgress addStoryDecision(String storyId, Map<String, String> decisions) {
     final newStoryDecisions = Map<String, Map<String, String>>.from(storyDecisions);
     newStoryDecisions[storyId] = decisions;
-    
+
     return copyWith(
       storyDecisions: newStoryDecisions,
     );
   }
-  
+
   /// Helper method to add a badge
   UserProgress addBadge(BadgeModel badge) {
     final newBadges = List<BadgeModel>.from(earnedBadges);
-    
+
     // Check if badge already exists
     if (!newBadges.any((existing) => existing.id == badge.id)) {
       newBadges.add(badge);
-      
+
       // Add experience points for earning a badge
       final newXp = experiencePoints + 50;
-      
+
       return copyWith(
         earnedBadges: newBadges,
         experiencePoints: newXp,
       );
     }
-    
+
     return copyWith(earnedBadges: newBadges);
   }
-  
+
   /// Update narrative context
   UserProgress updateNarrativeContext(Map<String, dynamic> newContext) {
     final updatedContext = Map<String, dynamic>.from(narrativeContext)
       ..addAll(newContext);
-    
+
     return copyWith(narrativeContext: updatedContext);
   }
-  
+
   /// Update learning metrics
   UserProgress updateLearningMetrics(Map<String, dynamic> newMetrics) {
     final updatedMetrics = Map<String, dynamic>.from(learningMetrics)
       ..addAll(newMetrics);
-    
+
     return copyWith(learningMetrics: updatedMetrics);
   }
-  
+
   /// Set a user preference
   UserProgress setPreference(String key, dynamic value) {
     final updatedPreferences = Map<String, dynamic>.from(preferences);
     updatedPreferences[key] = value;
-    
+
     return copyWith(preferences: updatedPreferences);
   }
-  
+
   /// Add a concept to the in-progress list
   UserProgress addConceptInProgress(String conceptId) {
-    if (conceptsMastered.contains(conceptId) || 
+    if (conceptsMastered.contains(conceptId) ||
         conceptsInProgress.contains(conceptId)) {
       return this;
     }
-    
+
     final updatedConcepts = List<String>.from(conceptsInProgress)..add(conceptId);
-    
+
     return copyWith(conceptsInProgress: updatedConcepts);
   }
-  
+
   /// Mark a concept as mastered
   UserProgress masterConcept(String conceptId) {
     // Remove from in-progress if present
     final updatedInProgress = List<String>.from(conceptsInProgress);
     updatedInProgress.remove(conceptId);
-    
+
     // Add to mastered if not already present
     final updatedMastered = List<String>.from(conceptsMastered);
     if (!updatedMastered.contains(conceptId)) {
       updatedMastered.add(conceptId);
     }
-    
+
     // Award experience points for mastering a concept
     final newXp = experiencePoints + 25;
-    
+
     return copyWith(
       conceptsInProgress: updatedInProgress,
       conceptsMastered: updatedMastered,
       experiencePoints: newXp,
     );
   }
-  
+
   /// Record a challenge attempt
   UserProgress recordChallengeAttempt(String challengeId) {
     final updatedAttempts = Map<String, int>.from(challengeAttempts);
     updatedAttempts[challengeId] = (updatedAttempts[challengeId] ?? 0) + 1;
-    
+
     return copyWith(
       challengeAttempts: updatedAttempts,
       lastActiveDate: DateTime.now(),
     );
   }
-  
+
   /// Add a completed challenge
   UserProgress addCompletedChallenge(String challengeId) {
     if (completedChallenges.contains(challengeId)) {
       return this;
     }
-    
+
     final updatedChallenges = List<String>.from(completedChallenges)..add(challengeId);
-    
+
     // Award experience points for completing a challenge
     final newXp = experiencePoints + 30;
-    
+
     return copyWith(
       completedChallenges: updatedChallenges,
       experiencePoints: newXp,
       lastActiveDate: DateTime.now(),
     );
   }
-  
+
   /// Improve a skill by one level
   UserProgress improveSkill(SkillType skillType) {
     final Map<SkillType, SkillLevel> updatedSkills = Map.from(skills);
-    
+
     // Get current level
     final currentLevel = updatedSkills[skillType] ?? SkillLevel.novice;
-    
+
     // Determine next level (don't go beyond advanced)
     SkillLevel nextLevel;
     switch (currentLevel) {
@@ -626,13 +686,13 @@ class UserProgress {
         nextLevel = SkillLevel.advanced;
         break;
     }
-    
+
     // Update skill level
     updatedSkills[skillType] = nextLevel;
-    
+
     // Award experience points for improving a skill
     final newXp = experiencePoints + 15;
-    
+
     // Return updated user progress
     return copyWith(
       skills: updatedSkills,
@@ -640,71 +700,79 @@ class UserProgress {
       lastActiveDate: DateTime.now(),
     );
   }
-  
+
   /// Check if a story is completed
   bool isStoryCompleted(String storyId) {
     return completedStories.contains(storyId);
   }
-  
+
   /// Check if a story branch is completed
   bool isStoryBranchCompleted(String branchId) {
     return completedStoryBranches.contains(branchId);
   }
-  
+
+  /// Check if a milestone is completed
+  bool isMilestoneCompleted(String milestoneId) {
+    return completedMilestones.contains(milestoneId);
+  }
+
   /// Check if a challenge is completed
   bool isChallengeCompleted(String challengeId) {
     return completedChallenges.contains(challengeId);
   }
-  
+
   /// Check if a concept is mastered
   bool isConceptMastered(String conceptId) {
     return conceptsMastered.contains(conceptId);
   }
-  
+
   /// Check if a concept is in progress
   bool isConceptInProgress(String conceptId) {
     return conceptsInProgress.contains(conceptId);
   }
-  
+
   /// Get the number of attempts for a challenge
   int getChallengeAttempts(String challengeId) {
     return challengeAttempts[challengeId] ?? 0;
   }
-  
+
   /// Get the number of completed stories
   int get completedStoriesCount => completedStories.length;
-  
+
   /// Get the number of earned badges
   int get earnedBadgesCount => earnedBadges.length;
-  
+
+  /// Get the number of completed milestones
+  int get completedMilestonesCount => completedMilestones.length;
+
   /// Get the number of mastered concepts
   int get masteredConceptsCount => conceptsMastered.length;
-  
+
   /// Get the number of completed challenges
   int get completedChallengesCount => completedChallenges.length;
-  
+
   /// Get the total number of challenge attempts
   int get totalChallengeAttempts {
     int total = 0;
     challengeAttempts.forEach((_, count) => total += count);
     return total;
   }
-  
+
   /// Get the experience needed for the next level
   int get experienceForNextLevel => level * 100;
-  
+
   /// Get the progress percentage towards the next level (0-100)
   int get levelProgressPercentage {
     final required = experienceForNextLevel;
     final current = experiencePoints - ((level - 1) * 100);
     return ((current / required) * 100).clamp(0, 100).toInt();
   }
-  
+
   /// Check if user has earned a specific badge
   bool hasBadge(String badgeId) {
     return earnedBadges.any((badge) => badge.id == badgeId);
   }
-  
+
   /// Get a summary of the user's progress
   Map<String, dynamic> getProgressSummary() {
     return {
@@ -713,6 +781,7 @@ class UserProgress {
       'levelProgress': levelProgressPercentage,
       'streak': streak,
       'completedStories': completedStoriesCount,
+      'completedMilestones': completedMilestonesCount,
       'earnedBadges': earnedBadgesCount,
       'masteredConcepts': masteredConceptsCount,
       'completedChallenges': completedChallengesCount,
@@ -721,7 +790,7 @@ class UserProgress {
       'engagementScore': calculateEngagementScore(),
     };
   }
-  
+
   /// Calculate an engagement score based on user activity (0.0 to 1.0)
   double calculateEngagementScore() {
     // Factors that contribute to engagement:
@@ -729,11 +798,11 @@ class UserProgress {
     // 2. Completed challenges
     // 3. Mastered concepts
     // 4. Session frequency (from session history)
-    
+
     double streakScore = (streak / 7).clamp(0.0, 1.0); // Max score at 7-day streak
     double challengeScore = (completedChallengesCount / 10).clamp(0.0, 1.0); // Max score at 10 challenges
     double conceptScore = (masteredConceptsCount / 5).clamp(0.0, 1.0); // Max score at 5 mastered concepts
-    
+
     // Session frequency score (based on session history)
     double sessionScore = 0.0;
     if (sessionHistory.isNotEmpty) {
@@ -741,11 +810,11 @@ class UserProgress {
       int totalSessions = sessionHistory.length;
       sessionScore = (totalSessions / 10).clamp(0.0, 1.0); // Max score at 10 sessions
     }
-    
+
     // Weighted average of all factors
-    return (streakScore * 0.3) + 
-           (challengeScore * 0.3) + 
-           (conceptScore * 0.2) + 
+    return (streakScore * 0.3) +
+           (challengeScore * 0.3) +
+           (conceptScore * 0.2) +
            (sessionScore * 0.2);
   }
 }

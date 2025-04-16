@@ -5,71 +5,96 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567e612d-0b43-4aed-a997-350cb2aa5131" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../flutter/packages/flutter_tools/gradle/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter/packages/flutter_tools/gradle/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/.metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/navigation/app_router.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/navigation/app_router.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/services/audio_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/services/audio_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/services/storage/storage_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/services/storage/storage_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/services/storage_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/services/storage_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/services/tts_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/services/tts_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/utils/service_locator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/utils/service_locator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/badges/services/badge_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/badges/services/badge_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/badges/widgets/badge_display_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/badges/widgets/badge_display_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/interfaces/challenge_interface.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/interfaces/challenge_interface.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/models/block_collection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/models/block_collection.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/models/block_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/models/block_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/models/challenge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/models/challenge.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/models/connection_types.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/models/connection_types.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/models/pattern_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/models/pattern_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/painters/connections_painter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/painters/connections_painter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/painters/grid_painter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/painters/grid_painter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/painters/pattern_painter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/painters/pattern_painter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/providers/block_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/providers/block_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/screens/block_workspace.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/screens/block_workspace.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/services/block_definition_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/services/block_definition_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/services/challenge_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/services/challenge_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/block_workspace/services/challenge_service_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/block_workspace/services/challenge_service_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/blocks/models/block_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/blocks/models/block_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/challenges/models/challenge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/challenges/models/challenge.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/challenges/services/challenge_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/challenges/services/challenge_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/cultural/services/cultural_data_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/cultural/services/cultural_data_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/cultural_context/services/cultural_data_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/cultural_context/services/cultural_data_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/engagement/services/engagement_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/engagement/services/engagement_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/home/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/home/screens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/models/learning_style.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/models/learning_style.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/models/proficiency_level.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/models/proficiency_level.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/models/skill_level.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/models/skill_level.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/models/skill_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/models/skill_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/models/user_progress.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/models/user_progress.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/models/user_progress_extensions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/models/user_progress_extensions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/providers/learning_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/providers/learning_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/services/adaptive_learning_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/services/adaptive_learning_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/learning/services/learning_analysis_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/learning/services/learning_analysis_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/patterns/models/pattern_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/patterns/models/pattern_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/interfaces/story_challenge_interface.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/interfaces/story_challenge_interface.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/models/content_block.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/models/content_block.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/models/content_block_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/models/content_block_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/models/story_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/models/story_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/providers/story_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/providers/story_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/screens/story_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/screens/story_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/services/ai/gemini_story_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/services/ai/gemini_story_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/services/ai/gemini_story_service_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/services/ai/gemini_story_service_helper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/services/memory/story_memory_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/services/memory/story_memory_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/services/story_challenge_service_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/services/story_challenge_service_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/storytelling/widgets/story_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/storytelling/widgets/story_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/welcome/screens/welcome_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/welcome/screens/welcome_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/badge_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/block_collection.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/block_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/block_type.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/connection_types.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/content_block_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/emotional_tone.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/pattern_difficulty.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/pattern_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/proficiency_level.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/skill_level.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/skill_type.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/story_branch_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/story_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/tts_settings.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/user_progress.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/user_progress_extensions.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/navigation/app_router.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/painters/connections_painter.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/painters/pattern_painter.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/badge_provider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/block_provider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/learning_provider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/pattern_provider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/settings_provider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/story_provider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/block_workspace.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/block_workspace_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/settings_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/story_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/weaving_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/welcome_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/adaptive_learning_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/audio_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/badge_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/block_definition_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/challenge_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/cultural_data_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/engagement_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/gemini_story_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/learning_analysis_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/storage_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/story_memory_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/story_mentor_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/tts_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/theme/app_theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/badge_display_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/block_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/breadcrumb_navigation.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/contextual_hint_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/cultural_context_card.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/narrative_choice_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/pattern_creation_workspace.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/story_card.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/builds/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/builds/tracking/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/builds/tracking/project_milestone_syntax_fixes.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/builds/tracking/restructuring_log.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/builds/tracking/track_1742898267632.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/builds/tracking/track_1742898267633.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/logs/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/metrics/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/metrics/file_changes.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/metrics/syntax_error_fixes_metrics.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/reports/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/reports/comprehensive_fixes_summary.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/reports/gemini_story_service_rename_report.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/reports/syntax_error_fixes_report.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/scripts/auto_track.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/scripts/extension.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/scripts/generate_report.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/scripts/install_hooks.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/scripts/track_build.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/memor-bank/scripts/vscode_extension.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weave.iml" beforeDir="false" afterPath="$PROJECT_DIR$/weave.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +105,29 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DartProblemsView" show-warnings="false" show-hints="false" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=R5CX32DK6MD)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/android">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="android" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -95,6 +143,7 @@
     &quot;accountId&quot;: &quot;28fa78f2-214a-4239-bbce-5b5159886d43&quot;
   }
 }</component>
+  <component name="KotlinScriptingSettings" supportWarning="false" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -107,28 +156,104 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sowup/dev/weave/android/settings.gradle.kts",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunManager" selected="Android App.android.app">
+    <configuration name="android.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="android.app" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />

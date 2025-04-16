@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
 import 'package:kente_codeweaver/features/storytelling/providers/story_provider.dart';
@@ -7,9 +8,6 @@ import 'package:kente_codeweaver/features/storytelling/interfaces/story_challeng
 
 /// Implementation of the StoryChallengeInterface
 class StoryChallengeServiceImpl implements StoryChallengeInterface {
-  /// Story provider - used for story-related operations
-  final StoryProvider _storyProvider;
-
   /// Learning provider
   final LearningProvider _learningProvider;
 
@@ -17,8 +15,7 @@ class StoryChallengeServiceImpl implements StoryChallengeInterface {
   StoryChallengeServiceImpl({
     required StoryProvider storyProvider,
     required LearningProvider learningProvider,
-  }) : _storyProvider = storyProvider,
-       _learningProvider = learningProvider;
+  }) : _learningProvider = learningProvider;
 
   /// Factory constructor to create from BuildContext
   factory StoryChallengeServiceImpl.fromContext(BuildContext context) {

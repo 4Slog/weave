@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kente_codeweaver/features/learning/models/user_progress.dart';
 import 'package:kente_codeweaver/core/services/storage_service.dart';
 import 'package:kente_codeweaver/features/learning/services/adaptive_learning_service.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 /// Skill proficiency levels for tracking progress
 enum ProficiencyLevel {

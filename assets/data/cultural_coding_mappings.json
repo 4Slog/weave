@@ -1,0 +1,170 @@
+{
+  "concepts": {
+    "sequences": {
+      "name": "Sequences",
+      "description": "A sequence is a specific order of instructions executed one after another.",
+      "patterns": ["stripes_horizontal_pattern", "stripes_vertical_pattern"],
+      "symbols": ["sankofa", "nkyinkyim"],
+      "colors": ["black", "gold"],
+      "culturalConnection": "Kente weaving follows specific sequences of thread placement, just as code follows a sequence of instructions. The Sankofa symbol represents learning from the past to move forward, similar to how sequences build on previous steps."
+    },
+    "loops": {
+      "name": "Loops",
+      "description": "Loops repeat a set of instructions multiple times.",
+      "patterns": ["checker_pattern", "diamonds_pattern"],
+      "symbols": ["adinkrahene"],
+      "colors": ["gold", "green"],
+      "culturalConnection": "Repeated patterns in Kente cloth are created through loop-like processes. The concentric circles of the Adinkrahene symbol represent the iterative nature of leadership and influence, similar to how loops iterate through instructions."
+    },
+    "conditionals": {
+      "name": "Conditionals",
+      "description": "Conditionals allow different actions based on whether a condition is true or false.",
+      "patterns": ["zigzag_pattern"],
+      "symbols": ["funtunfunefu_denkyemfunefu", "dwennimmen"],
+      "colors": ["red", "blue"],
+      "culturalConnection": "The zigzag pattern (Nkyinkyin) represents life's twists and turns, similar to how conditionals create different paths in code. The Siamese crocodiles symbol shows two entities sharing one stomach, demonstrating how different conditions can lead to shared outcomes."
+    },
+    "variables": {
+      "name": "Variables",
+      "description": "Variables store information that can be used and changed in a program.",
+      "patterns": ["square_pattern"],
+      "symbols": ["gye_nyame", "nyame_nti"],
+      "colors": ["blue", "white"],
+      "culturalConnection": "Colors in Kente function like variables, with each color representing a different value or meaning. The Gye Nyame symbol represents the supremacy of God, a constant value that influences all other variables in life."
+    },
+    "functions": {
+      "name": "Functions",
+      "description": "Functions are reusable blocks of code that perform specific tasks.",
+      "patterns": ["diamonds_pattern"],
+      "symbols": ["epa"],
+      "colors": ["green", "red"],
+      "culturalConnection": "Master weavers create reusable pattern blocks that can be combined in different ways, similar to how functions are reusable code blocks. The Adweneasa (diamond) pattern represents wisdom and excellence in craftsmanship, similar to well-designed functions."
+    },
+    "pattern_recognition": {
+      "name": "Pattern Recognition",
+      "description": "Identifying and analyzing recurring patterns in data or problems.",
+      "patterns": ["checker_pattern", "diamonds_pattern", "zigzag_pattern"],
+      "symbols": ["adinkrahene", "sankofa"],
+      "colors": ["black", "gold", "red"],
+      "culturalConnection": "Kente weaving is fundamentally about pattern recognition and creation. Weavers must recognize patterns to reproduce them and understand their cultural significance, just as programmers must recognize patterns in code and data."
+    },
+    "algorithms": {
+      "name": "Algorithms",
+      "description": "Step-by-step procedures for solving problems or accomplishing tasks.",
+      "patterns": ["diamonds_pattern", "square_pattern"],
+      "symbols": ["adinkrahene", "nkyinkyim"],
+      "colors": ["gold", "black"],
+      "culturalConnection": "The process of creating Kente cloth follows specific algorithms passed down through generations. Each pattern has its own algorithm for creation, with precise steps that must be followed in order."
+    },
+    "debugging": {
+      "name": "Debugging",
+      "description": "Finding and fixing errors in code.",
+      "patterns": ["zigzag_pattern"],
+      "symbols": ["sankofa"],
+      "colors": ["blue", "white"],
+      "culturalConnection": "The Sankofa symbol represents learning from mistakes and returning to fix them, which is the essence of debugging. The zigzag pattern represents the non-linear process of finding and fixing errors."
+    },
+    "abstraction": {
+      "name": "Abstraction",
+      "description": "Simplifying complex systems by focusing on essential details.",
+      "patterns": ["checker_pattern", "square_pattern"],
+      "symbols": ["dwennimmen", "gye_nyame"],
+      "colors": ["black", "white"],
+      "culturalConnection": "Kente patterns abstract complex cultural concepts into simple geometric forms. The Dwennimmen (ram's horns) symbol abstracts the concept of humility and strength into a simple visual representation."
+    },
+    "decomposition": {
+      "name": "Decomposition",
+      "description": "Breaking down complex problems into smaller, manageable parts.",
+      "patterns": ["stripes_horizontal_pattern", "stripes_vertical_pattern"],
+      "symbols": ["funtunfunefu_denkyemfunefu"],
+      "colors": ["green", "blue"],
+      "culturalConnection": "Complex Kente cloths are created by decomposing the overall design into smaller, manageable strips that are then woven together. This mirrors how complex problems in programming are broken down into smaller, solvable components."
+    }
+  },
+  "patterns": {
+    "checker_pattern": {
+      "concepts": ["loops", "pattern_recognition", "abstraction"],
+      "educationalValue": "The checker pattern demonstrates how simple repetition (loops) can create complex patterns. It teaches the concept of iteration and pattern recognition through its regular, predictable structure."
+    },
+    "zigzag_pattern": {
+      "concepts": ["conditionals", "pattern_recognition", "debugging"],
+      "educationalValue": "The zigzag pattern illustrates conditional logic through its alternating directions. It teaches how conditions can change the flow of execution, similar to how the pattern changes direction at regular intervals."
+    },
+    "stripes_horizontal_pattern": {
+      "concepts": ["sequences", "decomposition"],
+      "educationalValue": "Horizontal stripes demonstrate sequential execution, with each line following the previous one in a predictable order. This pattern teaches the importance of sequence in both weaving and coding."
+    },
+    "stripes_vertical_pattern": {
+      "concepts": ["sequences", "decomposition"],
+      "educationalValue": "Vertical stripes demonstrate parallel sequences, with multiple threads running alongside each other. This pattern teaches both sequential thinking and the concept of parallel processes."
+    },
+    "diamonds_pattern": {
+      "concepts": ["loops", "functions", "algorithms", "pattern_recognition"],
+      "educationalValue": "The diamond pattern demonstrates nested loops and complex algorithms. It teaches how simple instructions, when combined and repeated in specific ways, can create intricate patterns."
+    },
+    "square_pattern": {
+      "concepts": ["variables", "algorithms", "abstraction"],
+      "educationalValue": "The square pattern demonstrates encapsulation and containment, similar to how variables contain values. It teaches the concept of defined spaces and boundaries in both weaving and programming."
+    }
+  },
+  "symbols": {
+    "adinkrahene": {
+      "concepts": ["loops", "algorithms", "pattern_recognition"],
+      "educationalValue": "The concentric circles of Adinkrahene demonstrate the concept of nested loops, with each circle representing an iteration that builds on the previous one. It teaches how complex patterns can emerge from simple, repeated structures."
+    },
+    "dwennimmen": {
+      "concepts": ["conditionals", "abstraction"],
+      "educationalValue": "The ram's horns symbol represents the balance between strength and humility, teaching conditional thinking - knowing when to apply different approaches based on the situation."
+    },
+    "sankofa": {
+      "concepts": ["sequences", "pattern_recognition", "debugging"],
+      "educationalValue": "The backward-looking bird represents the importance of reviewing previous steps, similar to debugging in programming. It teaches the value of learning from mistakes and iterative improvement."
+    },
+    "gye_nyame": {
+      "concepts": ["variables", "abstraction"],
+      "educationalValue": "This symbol represents the supremacy of God, teaching the concept of constants and unchangeable values in a system, similar to constant variables in programming."
+    },
+    "nyame_nti": {
+      "concepts": ["variables"],
+      "educationalValue": "This symbol represents faith and trust in God's grace, teaching the concept of dependent variables - values that are influenced by other factors in the system."
+    },
+    "nkyinkyim": {
+      "concepts": ["sequences", "algorithms"],
+      "educationalValue": "The twisting symbol represents life's journey, teaching the concept of non-linear sequences and complex algorithms that adapt to changing conditions."
+    },
+    "funtunfunefu_denkyemfunefu": {
+      "concepts": ["conditionals", "decomposition"],
+      "educationalValue": "The Siamese crocodiles symbol teaches the concept of shared resources and conditional access, similar to how different parts of a program might access shared variables under different conditions."
+    },
+    "epa": {
+      "concepts": ["functions"],
+      "educationalValue": "The handcuffs symbol represents law and justice, teaching the concept of constraints and rules that govern behavior, similar to how functions define the rules for a specific operation in code."
+    }
+  },
+  "colors": {
+    "black": {
+      "concepts": ["sequences", "pattern_recognition", "abstraction"],
+      "educationalValue": "Black represents maturity and spiritual energy, teaching the concept of foundation and structure in code. It's often used as the base color upon which other elements are built."
+    },
+    "gold": {
+      "concepts": ["loops", "algorithms", "pattern_recognition"],
+      "educationalValue": "Gold represents royalty and wealth, teaching the concept of value and importance in code. Gold elements often highlight the most important parts of a pattern, similar to how key variables or functions are highlighted in code."
+    },
+    "red": {
+      "concepts": ["conditionals", "pattern_recognition"],
+      "educationalValue": "Red represents political and spiritual potency, teaching the concept of emphasis and warning in code. Red is often used to mark important conditions or state changes."
+    },
+    "blue": {
+      "concepts": ["conditionals", "variables", "debugging"],
+      "educationalValue": "Blue represents peacefulness and harmony, teaching the concept of stability and reliability in code. Blue elements often represent stable, well-tested components."
+    },
+    "green": {
+      "concepts": ["functions", "decomposition"],
+      "educationalValue": "Green represents growth and renewal, teaching the concept of development and improvement in code. Green often represents new features or enhancements."
+    },
+    "white": {
+      "concepts": ["variables", "abstraction", "debugging"],
+      "educationalValue": "White represents purification and festive occasions, teaching the concept of clarity and transparency in code. White space in patterns, like white space in code, improves readability and understanding."
+    }
+  }
+}

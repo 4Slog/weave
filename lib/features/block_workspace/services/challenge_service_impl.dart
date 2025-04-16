@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kente_codeweaver/features/block_workspace/interfaces/challenge_interface.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
 import 'package:kente_codeweaver/features/block_workspace/providers/block_provider.dart';

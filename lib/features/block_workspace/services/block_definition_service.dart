@@ -1,43 +1,75 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:kente_codeweaver/features/block_workspace/models/block_model.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/pattern_difficulty.dart';
-import 'package:kente_codeweaver/features/block_workspace/models/connection_types.dart';
 import 'package:kente_codeweaver/features/block_workspace/models/block_type.dart';
+import 'package:kente_codeweaver/features/block_workspace/models/connection_types.dart';
 import 'package:uuid/uuid.dart';
 
 /// Service to load and manage block definitions from JSON
 class BlockDefinitionService {
   /// List of parsed blocks
   final List<BlockModel> _parsedBlocks = [];
-  
+
   /// Getter for all available blocks
   List<BlockModel> get allBlocks => _parsedBlocks;
-  
+
   /// Load block definitions from JSON asset file
   Future<void> loadBlockDefinitions() async {
     try {
       final String jsonData = await rootBundle.loadString('assets/data/blocks.json');
-      final List<dynamic> jsonList = jsonDecode(jsonData) as List<dynamic>;
-      
-      _parsedBlocks.clear();
-      
-      for (final blockJson in jsonList) {
-        final BlockModel block = _parseBlock(blockJson);
-        _parsedBlocks.add(block);
+      final dynamic jsonDecoded = jsonDecode(jsonData);
+
+      // Handle different JSON structures that might occur
+      List<dynamic> jsonList;
+      if (jsonDecoded is Map<String, dynamic> && jsonDecoded.containsKey('blocks')) {
+        // If the JSON is a map with a 'blocks' key, extract the blocks array
+        final blocksValue = jsonDecoded['blocks'];
+
+        // Handle the case where 'blocks' might be a Map instead of a List
+        if (blocksValue is List<dynamic>) {
+          jsonList = blocksValue;
+          debugPrint('Loaded blocks from JSON map structure with blocks array');
+        } else if (blocksValue is Map<String, dynamic>) {
+          // Convert map to list if needed
+          jsonList = blocksValue.values.toList();
+          debugPrint('Loaded blocks from JSON map structure with blocks map');
+        } else {
+          throw FormatException('Unexpected blocks format: ${blocksValue.runtimeType}');
+        }
+      } else if (jsonDecoded is List<dynamic>) {
+        // If the JSON is already a list, use it directly
+        jsonList = jsonDecoded;
+        debugPrint('Loaded blocks from JSON list structure');
+      } else {
+        throw FormatException('Unexpected JSON format: ${jsonDecoded.runtimeType}');
       }
+
+      _parsedBlocks.clear();
+
+      for (final blockJson in jsonList) {
+        if (blockJson is Map<String, dynamic>) {
+          final BlockModel block = _parseBlock(blockJson);
+          _parsedBlocks.add(block);
+        } else {
+          debugPrint('Skipping invalid block data: $blockJson');
+        }
+      }
+
+      debugPrint('Successfully loaded ${_parsedBlocks.length} block definitions');
     } catch (e) {
-      print('Error loading block definitions: $e');
+      debugPrint('Error loading block definitions: $e');
       // Create some default blocks if loading fails
       _createDefaultBlocks();
     }
   }
-  
+
   /// Create default blocks if loading fails
   void _createDefaultBlocks() {
     _parsedBlocks.clear();
-    
+
     // Add a pattern block
     _parsedBlocks.add(
       BlockModel(
@@ -70,7 +102,7 @@ class BlockDefinitionService {
         },
       ),
     );
-    
+
     // Add a color block
     _parsedBlocks.add(
       BlockModel(
@@ -100,17 +132,17 @@ class BlockDefinitionService {
       ),
     );
   }
-  
+
   /// Parse block from JSON
   BlockModel _parseBlock(Map<String, dynamic> blockData) {
     final connections = <BlockConnection>[];
-    
+
     if (blockData['connections'] != null) {
       for (final connData in (blockData['connections'] as List<dynamic>)) {
         connections.add(_parseConnection(connData));
       }
     }
-    
+
     return BlockModel(
       id: blockData['id'] ?? const Uuid().v4(),
       name: blockData['name'],
@@ -143,7 +175,7 @@ class BlockDefinitionService {
         orElse: () => BlockType.pattern,
       );
     } catch (e) {
-      print('Error parsing BlockType: $e');
+      debugPrint('Error parsing BlockType: $e');
       return BlockType.pattern;
     }
   }
@@ -153,7 +185,7 @@ class BlockDefinitionService {
     try {
       return ConnectionTypeExtension.fromString(typeStr);
     } catch (e) {
-      print('Error parsing ConnectionType: $e');
+      debugPrint('Error parsing ConnectionType: $e');
       return ConnectionType.input;
     }
   }
@@ -161,7 +193,7 @@ class BlockDefinitionService {
   /// Parse Offset from JSON
   Offset _parseOffset(dynamic data) {
     if (data == null) return const Offset(0, 0);
-    
+
     return Offset(
       (data['x'] as num? ?? 0).toDouble(),
       (data['y'] as num? ?? 0).toDouble(),
@@ -171,25 +203,25 @@ class BlockDefinitionService {
   /// Parse Size from JSON
   Size _parseSize(dynamic data) {
     if (data == null) return const Size(100, 100);
-    
+
     return Size(
       (data['width'] as num? ?? 100).toDouble(),
       (data['height'] as num? ?? 100).toDouble(),
     );
   }
-  
+
   /// Check if two blocks can connect on specific connection points
   bool canBlocksConnect(BlockModel block1, String connectionId1, BlockModel block2, String connectionId2) {
     final connection1 = block1.findConnectionById(connectionId1);
     final connection2 = block2.findConnectionById(connectionId2);
-    
+
     if (connection1 == null || connection2 == null) {
       return false;
     }
-    
+
     return connection1.canConnectTo(connection2);
   }
-  
+
   /// Find a block by ID
   BlockModel? findBlockById(String id) {
     try {
@@ -198,7 +230,7 @@ class BlockDefinitionService {
       return null;
     }
   }
-  
+
   /// Get blocks of a specific type
   List<BlockModel> getBlocksByType(BlockType type) {
     return _parsedBlocks.where((block) => block.type == type).toList();

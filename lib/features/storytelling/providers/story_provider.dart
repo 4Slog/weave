@@ -241,10 +241,10 @@ class StoryProvider with ChangeNotifier {
   }
 
   /// Create a new content block in the selected story
-  void addContentBlock(ContentBlock contentBlock) {
+  void addContentBlock(ContentBlockModel contentBlock) {
     if (_selectedStory == null) return;
 
-    final updatedContent = List<ContentBlock>.from(_selectedStory!.content)..add(contentBlock);
+    final updatedContent = List<ContentBlockModel>.from(_selectedStory!.content)..add(contentBlock);
 
     // Create a new story with the updated content
     _selectedStory = StoryModel(

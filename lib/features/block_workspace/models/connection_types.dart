@@ -1,5 +1,4 @@
 // filepath: c:\Users\sowup\dev\weave\lib\models\connection_types.dart
-import 'package:flutter/foundation.dart';
 
 /// Defines the types of connections between blocks in the Kente Codeweaver application
 enum ConnectionType {

@@ -4,18 +4,31 @@ import 'package:kente_codeweaver/features/block_workspace/providers/block_provid
 import 'package:kente_codeweaver/features/learning/providers/learning_provider.dart';
 import 'package:kente_codeweaver/features/storytelling/providers/story_provider.dart';
 import 'package:kente_codeweaver/features/settings/providers/settings_provider.dart';
+import 'package:kente_codeweaver/features/badges/providers/badge_provider.dart';
 import 'package:kente_codeweaver/core/navigation/app_router.dart';
 import 'package:kente_codeweaver/core/utils/service_locator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kente_codeweaver/core/services/gemini_service.dart';
 
 /// Main entry point for the application
-void main() {
+void main() async {
+  // Ensure Flutter is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  await dotenv.load();
+
+  // Initialize the shared Gemini service
+  await GeminiService().initialize();
+
+  // Run the app
   runApp(const MyApp());
 }
 
 /// Main application widget
 class MyApp extends StatelessWidget {
   /// Constructor
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +52,11 @@ class MyApp extends StatelessWidget {
         // Settings provider
         ChangeNotifierProvider(
           create: (_) => SettingsProvider(),
+        ),
+
+        // Badge provider
+        ChangeNotifierProvider(
+          create: (_) => BadgeProvider(),
         ),
       ],
       child: Builder(

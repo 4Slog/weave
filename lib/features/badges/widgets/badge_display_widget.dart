@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:kente_codeweaver/features/badges/models/badge_model.dart';
 import 'package:kente_codeweaver/features/badges/providers/badge_provider.dart';
-import 'package:provider/provider.dart';
 
 /// Widget to display a badge or collection of badges
 class BadgeDisplayWidget extends StatelessWidget {
