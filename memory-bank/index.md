@@ -32,6 +32,8 @@ This memory bank contains documentation, reports, metrics, and summaries for the
 ### Code Improvements
 - [Comprehensive Fixes Summary](reports/comprehensive_fixes_summary.md)
 - [Syntax Error Fixes Report](reports/syntax_error_fixes_report.md)
+- [Initialization and Story Generation Fixes Report](reports/initialization_and_story_generation_fixes.md)
+- [Initialization and Story Generation Fixes Summary](summaries/initialization_and_story_generation_fixes_summary.md)
 
 ## Key Components
 
